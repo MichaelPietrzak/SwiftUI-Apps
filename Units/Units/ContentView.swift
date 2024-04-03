@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @State private var checkTemperature = 25
     @State private var inputUnit = "Celcius"
+    @State private var outputUnit = "Fahrenheit"
     
     let units = ["Celcius", "Fahrenheit", "Kelvin"]
     
@@ -26,8 +27,13 @@ struct ContentView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                Section("Output units") {
-                    
+                Section("Convert to") {
+                    Picker("Output unit", selection: $outputUnit) {
+                        ForEach(units, id: \.self) {
+                            Text( "\($0)")
+                        }
+                    }
+                    .pickerStyle(.segmented)
                 }
                 Section("Output") {
                     
