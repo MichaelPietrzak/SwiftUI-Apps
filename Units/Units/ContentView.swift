@@ -10,10 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var checkTemperature = 25
-    @State private var inputUnit = "Celcius"
-    @State private var outputUnit = "Fahrenheit"
+    @State private var inputUnit = UnitTemperature.celsius
+    @State private var outputUnit = UnitTemperature.fahrenheit
     
-    let units = ["Celcius", "Fahrenheit", "Kelvin"]
+    let unitType = [UnitTemperature.celsius, UnitTemperature.fahrenheit, UnitTemperature.kelvin]
     
     var body: some View {
         NavigationStack {
@@ -21,7 +21,7 @@ struct ContentView: View {
                 Section("Temperature") {
                     TextField("Enter temperature", value: $checkTemperature, format: .number)
                     Picker("Input unit", selection: $inputUnit) {
-                        ForEach(units, id: \.self) {
+                        ForEach(unitType, id: \.self) {
                             Text( "\($0)")
                         }
                     }
@@ -29,7 +29,7 @@ struct ContentView: View {
                 }
                 Section("Convert to") {
                     Picker("Output unit", selection: $outputUnit) {
-                        ForEach(units, id: \.self) {
+                        ForEach(unitType, id: \.self) {
                             Text( "\($0)")
                         }
                     }
