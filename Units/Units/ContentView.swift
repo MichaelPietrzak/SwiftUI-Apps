@@ -13,6 +13,13 @@ struct ContentView: View {
     @State private var inputUnit = UnitTemperature.celsius
     @State private var outputUnit = UnitTemperature.fahrenheit
     
+    var convertTo: Int {
+        let input = Measurement(value: Double(checkTemperature), unit: inputUnit)
+        let output = input.converted(to: outputUnit)
+        let value = Int(output.value.rounded())
+        return value
+    }
+    
     let unitType = [UnitTemperature.celsius, UnitTemperature.fahrenheit, UnitTemperature.kelvin]
     
     var body: some View {
@@ -22,7 +29,7 @@ struct ContentView: View {
                     TextField("Enter temperature", value: $checkTemperature, format: .number)
                     Picker("Input unit", selection: $inputUnit) {
                         ForEach(unitType, id: \.self) {
-                            Text( "\($0)")
+                            Text(MeasurementFormatter().string(from: $0))
                         }
                     }
                     .pickerStyle(.segmented)
@@ -30,13 +37,13 @@ struct ContentView: View {
                 Section("Convert to") {
                     Picker("Output unit", selection: $outputUnit) {
                         ForEach(unitType, id: \.self) {
-                            Text( "\($0)")
+                            Text(MeasurementFormatter().string(from: $0))
                         }
                     }
                     .pickerStyle(.segmented)
                 }
-                Section("Output") {
-                    
+                Section("Result") {
+                    Text(convertTo, format: .number)
                 }
             }
             .navigationTitle("Temperature conversion")
