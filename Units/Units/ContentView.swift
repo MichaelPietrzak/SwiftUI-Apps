@@ -10,6 +10,9 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var checkTemperature = 25
+    @State private var inputUnit = "Celcius"
+    
+    let units = ["Celcius", "Fahrenheit", "Kelvin"]
     
     var body: some View {
         NavigationStack {
@@ -19,7 +22,12 @@ struct ContentView: View {
                     Text(checkTemperature, format: .number)
                 }
                 Section("Input units") {
-                    
+                    Picker("Input unit", selection: $inputUnit) {
+                        ForEach(units, id: \.self) {
+                            Text( "\($0)")
+                        }
+                    }
+                    .pickerStyle(.segmented)
                 }
                 Section("Output units") {
                     
