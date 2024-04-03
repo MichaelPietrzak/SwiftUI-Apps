@@ -26,9 +26,6 @@ struct ContentView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                Section("Input units") {
-                    
-                }
                 Section("Output units") {
                     
                 }
