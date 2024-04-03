@@ -19,15 +19,15 @@ struct ContentView: View {
             Form {
                 Section("Temperature") {
                     TextField("Enter temperature", value: $checkTemperature, format: .number)
-                    Text(checkTemperature, format: .number)
-                }
-                Section("Input units") {
                     Picker("Input unit", selection: $inputUnit) {
                         ForEach(units, id: \.self) {
                             Text( "\($0)")
                         }
                     }
                     .pickerStyle(.segmented)
+                }
+                Section("Input units") {
+                    
                 }
                 Section("Output units") {
                     
