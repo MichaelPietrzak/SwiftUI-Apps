@@ -22,7 +22,9 @@ struct ContentView: View {
     var convertTo: String {
         let input = Measurement(value: Double(checkTemperature), unit: inputUnit)
         let output = input.converted(to: outputUnit)
-        return output.formatted()
+        let roundValue = output.value.formatted(.number.precision(.fractionLength(0)))
+        let unit = unitName.string(from: outputUnit)
+        return "\(roundValue) \(unit)"
     }
     
     let unitType = [UnitTemperature.celsius, UnitTemperature.fahrenheit, UnitTemperature.kelvin]
