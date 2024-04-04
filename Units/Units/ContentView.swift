@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var inputUnit = UnitTemperature.celsius
     @State private var outputUnit = UnitTemperature.fahrenheit
     
+    @FocusState private var temperatureIsFocused: Bool
+    
     var unitName: MeasurementFormatter {
         let formatter = MeasurementFormatter()
         formatter.unitStyle = .short
@@ -34,6 +36,9 @@ struct ContentView: View {
             Form {
                 Section("Temperature") {
                     TextField("Enter temperature", value: $checkTemperature, format: .number)
+                        .keyboardType(.numberPad)
+                        .focused($temperatureIsFocused)
+                    
                     Picker("Input unit", selection: $inputUnit) {
                         ForEach(unitType, id: \.self) {
                             Text(unitName.string(from: $0))
@@ -55,6 +60,13 @@ struct ContentView: View {
             }
             .navigationTitle("Temperature conversion")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                if temperatureIsFocused {
+                    Button("Done") {
+                        temperatureIsFocused = false
+                    }
+                }
+            }
         }
     }
 }
