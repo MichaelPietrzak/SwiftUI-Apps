@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var shouldWin = Bool.random()
     
     var moves = ["🪨", "📄", "✂️"]
+    var winMoves = ["📄", "✂️", "🪨"]
     
     var body: some View {
         ZStack {
