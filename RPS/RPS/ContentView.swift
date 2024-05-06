@@ -27,11 +27,16 @@ struct ContentView: View {
                 
                 Spacer()
                 VStack {
+                    Text("App choice: \(moves[appChoice])")
+                    let _ = print("AC: \(appChoice)")
+                    Text("If win or lose: \(shouldWin)")
+                    
                     HStack(spacing: 15) {
                         ForEach(0..<3) { item in
                             Button {
+                                winOrLose(item)
                             } label: {
-                                Text(moves[item])
+                                Text(winMoves[item])
                                     .shadowStyle()
                             }
                         }
@@ -40,6 +45,24 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
                 Spacer()
+            }
+        }
+    }
+    
+    func winOrLose(_ tapped: Int) {
+        print("Tapped: \(tapped)")
+        
+        if shouldWin == true {
+            if appChoice == tapped {
+                print("Correct choice!")
+            } else {
+                print("Wrong choice!")
+            }
+        } else {
+            if appChoice != tapped {
+                print("Correct choice!")
+            } else {
+                print("Wrong choice!")
             }
         }
     }
