@@ -42,6 +42,9 @@ struct ContentView: View {
                         }
                     }
                 }
+                Button("reset") {
+                    resetChoice()
+                }
                 Spacer()
                 Spacer()
                 Spacer()
@@ -65,6 +68,11 @@ struct ContentView: View {
                 print("Wrong choice!")
             }
         }
+    }
+    
+    func resetChoice() {
+        appChoice = Int.random(in: 0...2)
+        shouldWin = Bool.random()
     }
 }
 
