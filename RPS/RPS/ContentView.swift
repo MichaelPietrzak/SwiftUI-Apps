@@ -16,6 +16,10 @@ struct ContentView: View {
     var moves = ["🪨", "📄", "✂️"]
     var winMoves = ["📄", "✂️", "🪨"]
     
+    var winLose: String {
+        shouldWin == true ? "Win" : "Lose"
+    }
+    
     var body: some View {
         ZStack {
             Color.gray.opacity(0.1)
@@ -30,7 +34,10 @@ struct ContentView: View {
                 VStack {
                     Text("\(moves[appChoice])")
                         .font(.system(size: 70))
-                    
+                    Text(winLose)
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline.weight(.heavy))
+                        
                     HStack(spacing: 15) {
                         ForEach(0..<3) { item in
                             Button {
