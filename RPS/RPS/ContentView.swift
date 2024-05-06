@@ -9,9 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     
+    var moves = ["🪨", "📄", "✂️"]
+    
     var body: some View {
-        VStack {
+        ZStack {
+            Color.gray.opacity(0.1)
+                .ignoresSafeArea()
             
+            HStack(spacing: 15) {
+                ForEach(0..<3) { item in
+                    Button {
+                        
+                    } label: {
+                        Text(moves[item])
+                            .shadowStyle()
+                    }
+                }
+            }
         }
     }
 }
