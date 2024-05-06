@@ -16,15 +16,28 @@ struct ContentView: View {
             Color.gray.opacity(0.1)
                 .ignoresSafeArea()
             
-            HStack(spacing: 15) {
-                ForEach(0..<3) { item in
-                    Button {
-                        
-                    } label: {
-                        Text(moves[item])
-                            .shadowStyle()
+            VStack {
+                Spacer()
+                Text("RPS Game")
+                    .font(.largeTitle.weight(.heavy))
+                
+                Spacer()
+                VStack {
+                    HStack(spacing: 15) {
+                        ForEach(0..<3) { item in
+                            Button {
+                                
+                            } label: {
+                                Text(moves[item])
+                                    .shadowStyle()
+                            }
+                        }
                     }
                 }
+                
+                Spacer()
+                Spacer()
+                Spacer()
             }
         }
     }
