@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var appChoice = Int.random(in: 0...2)
+    @State private var shouldWin = Bool.random()
+    
     var moves = ["🪨", "📄", "✂️"]
     
     var body: some View {
@@ -26,7 +29,6 @@ struct ContentView: View {
                     HStack(spacing: 15) {
                         ForEach(0..<3) { item in
                             Button {
-                                
                             } label: {
                                 Text(moves[item])
                                     .shadowStyle()
@@ -34,7 +36,6 @@ struct ContentView: View {
                         }
                     }
                 }
-                
                 Spacer()
                 Spacer()
                 Spacer()
