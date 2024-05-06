@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @State private var appChoice = Int.random(in: 0...2)
     @State private var shouldWin = Bool.random()
+    @State private var checkChoice = ""
     
     var moves = ["🪨", "📄", "✂️"]
     var winMoves = ["📄", "✂️", "🪨"]
@@ -27,14 +28,13 @@ struct ContentView: View {
                 
                 Spacer()
                 VStack {
-                    Text("App choice: \(moves[appChoice])")
-                    let _ = print("AC: \(appChoice)")
-                    Text("If win or lose: \(shouldWin)")
+                    Text("\(moves[appChoice])")
+                        .font(.system(size: 70))
                     
                     HStack(spacing: 15) {
                         ForEach(0..<3) { item in
                             Button {
-                                winOrLose(item)
+                                moveTapped(item)
                             } label: {
                                 Text(winMoves[item])
                                     .shadowStyle()
@@ -45,6 +45,11 @@ struct ContentView: View {
                 Button("reset") {
                     resetChoice()
                 }
+                
+                Text(checkChoice)
+                    .foregroundStyle(.red)
+                    .font(.subheadline.weight(.heavy))
+                
                 Spacer()
                 Spacer()
                 Spacer()
@@ -52,20 +57,18 @@ struct ContentView: View {
         }
     }
     
-    func winOrLose(_ tapped: Int) {
-        print("Tapped: \(tapped)")
-        
+    func moveTapped(_ tapped: Int) {
         if shouldWin == true {
             if appChoice == tapped {
-                print("Correct choice!")
+                checkChoice = "Correct"
             } else {
-                print("Wrong choice!")
+                checkChoice = "Wrong"
             }
         } else {
             if appChoice != tapped {
-                print("Correct choice!")
+                checkChoice = "Correct"
             } else {
-                print("Wrong choice!")
+                checkChoice = "Wrong"
             }
         }
     }
@@ -73,6 +76,7 @@ struct ContentView: View {
     func resetChoice() {
         appChoice = Int.random(in: 0...2)
         shouldWin = Bool.random()
+        checkChoice = ""
     }
 }
 
