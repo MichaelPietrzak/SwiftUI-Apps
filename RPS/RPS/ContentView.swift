@@ -29,31 +29,34 @@ struct ContentView: View {
                 Spacer()
                 Text("RPS Game")
                     .font(.largeTitle.weight(.heavy))
-                
                 Spacer()
-                VStack {
+                VStack(spacing: 10) {
                     Text("\(moves[appChoice])")
                         .font(.system(size: 70))
                     Text(winLose)
                         .foregroundStyle(.secondary)
-                        .font(.subheadline.weight(.heavy))
-                        
-                    HStack(spacing: 15) {
-                        ForEach(0..<3) { item in
-                            Button {
-                                moveTapped(item)
-                            } label: {
-                                Text(winMoves[item])
-                                    .shadowStyle()
-                            }
+                        .font(.title.weight(.heavy))
+                }
+                Spacer()
+                HStack(spacing: 15) {
+                    ForEach(0..<3) { item in
+                        Button {
+                            moveTapped(item)
+                        } label: {
+                            Text(winMoves[item])
+                                .shadowStyle()
                         }
                     }
                 }
+                
+                Spacer()
                 Button("reset") {
                     resetChoice()
                 }
+                .buttonStyle(.bordered)
                 
-                Text(checkChoice)
+                Spacer()
+                Text("Result: \(checkChoice)")
                     .foregroundStyle(.red)
                     .font(.subheadline.weight(.heavy))
                 
