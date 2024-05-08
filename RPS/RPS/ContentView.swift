@@ -81,6 +81,10 @@ struct ContentView: View {
                 checkChoice = "Wrong"
             }
         }
+        
+        if moves[appChoice] == winMoves[tapped] {
+            checkChoice = "Wrong, same move!"
+        }
     }
     
     func resetChoice() {
