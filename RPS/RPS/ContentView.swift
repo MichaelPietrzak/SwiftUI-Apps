@@ -85,6 +85,7 @@ struct ContentView: View {
                 Text(validatePick)
                     .foregroundStyle(validatePickColor ? .green : .red)
                     .font(.system(size: 30).weight(.heavy))
+                    .frame(maxWidth: .infinity, maxHeight: 50)
                 
                 Spacer()
                 Spacer()
