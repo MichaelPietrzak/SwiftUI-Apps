@@ -12,9 +12,10 @@ struct ContentView: View {
     @State private var appPick = Int.random(in: 0...2)
     @State private var shouldWin = Bool.random()
     @State private var validatePick = ""
-    @State private var validatePickColor = false
+    @State private var validateColor = Color.yellow
     @State private var userMoves = ["✋🏼", "✌🏼", "👊🏼"]
     
+    var validateColors = [Color.yellow, Color.red, Color.green]
     var appMoves = ["👊🏼", "✋🏼", "✌🏼"]
     
     var winKey = [
@@ -35,9 +36,6 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.yellow
-                .ignoresSafeArea()
-            
             VStack {
                 Spacer()
                 Text("rock paper scissors").textCase(.uppercase)
@@ -58,8 +56,8 @@ struct ContentView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 15)
-                .background(.cyan)
-                .clipShape(.rect(cornerRadius: 30))
+                .background(.orange)
+                .clipShape(.rect(cornerRadius: 20))
                 
                 Spacer()
                 Spacer()
@@ -81,21 +79,22 @@ struct ContentView: View {
                 .buttonStyle(.bordered)
                 .foregroundColor(.white)
                 .background(.blue)
-                .cornerRadius(15)
+                .cornerRadius(20)
                 .font(.title.weight(.black))
                 .textCase(.uppercase)
                 
                 Spacer()
-                Text(validatePick)
-                    .foregroundStyle(validatePickColor ? .green : .red)
-                    .font(.system(size: 30).weight(.heavy))
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                
-                Spacer()
-                Spacer()
-                Spacer()
+                VStack {
+                    Text(validatePick)
+                        .foregroundStyle(.white)
+                        .font(.system(size: 30).weight(.heavy))
+                }
+                .frame(maxWidth: .infinity, maxHeight: 200)
+                .background(.black)
+                .cornerRadius(20)
             }
             .padding()
+            .background(validateColor)
         }
     }
     
@@ -103,18 +102,18 @@ struct ContentView: View {
         if shouldWin == true {
             if winKey[appMoves[appPick]]! == userMoves[tapped] {
                 validatePick = "You win!".uppercased()
-                validatePickColor = true
+                validateColor = validateColors[2]
             } else {
                 validatePick = "You lose!".uppercased()
-                validatePickColor = false
+                validateColor = validateColors[1]
             }
         } else {
             if loseKey[appMoves[appPick]]! == userMoves[tapped] {
                 validatePick = "You win!".uppercased()
-                validatePickColor = true
+                validateColor = validateColors[2]
             } else {
                 validatePick = "You lose!".uppercased()
-                validatePickColor = false
+                validateColor = validateColors[1]
             }
         }
         
@@ -128,6 +127,7 @@ struct ContentView: View {
         shouldWin = Bool.random()
         validatePick = ""
         userMoves.shuffle()
+        validateColor = validateColors[0]
     }
 }
 
@@ -136,7 +136,7 @@ struct Shadow: ViewModifier {
         content
             .frame(width: 100, height: 100)
             .background(.purple)
-            .cornerRadius(30)
+            .cornerRadius(20)
             .shadow(
                 color: .gray.opacity(0.4),
                 radius: 9,
