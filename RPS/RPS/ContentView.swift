@@ -13,20 +13,20 @@ struct ContentView: View {
     @State private var shouldWin = Bool.random()
     @State private var validatePick = ""
     @State private var validatePickColor = false
-    @State private var userMoves = ["📄", "✂️", "🪨"]
+    @State private var userMoves = ["✋🏼", "✌🏼", "👊🏼"]
     
-    var appMoves = ["🪨", "📄", "✂️"]
+    var appMoves = ["👊🏼", "✋🏼", "✌🏼"]
     
     var winKey = [
-        "🪨": "📄",
-        "✂️": "🪨",
-        "📄": "✂️"
+        "👊🏼": "✋🏼",
+        "✌🏼": "👊🏼",
+        "✋🏼": "✌🏼"
     ]
     
     var loseKey = [
-        "🪨": "✂️",
-        "✂️": "📄",
-        "📄": "🪨"
+        "👊🏼": "✌🏼",
+        "✌🏼": "✋🏼",
+        "✋🏼": "👊🏼"
     ]
     
     var winLose: String {
@@ -44,20 +44,24 @@ struct ContentView: View {
                     .font(.title.weight(.black))
                 
                 Spacer()
-                VStack(spacing: 10) {
+                Spacer()
+                Text("tap right move to ...").textCase(.uppercase)
+                    .font(.title2.weight(.black))
+                
+                HStack(alignment: .center, spacing: 30) {
                     Text("\(appMoves[appPick])")
                         .font(.system(size: 70))
-                        .padding(.top, 10)
                     
                     Text(winLose)
                         .foregroundStyle(.white)
-                        .font(.system(size: 40).weight(.heavy))
-                        .padding(.bottom, 10)
+                    .font(.system(size: 70)).fontWeight(.black)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 20)
-                .background(.orange)
+                .padding(.vertical, 15)
+                .background(.cyan)
+                .clipShape(.rect(cornerRadius: 30))
                 
+                Spacer()
                 Spacer()
                 HStack(spacing: 15) {
                     ForEach(0..<3) { item in
@@ -91,6 +95,7 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
             }
+            .padding()
         }
     }
     
@@ -130,8 +135,8 @@ struct Shadow: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(width: 100, height: 100)
-            .background(.gray.opacity(0.3))
-            .cornerRadius(20)
+            .background(.purple)
+            .cornerRadius(30)
             .shadow(
                 color: .gray.opacity(0.4),
                 radius: 9,
