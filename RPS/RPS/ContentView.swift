@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var validateColor = false
     @State private var moveCount = 1
     @State private var userScore = 0
-    @State private var showFinalScore = false
+    @State private var finalScore = false
     @State private var scoreTitle = ""
     @State private var userMoves = ["✋🏼", "✌🏼", "👊🏼"]
     var appMoves = ["👊🏼", "✋🏼", "✌🏼"]
@@ -100,7 +100,7 @@ struct ContentView: View {
                         }
                     }
                     
-                    .alert("Game over", isPresented: $showFinalScore) {
+                    .alert("Game over", isPresented: $finalScore) {
                         Button("Restart game", action: restartGame)
                     } message: {
                         Text("Final score: \(userScore) points")
@@ -174,7 +174,7 @@ struct ContentView: View {
         }
         
         if moveCount == 3 {
-            showFinalScore = true
+            finalScore = true
         } else {
             nextMove()
         }
