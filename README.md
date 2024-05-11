@@ -32,7 +32,7 @@ Simple temperature conversion app to units like Celsius, Fahrenheit, or Kelvin.
 
 <br />
 
-## Units
+## RPS
 Simple RPS - Rock, Paper, Scissors game app that challenges player to tap correct move based on app randomly picked (Rock, Paper or Scissors) with random prompt to win or lose with live scoring (you can score a point or lose a point), move progress, final score alert message, restart etc.
 
 <h3>Illustrations</h3
