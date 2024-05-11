@@ -103,7 +103,7 @@ struct ContentView: View {
                     .alert("Game over", isPresented: $showFinalScore) {
                         Button("Restart game", action: restartGame)
                     } message: {
-                        Text("Final score: \(userScore) points.")
+                        Text("Final score: \(userScore) points")
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: 50)
