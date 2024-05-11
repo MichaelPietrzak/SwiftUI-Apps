@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var validateColor = false
     @State private var moveCount = 1
     @State private var userScore = 0
+    @State private var showFinalScore = false
     @State private var scoreTitle = ""
     @State private var userMoves = ["✋🏼", "✌🏼", "👊🏼"]
     var appMoves = ["👊🏼", "✋🏼", "✌🏼"]
@@ -74,7 +75,7 @@ struct ContentView: View {
                 
                 HStack(alignment: .center, spacing: 100) {
                     HStack(spacing: 10) {
-                        Text("Score:")
+                        Text("Score:").textCase(.uppercase)
                             .font(.headline.weight(.heavy))
                             .foregroundColor(.black)
                         
@@ -84,7 +85,7 @@ struct ContentView: View {
                     }
                     
                     HStack(spacing: 10) {
-                        Text("Move:")
+                        Text("Move:").textCase(.uppercase)
                             .font(.headline.weight(.heavy))
                             .foregroundColor(.black)
                         
@@ -93,10 +94,16 @@ struct ContentView: View {
                                 .font(.headline.weight(.black))
                                 .foregroundColor(.blue)
                             
-                            Text("/ 8")
+                            Text("/ 3")
                                 .font(.headline.weight(.heavy))
                                 .foregroundColor(.black)
                         }
+                    }
+                    
+                    .alert("Game over", isPresented: $showFinalScore) {
+                        Button("Restart game", action: restartGame)
+                    } message: {
+                        Text("Final score: \(userScore) points.")
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: 50)
@@ -118,7 +125,6 @@ struct ContentView: View {
                     ForEach(0..<3) { item in
                         Button {
                             moveTapped(item)
-                            nextMove()
                         } label: {
                             Text(userMoves[item])
                                 .shadowStyle()
@@ -168,7 +174,9 @@ struct ContentView: View {
         }
         
         if moveCount == 3 {
-            restartGame()
+            showFinalScore = true
+        } else {
+            nextMove()
         }
     }
     
