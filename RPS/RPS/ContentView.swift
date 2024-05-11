@@ -13,6 +13,9 @@ struct ContentView: View {
     @State private var shouldWin = Bool.random()
     @State private var validatePick = ""
     @State private var validateColor = false
+    @State private var moveCount = 1
+    @State private var userScore = 0
+    @State private var scoreTitle = ""
     @State private var userMoves = ["✋🏼", "✌🏼", "👊🏼"]
     var appMoves = ["👊🏼", "✋🏼", "✌🏼"]
     
@@ -69,6 +72,35 @@ struct ContentView: View {
                 .background(.black)
                 .clipShape(.rect(cornerRadius: 20))
                 
+                HStack(alignment: .center, spacing: 100) {
+                    HStack(spacing: 10) {
+                        Text("Score:")
+                            .font(.headline.weight(.heavy))
+                            .foregroundColor(.black)
+                        
+                        Text("\(userScore)")
+                            .font(.headline.weight(.black))
+                            .foregroundColor(.blue)
+                    }
+                    
+                    HStack(spacing: 10) {
+                        Text("Move:")
+                            .font(.headline.weight(.heavy))
+                            .foregroundColor(.black)
+                        
+                        HStack(spacing: 0) {
+                            Text("\(moveCount) ")
+                                .font(.headline.weight(.black))
+                                .foregroundColor(.blue)
+                            
+                            Text("/ 8")
+                                .font(.headline.weight(.heavy))
+                                .foregroundColor(.black)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: 50)
+                
                 Spacer()
                 Text("Win or lose...?").textCase(.uppercase)
                     .font(.subheadline.weight(.black))
@@ -80,7 +112,7 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: 50)
                     .background(.black)
                     .clipShape(.rect(cornerRadius: 20))
-           
+                
                 Spacer()
                 HStack(spacing: 15) {
                     ForEach(0..<3) { item in
@@ -105,22 +137,38 @@ struct ContentView: View {
             if winKey[appMoves[appPick]]! == userMoves[tapped] {
                 validatePick = "You win!".uppercased()
                 validateColor = true
+                userScore += 1
             } else {
                 validatePick = "You lose!".uppercased()
                 validateColor = false
+                if userScore <= 0 {
+                    userScore = 0
+                } else {
+                    userScore -= 1
+                }
             }
         } else {
             if loseKey[appMoves[appPick]]! == userMoves[tapped] {
                 validatePick = "You win!".uppercased()
                 validateColor = true
+                userScore += 1
             } else {
                 validatePick = "You lose!".uppercased()
                 validateColor = false
+                if userScore <= 0 {
+                    userScore = 0
+                } else {
+                    userScore -= 1
+                }
             }
         }
         
         if appMoves[appPick] == userMoves[tapped] {
             validatePick = "lose, same move!".uppercased()
+        }
+        
+        if moveCount == 3 {
+            restartGame()
         }
     }
     
@@ -128,10 +176,13 @@ struct ContentView: View {
         appPick = Int.random(in: 0...2)
         shouldWin = Bool.random()
         userMoves.shuffle()
+        moveCount += 1
     }
     
     func restartGame() {
         validatePick = ""
+        moveCount = 1
+        userScore = 0
     }
 }
 
