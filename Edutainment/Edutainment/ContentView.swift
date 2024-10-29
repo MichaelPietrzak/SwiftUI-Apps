@@ -11,6 +11,9 @@ struct ContentView: View {
     
     @State private var selectedNum1 = 0
     @State private var selectedNum2 = 0
+    @State private var selectedNumOfQuestions = 5
+    
+    let rangeOfQuestions = [5, 10, 20]
     
     var body: some View {
         NavigationStack {
@@ -24,7 +27,12 @@ struct ContentView: View {
                 }
                 
                 Section("Select number of questions to be asked") {
-                    
+                    Picker("numbers of questions", selection: $selectedNumOfQuestions) {
+                        ForEach(rangeOfQuestions, id: \.self) {
+                            Text("\($0)")
+                        }
+                    }
+                    .pickerStyle(.segmented)
                 }
                 
                 Section("What is...?") {
