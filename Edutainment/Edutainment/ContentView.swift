@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var selectedNum1 = 0
     @State private var selectedNum2 = 0
     @State private var selectedNumOfQuestions = 5
+    @State private var equation = ""
     
     let rangeOfQuestions = [5, 10, 20]
     
@@ -36,15 +37,26 @@ struct ContentView: View {
                 }
                 
                 Section("What is...?") {
-                    
+                    Text(equation)
+                        .font(.headline).fontWeight(.bold)
                 }
                 
                 Section("Please enter the answer") {
                     
                 }
+                
+                Button("Check", action: getRandomEquation)
+                    .buttonStyle(.bordered)
             }
             .navigationTitle("Edutainment")
         }
+    }
+    
+    func getRandomEquation() {
+        let randomNum1 = (selectedNum1...selectedNum2).randomElement() ?? 0
+        let randomNum2 = (selectedNum1...selectedNum2).randomElement() ?? 0
+        
+        equation = "\(randomNum1) x \(randomNum2)"
     }
 }
 
