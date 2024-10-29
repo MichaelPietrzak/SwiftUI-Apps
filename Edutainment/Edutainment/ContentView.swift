@@ -37,7 +37,7 @@ struct ContentView: View {
                 }
                 
                 Section("What is...?") {
-                    Text(equation)
+                    Text("")
                         .font(.headline).fontWeight(.bold)
                 }
                 
@@ -53,10 +53,18 @@ struct ContentView: View {
     }
     
     func getRandomEquation() {
-        let randomNum1 = (selectedNum1...selectedNum2).randomElement() ?? 0
-        let randomNum2 = (selectedNum1...selectedNum2).randomElement() ?? 0
+        var rangeBounds = 0...0
         
-        equation = "\(randomNum1) x \(randomNum2)"
+        if selectedNum1 > selectedNum2 {
+            rangeBounds = (selectedNum2...selectedNum1)
+        } else {
+            rangeBounds = (selectedNum1...selectedNum2)
+        }
+        
+        let randomNum1 = rangeBounds.randomElement() ?? 0
+        let randomNum2 = rangeBounds.randomElement() ?? 0
+        
+        print ("\(randomNum1) x \(randomNum2)")
     }
 }
 
