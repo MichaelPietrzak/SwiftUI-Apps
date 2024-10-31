@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var selectedNum2 = 0
     @State private var selectedNumOfQuestions = 5
     @State private var equation = "0 x 0"
+    @State private var userAnswer = 0
     
     let rangeOfQuestions = [5, 10, 20]
     
@@ -42,7 +43,8 @@ struct ContentView: View {
                 }
                 
                 Section("Please enter the answer") {
-                    
+                    TextField("Enter number", value: $userAnswer, format: .number)
+                        .keyboardType(.numberPad)
                 }
                 
                 Button("Check", action: getRandomEquation)
