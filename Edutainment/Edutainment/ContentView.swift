@@ -45,6 +45,7 @@ struct ContentView: View {
                 Section("Please enter the answer") {
                     TextField("Enter number", value: $userAnswer, format: .number)
                         .keyboardType(.numberPad)
+                        .font(.headline).fontWeight(.bold)
                 }
                 
                 Button("Check", action: getRandomEquation)
