@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var selectedNum1 = 0
     @State private var selectedNum2 = 0
     @State private var selectedNumOfQuestions = 5
-    @State private var equation = ""
+    @State private var equation = "0 x 0"
     
     let rangeOfQuestions = [5, 10, 20]
     
@@ -37,7 +37,7 @@ struct ContentView: View {
                 }
                 
                 Section("What is...?") {
-                    Text("")
+                    Text(equation)
                         .font(.headline).fontWeight(.bold)
                 }
                 
@@ -64,7 +64,7 @@ struct ContentView: View {
         let randomNum1 = rangeBounds.randomElement() ?? 0
         let randomNum2 = rangeBounds.randomElement() ?? 0
         
-        print ("\(randomNum1) x \(randomNum2)")
+        equation = "\(randomNum1) x \(randomNum2)"
     }
 }
 
