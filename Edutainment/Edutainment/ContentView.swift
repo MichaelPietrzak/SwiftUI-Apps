@@ -22,10 +22,8 @@ struct ContentView: View {
             Form {
                 Section("Select 2 numbers for difficulty range") {
                     Stepper("\(selectedNum1)", value: $selectedNum1)
-                        .font(.headline).fontWeight(.bold)
                     
                     Stepper("\(selectedNum2)", value: $selectedNum2)
-                        .font(.headline).fontWeight(.bold)
                 }
                 
                 Section("Select number of questions to be asked") {
@@ -39,19 +37,18 @@ struct ContentView: View {
                 
                 Section("What is...?") {
                     Text(equation)
-                        .font(.headline).fontWeight(.bold)
                 }
                 
                 Section("Please enter the answer") {
                     TextField("Enter number", value: $userAnswer, format: .number)
                         .keyboardType(.numberPad)
-                        .font(.headline).fontWeight(.bold)
                 }
                 
                 Button("Check", action: getRandomEquation)
                     .buttonStyle(.bordered)
             }
             .navigationTitle("Edutainment")
+            .bold()
         }
     }
     
