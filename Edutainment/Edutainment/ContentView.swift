@@ -46,6 +46,10 @@ struct ContentView: View {
                         .keyboardType(.numberPad)
                 }
                 
+                Button("Next Question") {
+                    nextQuestion()
+                }
+                
                 Button("Start Game") {
                     getQuestions()
                 }
@@ -83,6 +87,14 @@ struct ContentView: View {
             currentQuestion = questions[questionNumber]
         }
     }
+    
+    func nextQuestion() {
+            if questionNumber + 1 < selectedNumOfQuestions {
+                loadQuestions()
+            } else {
+                // TODO: - add resetGame() method
+            }
+        }
 }
 
 #Preview {
