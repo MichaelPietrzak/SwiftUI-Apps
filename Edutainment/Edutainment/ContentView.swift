@@ -66,6 +66,11 @@ struct ContentView: View {
                     getQuestions()
                 }
                 .buttonStyle(.bordered)
+                
+                Button("Reset Game") {
+                    resetGame()
+                }
+                .buttonStyle(.bordered)
             }
             .navigationTitle("Edutainment")
             .bold()
@@ -106,7 +111,7 @@ struct ContentView: View {
         if questionNumber + 1 < selectedNumOfQuestions {
             loadQuestions()
         } else {
-            // TODO: - add resetGame() method
+            resetGame()
         }
     }
     
@@ -123,6 +128,18 @@ struct ContentView: View {
         } else {
             answerStatus = "Wrong!"
         }
+    }
+    
+    func resetGame() {
+        selectedNum1 = 0
+        selectedNum2 = 0
+        selectedNumOfQuestions = 5
+        currentQuestion = ""
+        userAnswer = 0
+        questionAnswer = 0
+        questionNumber = 0
+        answerStatus = ""
+        questions.removeAll()
     }
     
 }
