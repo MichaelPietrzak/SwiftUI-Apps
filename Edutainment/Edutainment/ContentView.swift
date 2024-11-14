@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var currentQuestion = ""
     @State private var userAnswer = 0
     @State private var answerStatus = ""
+    @State private var ifCorrectColor = false
     @State private var questionAnswer = 0
     @State private var questionNumber = 0
     @State private var questions = [String]()
@@ -50,6 +51,7 @@ struct ContentView: View {
                     Text("Please enter the answer")
                 } footer: {
                     Text(answerStatus)
+                        .foregroundStyle(ifCorrectColor ? .green : .red)
                 }
                 
                 Button("Next Question") {
@@ -92,6 +94,8 @@ struct ContentView: View {
             questions.append(question)
         }
         loadQuestions()
+        
+        print("Questions: \(questions)")
     }
     
     func loadQuestions() {
@@ -125,8 +129,10 @@ struct ContentView: View {
         
         if userAnswer == questionAnswer {
             answerStatus = "Correct!"
+            ifCorrectColor = true
         } else {
             answerStatus = "Wrong!"
+            ifCorrectColor = false
         }
     }
     
@@ -136,9 +142,10 @@ struct ContentView: View {
         selectedNumOfQuestions = 5
         currentQuestion = ""
         userAnswer = 0
+        answerStatus = ""
+        ifCorrectColor = false
         questionAnswer = 0
         questionNumber = 0
-        answerStatus = ""
         questions.removeAll()
     }
     
