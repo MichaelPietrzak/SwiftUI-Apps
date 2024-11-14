@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var selectedNumOfQuestions = 5
     @State private var currentQuestion = ""
     @State private var userAnswer = 0
+    @State private var questionAnswer = 0
     @State private var questionNumber = 0
     @State private var questions = [String]()
     
@@ -89,12 +90,18 @@ struct ContentView: View {
     }
     
     func nextQuestion() {
-            if questionNumber + 1 < selectedNumOfQuestions {
-                loadQuestions()
-            } else {
-                // TODO: - add resetGame() method
-            }
+        if questionNumber + 1 < selectedNumOfQuestions {
+            loadQuestions()
+        } else {
+            // TODO: - add resetGame() method
         }
+    }
+    
+    func getQuestionAnswer() {
+        let extractNums = questions.compactMap { $0.compactMap { Int(String($0)) } }
+        questionAnswer = extractNums[questionNumber].reduce(1, *)
+    }
+    
 }
 
 #Preview {
