@@ -74,7 +74,14 @@ struct ContentView: View {
     }
     
     func loadQuestions() {
-        currentQuestion = questions[questionNumber]
+        if currentQuestion.isEmpty {
+            userAnswer = 0
+            currentQuestion = questions.first ?? "No question"
+        } else {
+            questionNumber += 1
+            userAnswer = 0
+            currentQuestion = questions[questionNumber]
+        }
     }
 }
 
