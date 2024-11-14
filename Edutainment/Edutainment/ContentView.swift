@@ -22,6 +22,12 @@ struct ContentView: View {
     
     let rangeOfQuestions = [5, 10, 20]
     
+    var answerInputFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.zeroSymbol = ""
+        return formatter
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -45,7 +51,7 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    TextField("Enter number", value: $userAnswer, format: .number)
+                    TextField("Enter number", value: $userAnswer, formatter: answerInputFormatter)
                         .keyboardType(.numberPad)
                 } header: {
                     Text("Please enter the answer")
@@ -94,8 +100,6 @@ struct ContentView: View {
             questions.append(question)
         }
         loadQuestions()
-        
-        print("Questions: \(questions)")
     }
     
     func loadQuestions() {
