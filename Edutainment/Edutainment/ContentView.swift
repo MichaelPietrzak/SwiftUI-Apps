@@ -12,8 +12,10 @@ struct ContentView: View {
     @State private var selectedNum1 = 0
     @State private var selectedNum2 = 0
     @State private var selectedNumOfQuestions = 5
-    @State private var equation = "0 x 0"
+    @State private var currentQuestion = ""
     @State private var userAnswer = 0
+    @State private var questionNumber = 0
+    @State private var questions = [String]()
     
     let rangeOfQuestions = [5, 10, 20]
     
@@ -36,7 +38,7 @@ struct ContentView: View {
                 }
                 
                 Section("What is...?") {
-                    Text(equation)
+                    Text(currentQuestion)
                 }
                 
                 Section("Please enter the answer") {
@@ -44,16 +46,19 @@ struct ContentView: View {
                         .keyboardType(.numberPad)
                 }
                 
-                Button("Check", action: getRandomEquation)
-                    .buttonStyle(.bordered)
+                Button("Start Game") {
+                    getQuestions()
+                }
+                .buttonStyle(.bordered)
             }
             .navigationTitle("Edutainment")
             .bold()
         }
     }
     
-    func getRandomEquation() {
+    func getQuestions() {
         var rangeBounds = 0...0
+        var question = ""
         
         if selectedNum1 > selectedNum2 {
             rangeBounds = (selectedNum2...selectedNum1)
@@ -61,10 +66,15 @@ struct ContentView: View {
             rangeBounds = (selectedNum1...selectedNum2)
         }
         
-        let randomNum1 = rangeBounds.randomElement() ?? 0
-        let randomNum2 = rangeBounds.randomElement() ?? 0
-        
-        equation = "\(randomNum1) x \(randomNum2)"
+        for _ in 1...selectedNumOfQuestions {
+            question = "\(Int.random(in: rangeBounds)) x \(Int.random(in: rangeBounds))"
+            questions.append(question)
+        }
+        loadQuestions()
+    }
+    
+    func loadQuestions() {
+        currentQuestion = questions[questionNumber]
     }
 }
 
