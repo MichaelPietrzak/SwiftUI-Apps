@@ -16,9 +16,8 @@ struct ContentView: View {
     @State private var userAnswer = 0
     @State private var answerStatus = ""
     @State private var ifCorrectColor = false
-    @State private var questionAnswer = 0
     @State private var questionNumber = 0
-    @State private var questions = [String]()
+    @State private var questions = [Question]()
     
     let rangeOfQuestions = [5, 10, 20]
     
@@ -113,7 +112,6 @@ struct ContentView: View {
     
     func getQuestions() {
         var rangeBounds = 0...0
-        var question = ""
         
         if selectedNum1 > selectedNum2 {
             rangeBounds = (selectedNum2...selectedNum1)
@@ -122,8 +120,11 @@ struct ContentView: View {
         }
         
         for _ in 1...selectedNumOfQuestions {
-            question = "\(Int.random(in: rangeBounds)) x \(Int.random(in: rangeBounds))"
-            questions.append(question)
+            let question = "\(Int.random(in: rangeBounds)) x \(Int.random(in: rangeBounds))"
+            let answer = question.compactMap { $0 }.compactMap { Int(String($0)) }.reduce(1, *)
+            
+            let item = Question(text: question, answer: answer)
+            questions.append(item)
         }
         loadQuestions()
     }
@@ -132,12 +133,12 @@ struct ContentView: View {
         if currentQuestion.isEmpty {
             userAnswer = 0
             answerStatus = ""
-            currentQuestion = questions.first ?? "No question"
+            currentQuestion = questions.first?.text ?? "No question"
         } else {
             questionNumber += 1
             userAnswer = 0
             answerStatus = ""
-            currentQuestion = questions[questionNumber]
+            currentQuestion = questions[questionNumber].text
         }
     }
     
@@ -149,15 +150,8 @@ struct ContentView: View {
         }
     }
     
-    func getQuestionAnswer() {
-        let extractNums = questions.compactMap { $0.compactMap { Int(String($0)) } }
-        questionAnswer = extractNums[questionNumber].reduce(1, *)
-    }
-    
     func checkAnswer() {
-        getQuestionAnswer()
-        
-        if userAnswer == questionAnswer {
+        if userAnswer == questions[questionNumber].answer {
             answerStatus = "Correct!"
             ifCorrectColor = true
         } else {
@@ -174,13 +168,16 @@ struct ContentView: View {
         userAnswer = 0
         answerStatus = ""
         ifCorrectColor = false
-        questionAnswer = 0
         questionNumber = 0
         questions.removeAll()
     }
-    
 }
 
 #Preview {
     ContentView()
+}
+
+struct Question {
+    var text: String
+    var answer: Int
 }
