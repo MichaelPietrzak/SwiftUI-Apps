@@ -63,47 +63,13 @@ struct ContentView: View {
             .bold()
             
             VStack(spacing: 15) {
-                Button("Start Game", systemImage: "arcade.stick") {
-                    getQuestions()
-                }
-                .font(.headline.weight(.heavy))
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .foregroundStyle(.green)
-                .background(.green.opacity(0.2))
-                .clipShape(.rect(cornerRadius: 10))
+                GameButton(title: "Start Game", icon: "arcade.stick", color: .green) { getQuestions() }
                 
                 HStack {
-                    Button("Check Answer", systemImage: "checkmark.circle") {
-                        checkAnswer()
-                    }
-                    .font(.headline.weight(.heavy))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .foregroundStyle(.yellow)
-                    .background(.yellow.opacity(0.2))
-                    .clipShape(.rect(cornerRadius: 10))
-                    
-                    Button("Next Question", systemImage: "arrow.right") {
-                        nextQuestion()
-                    }
-                    .font(.headline.weight(.heavy))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .foregroundStyle(.blue)
-                    .background(.blue.opacity(0.2))
-                    .clipShape(.rect(cornerRadius: 10))
+                    GameButton(title: "Check Answer", icon: "checkmark.circle", color: .yellow) { checkAnswer() }
+                    GameButton(title: "Next Question", icon: "arrow.right", color: .blue) { nextQuestion() }
                 }
-                
-                Button("Reset Game", systemImage: "xmark.circle") {
-                    resetGame()
-                }
-                .font(.headline.weight(.heavy))
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .foregroundStyle(.red)
-                .background(.red.opacity(0.2))
-                .clipShape(.rect(cornerRadius: 10))
+                GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) { resetGame() }
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 10)
@@ -180,4 +146,23 @@ struct ContentView: View {
 struct Question {
     var text: String
     var answer: Int
+}
+
+struct GameButton: View {
+    var title: String
+    var icon: String
+    var color: Color
+    var action: () -> Void
+    
+    var body: some View {
+        Button(title, systemImage: icon) {
+            action()
+        }
+        .font(.headline.weight(.heavy))
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .foregroundStyle(color)
+        .background(color.opacity(0.2))
+        .clipShape(.rect(cornerRadius: 10))
+    }
 }
