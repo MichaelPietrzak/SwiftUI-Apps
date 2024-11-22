@@ -21,6 +21,8 @@ struct ContentView: View {
     @State private var questionNumber = 0
     @State private var questions = [Question]()
     
+    @FocusState private var gameFocused: Bool
+    
     let rangeOfQuestions = [5, 10, 20]
     
     var answerInputFormatter: NumberFormatter {
@@ -75,6 +77,7 @@ struct ContentView: View {
                 Section {
                     TextField("Enter number", value: $userAnswer, formatter: answerInputFormatter)
                         .keyboardType(.numberPad)
+                        .focused($gameFocused)
                 } header: {
                     Text("Please enter the answer")
                 } footer: {
@@ -101,6 +104,7 @@ struct ContentView: View {
                 }
                 GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) {
                     withAnimation {
+                        gameFocused = false
                         showScore = false
                     }
                     resetGame()
