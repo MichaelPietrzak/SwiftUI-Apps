@@ -16,6 +16,8 @@ struct ContentView: View {
     @State private var userAnswer = 0
     @State private var answerStatus = ""
     @State private var ifCorrectColor = false
+    @State private var score = 0
+    @State private var showScore = false
     @State private var questionNumber = 0
     @State private var questions = [Question]()
     
@@ -29,6 +31,27 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
+            if showScore {
+                HStack {
+                    Spacer()
+                    
+                    Text("Score:")
+                    
+                    HStack {
+                        Text("\(score)")
+                            .foregroundStyle(.blue)
+                        
+                        Text("/")
+                        
+                        Text("\(selectedNumOfQuestions)")
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .font(.headline.weight(.heavy))
+                .foregroundStyle(.primary)
+            }
+            
             Form {
                 Section("Select 2 numbers for difficulty range") {
                     Stepper("\(selectedNum1)", value: $selectedNum1)
@@ -57,19 +80,31 @@ struct ContentView: View {
                 } footer: {
                     Text(answerStatus)
                         .foregroundStyle(ifCorrectColor ? .green : .red)
+                        .font(.headline.weight(.heavy))
                 }
             }
             .navigationTitle("Edutainment")
             .bold()
             
             VStack(spacing: 15) {
-                GameButton(title: "Start Game", icon: "arcade.stick", color: .green) { getQuestions() }
+                GameButton(title: "Start Game", icon: "arcade.stick", color: .green) {
+                    withAnimation {
+                        showScore = true
+                    }
+                    getQuestions()
+                }
                 
                 HStack {
                     GameButton(title: "Check Answer", icon: "checkmark.circle", color: .yellow) { checkAnswer() }
+                    
                     GameButton(title: "Next Question", icon: "arrow.right", color: .blue) { nextQuestion() }
                 }
-                GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) { resetGame() }
+                GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) {
+                    withAnimation {
+                        showScore = false
+                    }
+                    resetGame()
+                }
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 10)
@@ -120,6 +155,7 @@ struct ContentView: View {
         if userAnswer == questions[questionNumber].answer {
             answerStatus = "Correct!"
             ifCorrectColor = true
+            score += 1
         } else {
             answerStatus = "Wrong!"
             ifCorrectColor = false
@@ -134,6 +170,7 @@ struct ContentView: View {
         userAnswer = 0
         answerStatus = ""
         ifCorrectColor = false
+        score = 0
         questionNumber = 0
         questions.removeAll()
     }
