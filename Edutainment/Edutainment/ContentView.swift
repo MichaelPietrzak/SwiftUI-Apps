@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var ifCorrectColor = false
     @State private var score = 0
     @State private var showScore = false
+    @State private var showFinalScore = false
     @State private var questionNumber = 0
     @State private var questions = [Question]()
     
@@ -33,85 +34,119 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            if showScore {
-                HStack {
-                    Spacer()
-                    
-                    Text("Score:")
-                    
+            VStack {
+                if showScore {
                     HStack {
-                        Text("\(score)")
-                            .foregroundStyle(.blue)
+                        Spacer()
                         
-                        Text("/")
+                        Text("Score:")
                         
-                        Text("\(selectedNumOfQuestions)")
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
-                .font(.headline.weight(.heavy))
-                .foregroundStyle(.primary)
-            }
-            
-            Form {
-                Section("Select 2 numbers for difficulty range") {
-                    Stepper("\(selectedNum1)", value: $selectedNum1)
-                    
-                    Stepper("\(selectedNum2)", value: $selectedNum2)
-                }
-                
-                Section("Select number of questions to be asked") {
-                    Picker("numbers of questions", selection: $selectedNumOfQuestions) {
-                        ForEach(rangeOfQuestions, id: \.self) {
-                            Text("\($0)")
+                        HStack {
+                            Text("\(score)")
+                                .foregroundStyle(.blue)
+                            
+                            Text("/")
+
+                            Text("\(selectedNumOfQuestions)")
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .font(.headline.weight(.heavy))
+                    .foregroundStyle(.primary)
                 }
                 
-                Section("What is...?") {
-                    Text(currentQuestion)
+                Form {
+                    Section("Select 2 numbers for difficulty range") {
+                        Stepper("\(selectedNum1)", value: $selectedNum1)
+                        
+                        Stepper("\(selectedNum2)", value: $selectedNum2)
+                    }
+                    
+                    Section("Select number of questions to be asked") {
+                        Picker("numbers of questions", selection: $selectedNumOfQuestions) {
+                            ForEach(rangeOfQuestions, id: \.self) {
+                                Text("\($0)")
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    
+                    Section("What is...?") {
+                        Text(currentQuestion)
+                    }
+                    
+                    Section {
+                        TextField("Enter number", value: $userAnswer, formatter: answerInputFormatter)
+                            .keyboardType(.numberPad)
+                            .focused($gameFocused)
+                    } header: {
+                        Text("Please enter the answer")
+                    } footer: {
+                        Text(answerStatus)
+                            .foregroundStyle(ifCorrectColor ? .green : .red)
+                            .font(.headline.weight(.heavy))
+                    }
                 }
                 
-                Section {
-                    TextField("Enter number", value: $userAnswer, formatter: answerInputFormatter)
-                        .keyboardType(.numberPad)
-                        .focused($gameFocused)
-                } header: {
-                    Text("Please enter the answer")
-                } footer: {
-                    Text(answerStatus)
-                        .foregroundStyle(ifCorrectColor ? .green : .red)
-                        .font(.headline.weight(.heavy))
+                VStack(spacing: 15) {
+                    if showFinalScore {
+                        VStack(spacing: 15) {
+                            Text("Game Over")
+                                .font(.title.weight(.black))
+                                .foregroundStyle(.red)
+                            
+                            HStack {
+                                Text("You got")
+                                
+                                Text("\(score)")
+                                    .foregroundStyle(.blue)
+                                
+                                Text("out of")
+                                
+                                Text("\(selectedNumOfQuestions)")
+                                    .foregroundStyle(.blue)
+                                
+                                Text("points.")
+                            }
+                            .font(.headline.weight(.heavy))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 20)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.red, lineWidth: 2)
+                        }
+                    }
+                    
+                    GameButton(title: "Start Game", icon: "arcade.stick", color: .green) {
+                        withAnimation {
+                            showScore = true
+                        }
+                        getQuestions()
+                    }
+                    
+                    HStack {
+                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: .yellow) { checkAnswer() }
+                        
+                        GameButton(title: "Next Question", icon: "arrow.right", color: .blue) { nextQuestion() }
+                    }
+                    GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) {
+                        withAnimation {
+                            gameFocused = false
+                            showScore = false
+                            showFinalScore = false
+                        }
+                        resetGame()
+                    }
                 }
+                .padding(.horizontal, 15)
+                .padding(.vertical, 10)
             }
             .navigationTitle("Edutainment")
+            .navigationBarTitleDisplayMode(.large)
             .bold()
-            
-            VStack(spacing: 15) {
-                GameButton(title: "Start Game", icon: "arcade.stick", color: .green) {
-                    withAnimation {
-                        showScore = true
-                    }
-                    getQuestions()
-                }
-                
-                HStack {
-                    GameButton(title: "Check Answer", icon: "checkmark.circle", color: .yellow) { checkAnswer() }
-                    
-                    GameButton(title: "Next Question", icon: "arrow.right", color: .blue) { nextQuestion() }
-                }
-                GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) {
-                    withAnimation {
-                        gameFocused = false
-                        showScore = false
-                    }
-                    resetGame()
-                }
-            }
-            .padding(.horizontal, 15)
-            .padding(.vertical, 10)
         }
     }
     
@@ -151,7 +186,10 @@ struct ContentView: View {
         if questionNumber + 1 < selectedNumOfQuestions {
             loadQuestions()
         } else {
-            resetGame()
+            withAnimation {
+                gameFocused = false
+                showFinalScore = true
+            }
         }
     }
     
