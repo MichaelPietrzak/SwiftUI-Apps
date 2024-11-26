@@ -38,15 +38,12 @@ struct ContentView: View {
                 if showScore {
                     HStack {
                         Spacer()
-                        
                         Text("Score:")
                         
                         HStack {
                             Text("\(score)")
                                 .foregroundStyle(.blue)
-                            
                             Text("/")
-
                             Text("\(selectedNumOfQuestions)")
                         }
                     }
@@ -59,7 +56,6 @@ struct ContentView: View {
                 Form {
                     Section("Select 2 numbers for difficulty range") {
                         Stepper("\(selectedNum1)", value: $selectedNum1)
-                        
                         Stepper("\(selectedNum2)", value: $selectedNum2)
                     }
                     
@@ -98,15 +94,11 @@ struct ContentView: View {
                             
                             HStack {
                                 Text("You got")
-                                
                                 Text("\(score)")
                                     .foregroundStyle(.blue)
-                                
                                 Text("out of")
-                                
                                 Text("\(selectedNumOfQuestions)")
                                     .foregroundStyle(.blue)
-                                
                                 Text("points.")
                             }
                             .font(.headline.weight(.heavy))
@@ -129,7 +121,6 @@ struct ContentView: View {
                     
                     HStack {
                         GameButton(title: "Check Answer", icon: "checkmark.circle", color: .yellow) { checkAnswer() }
-                        
                         GameButton(title: "Next Question", icon: "arrow.right", color: .blue) { nextQuestion() }
                     }
                     GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) {
