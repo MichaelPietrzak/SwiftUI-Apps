@@ -119,7 +119,7 @@ struct ContentView: View {
                         GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifGameActive ? .yellow : .gray, ifDisabled: !ifGameActive) { checkAnswer() }
                         GameButton(title: "Next Question", icon: "arrow.right", color: ifGameActive ? .blue : .gray, ifDisabled: !ifGameActive) { nextQuestion() }
                     }
-                    GameButton(title: "Reset Game", icon: "xmark.circle", color: ifButtonDisabled ? .red : .gray, ifDisabled: !ifButtonDisabled) { resetGame() }
+                    GameButton(title: "New Game", icon: "gamecontroller", color: ifButtonDisabled ? .purple : .gray, ifDisabled: !ifButtonDisabled) { newGame() }
                 }
                 .padding(.horizontal, 15)
                 .padding(.vertical, 10)
@@ -194,7 +194,7 @@ struct ContentView: View {
         }
     }
     
-    func resetGame() {
+    func newGame() {
         selectedNum1 = 0
         selectedNum2 = 0
         selectedNumOfQuestions = 5
