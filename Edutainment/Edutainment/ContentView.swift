@@ -16,7 +16,7 @@ struct ContentView: View {
     @State private var userAnswer = 0
     @State private var answerStatus = ""
     @State private var ifCorrectColor = false
-    @State private var ifDisabled = false
+    @State private var ifButtonDisabled = false
     @State private var ifGameActive = false
     @State private var score = 0
     @State private var showScore = false
@@ -113,13 +113,13 @@ struct ContentView: View {
                                 .stroke(.red, lineWidth: 2)
                         }
                     }
-                    GameButton(title: "Start Game", icon: "arcade.stick", color: ifDisabled ? .gray : .green) { getQuestions() }
+                    GameButton(title: "Start Game", icon: "arcade.stick", color: ifButtonDisabled ? .gray : .green, ifDisabled: ifButtonDisabled) { getQuestions() }
 
                     HStack {
-                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifGameActive ? .yellow : .gray) { checkAnswer() }
-                        GameButton(title: "Next Question", icon: "arrow.right", color: ifGameActive ? .blue : .gray) { nextQuestion() }
+                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifGameActive ? .yellow : .gray, ifDisabled: !ifGameActive) { checkAnswer() }
+                        GameButton(title: "Next Question", icon: "arrow.right", color: ifGameActive ? .blue : .gray, ifDisabled: !ifGameActive) { nextQuestion() }
                     }
-                    GameButton(title: "Reset Game", icon: "xmark.circle", color: ifDisabled ? .red : .gray) { resetGame() }
+                    GameButton(title: "Reset Game", icon: "xmark.circle", color: ifButtonDisabled ? .red : .gray, ifDisabled: !ifButtonDisabled) { resetGame() }
                 }
                 .padding(.horizontal, 15)
                 .padding(.vertical, 10)
@@ -149,7 +149,7 @@ struct ContentView: View {
         withAnimation {
             showScore = true
             ifGameActive = true
-            ifDisabled = true
+            ifButtonDisabled = true
         }
         loadQuestions()
     }
@@ -174,7 +174,7 @@ struct ContentView: View {
             withAnimation {
                 gameFocused = false
                 showFinalScore = true
-                ifDisabled = true
+                ifButtonDisabled = true
                 
                 if showFinalScore == true {
                     ifGameActive = false
@@ -210,7 +210,7 @@ struct ContentView: View {
             showScore = false
             showFinalScore = false
             ifCorrectColor = false
-            ifDisabled = false
+            ifButtonDisabled = false
             ifGameActive = false
         }
     }
@@ -229,6 +229,7 @@ struct GameButton: View {
     var title: String
     var icon: String
     var color: Color
+    var ifDisabled: Bool
     var action: () -> Void
     
     var body: some View {
@@ -241,5 +242,6 @@ struct GameButton: View {
         .foregroundStyle(color)
         .background(color.opacity(0.2))
         .clipShape(.rect(cornerRadius: 10))
+        .disabled(ifDisabled)
     }
 }
