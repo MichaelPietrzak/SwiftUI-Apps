@@ -16,6 +16,8 @@ struct ContentView: View {
     @State private var userAnswer = 0
     @State private var answerStatus = ""
     @State private var ifCorrectColor = false
+    @State private var ifDisabled = false
+    @State private var ifGameActive = false
     @State private var score = 0
     @State private var showScore = false
     @State private var showFinalScore = false
@@ -111,26 +113,13 @@ struct ContentView: View {
                                 .stroke(.red, lineWidth: 2)
                         }
                     }
-                    
-                    GameButton(title: "Start Game", icon: "arcade.stick", color: .green) {
-                        withAnimation {
-                            showScore = true
-                        }
-                        getQuestions()
-                    }
-                    
+                    GameButton(title: "Start Game", icon: "arcade.stick", color: ifDisabled ? .gray : .green) { getQuestions() }
+
                     HStack {
-                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: .yellow) { checkAnswer() }
-                        GameButton(title: "Next Question", icon: "arrow.right", color: .blue) { nextQuestion() }
+                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifGameActive ? .yellow : .gray) { checkAnswer() }
+                        GameButton(title: "Next Question", icon: "arrow.right", color: ifGameActive ? .blue : .gray) { nextQuestion() }
                     }
-                    GameButton(title: "Reset Game", icon: "xmark.circle", color: .red) {
-                        withAnimation {
-                            gameFocused = false
-                            showScore = false
-                            showFinalScore = false
-                        }
-                        resetGame()
-                    }
+                    GameButton(title: "Reset Game", icon: "xmark.circle", color: ifDisabled ? .red : .gray) { resetGame() }
                 }
                 .padding(.horizontal, 15)
                 .padding(.vertical, 10)
@@ -157,6 +146,11 @@ struct ContentView: View {
             let item = Question(text: question, answer: answer)
             questions.append(item)
         }
+        withAnimation {
+            showScore = true
+            ifGameActive = true
+            ifDisabled = true
+        }
         loadQuestions()
     }
     
@@ -180,6 +174,11 @@ struct ContentView: View {
             withAnimation {
                 gameFocused = false
                 showFinalScore = true
+                ifDisabled = true
+                
+                if showFinalScore == true {
+                    ifGameActive = false
+                }
             }
         }
     }
@@ -202,10 +201,18 @@ struct ContentView: View {
         currentQuestion = ""
         userAnswer = 0
         answerStatus = ""
-        ifCorrectColor = false
         score = 0
         questionNumber = 0
         questions.removeAll()
+        
+        withAnimation {
+            gameFocused = false
+            showScore = false
+            showFinalScore = false
+            ifCorrectColor = false
+            ifDisabled = false
+            ifGameActive = false
+        }
     }
 }
 
