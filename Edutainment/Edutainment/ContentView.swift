@@ -140,8 +140,10 @@ struct ContentView: View {
         }
         
         for _ in 1...selectedNumOfQuestions {
-            let question = "\(Int.random(in: rangeBounds)) x \(Int.random(in: rangeBounds))"
-            let answer = question.compactMap { $0 }.compactMap { Int(String($0)) }.reduce(1, *)
+            let rangePair = [Int.random(in: rangeBounds), Int.random(in: rangeBounds)]
+            
+            let question = "\(rangePair[0]) x \(rangePair[1])"
+            let answer = rangePair.reduce(1, *)
             
             let item = Question(text: question, answer: answer)
             questions.append(item)
