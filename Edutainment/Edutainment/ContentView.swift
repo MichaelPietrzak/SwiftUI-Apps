@@ -13,11 +13,12 @@ struct ContentView: View {
     @State private var selectedNum2 = 0
     @State private var selectedNumOfQuestions = 5
     @State private var currentQuestion = ""
-    @State private var userAnswer = 0
+    @State private var userAnswer = ""
     @State private var answerStatus = ""
     @State private var ifCorrectColor = false
     @State private var ifButtonDisabled = false
-    @State private var ifGameActive = false
+    @State private var ifCheckQuestion = false
+    @State private var ifNextQuestion = false
     @State private var score = 0
     @State private var showScore = false
     @State private var showFinalScore = false
@@ -27,12 +28,6 @@ struct ContentView: View {
     @FocusState private var gameFocused: Bool
     
     let rangeOfQuestions = [5, 10, 20]
-    
-    var answerInputFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.zeroSymbol = ""
-        return formatter
-    }
     
     var body: some View {
         NavigationStack {
@@ -75,7 +70,7 @@ struct ContentView: View {
                     }
                     
                     Section {
-                        TextField("Enter number", value: $userAnswer, formatter: answerInputFormatter)
+                        TextField("Enter number", text: $userAnswer)
                             .keyboardType(.numberPad)
                             .focused($gameFocused)
                     } header: {
@@ -116,8 +111,8 @@ struct ContentView: View {
                     GameButton(title: "Start Game", icon: "arcade.stick", color: ifButtonDisabled ? .gray : .green, ifDisabled: ifButtonDisabled) { getQuestions() }
 
                     HStack {
-                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifGameActive ? .yellow : .gray, ifDisabled: !ifGameActive) { checkAnswer() }
-                        GameButton(title: "Next Question", icon: "arrow.right", color: ifGameActive ? .blue : .gray, ifDisabled: !ifGameActive) { nextQuestion() }
+                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifCheckQuestion ? .yellow : .gray, ifDisabled: !ifCheckQuestion) { checkAnswer() }
+                        GameButton(title: "Next Question", icon: "arrow.right", color: ifNextQuestion ? .blue : .gray, ifDisabled: !ifNextQuestion) { nextQuestion() }
                     }
                     GameButton(title: "New Game", icon: "gamecontroller", color: ifButtonDisabled ? .purple : .gray, ifDisabled: !ifButtonDisabled) { newGame() }
                 }
@@ -148,22 +143,24 @@ struct ContentView: View {
             let item = Question(text: question, answer: answer)
             questions.append(item)
         }
+        loadQuestions()
+        
         withAnimation {
             showScore = true
-            ifGameActive = true
+            ifCheckQuestion = true
             ifButtonDisabled = true
+            
         }
-        loadQuestions()
     }
     
     func loadQuestions() {
         if currentQuestion.isEmpty {
-            userAnswer = 0
+            userAnswer = ""
             answerStatus = ""
             currentQuestion = questions.first?.text ?? "No question"
         } else {
             questionNumber += 1
-            userAnswer = 0
+            userAnswer = ""
             answerStatus = ""
             currentQuestion = questions[questionNumber].text
         }
@@ -172,27 +169,43 @@ struct ContentView: View {
     func nextQuestion() {
         if questionNumber + 1 < selectedNumOfQuestions {
             loadQuestions()
+            ifNextQuestion = false
+            ifCheckQuestion = true
         } else {
             withAnimation {
                 gameFocused = false
                 showFinalScore = true
                 ifButtonDisabled = true
+                ifNextQuestion = false
+                ifCheckQuestion = false
                 
                 if showFinalScore == true {
-                    ifGameActive = false
+                    ifCheckQuestion = false
                 }
             }
         }
     }
     
     func checkAnswer() {
-        if userAnswer == questions[questionNumber].answer {
+        let value = Int(userAnswer) ?? 0
+        
+        if value == questions[questionNumber].answer {
             answerStatus = "Correct!"
             ifCorrectColor = true
             score += 1
+            ifCheckQuestion = false
+            ifNextQuestion = true
         } else {
             answerStatus = "Wrong!"
             ifCorrectColor = false
+            ifCheckQuestion = false
+            ifNextQuestion = true
+        }
+        
+        if userAnswer.isEmpty {
+            answerStatus = "Please enter number!"
+            ifCheckQuestion = true
+            ifNextQuestion = false
         }
     }
     
@@ -201,7 +214,7 @@ struct ContentView: View {
         selectedNum2 = 0
         selectedNumOfQuestions = 5
         currentQuestion = ""
-        userAnswer = 0
+        userAnswer = ""
         answerStatus = ""
         score = 0
         questionNumber = 0
@@ -213,7 +226,8 @@ struct ContentView: View {
             showFinalScore = false
             ifCorrectColor = false
             ifButtonDisabled = false
-            ifGameActive = false
+            ifCheckQuestion = false
+            ifNextQuestion = false
         }
     }
 }
