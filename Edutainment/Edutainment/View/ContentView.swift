@@ -234,24 +234,3 @@ struct Settings {
     var num2: Int
     var NumOfQuestions: Int
 }
-
-struct GameButton: View {
-    var title: String
-    var icon: String
-    var color: Color
-    var ifDisabled: Bool
-    var action: () -> Void
-    
-    var body: some View {
-        Button(title, systemImage: icon) {
-            action()
-        }
-        .font(.headline.weight(.heavy))
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 10)
-        .foregroundStyle(color)
-        .background(color.opacity(0.2))
-        .clipShape(.rect(cornerRadius: 10))
-        .disabled(ifDisabled)
-    }
-}
