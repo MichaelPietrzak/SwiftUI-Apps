@@ -62,28 +62,7 @@ struct ContentView: View {
                 }
                 VStack(spacing: 15) {
                     if showFinalScore {
-                        VStack(spacing: 15) {
-                            Text("Game Over")
-                                .font(.title.weight(.black))
-                                .foregroundStyle(.red)
-                            HStack {
-                                Text("You got")
-                                Text("\(score)")
-                                    .foregroundStyle(.blue)
-                                Text("out of")
-                                Text("\(game.settings[0].NumOfQuestions)")
-                                    .foregroundStyle(.blue)
-                                Text("points.")
-                            }
-                            .font(.headline.weight(.heavy))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 20)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(.red, lineWidth: 2)
-                        }
+                        FinalScoreView(score: score, numOfQuestions: game.settings[0].NumOfQuestions)
                     }
                     GameButton(title: "Start Game", icon: "arcade.stick", color: ifButtonDisabled ? .gray : .green, ifDisabled: ifButtonDisabled) { getQuestions() }
                     HStack {
