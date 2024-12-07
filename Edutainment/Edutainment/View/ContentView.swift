@@ -223,14 +223,3 @@ class Game {
     var settings = [Settings]()
     var questions = [Question]()
 }
-
-struct Question {
-    var text: String
-    var answer: Int
-}
-
-struct Settings {
-    var num1: Int
-    var num2: Int
-    var NumOfQuestions: Int
-}
