@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State private var selectedNum1 = 0
-    @State private var selectedNum2 = 0
-    @State private var selectedNumOfQuestions = 5
     @State private var currentQuestion = ""
     @State private var userAnswer = ""
     @State private var answerStatus = ""
@@ -23,11 +19,11 @@ struct ContentView: View {
     @State private var showScore = false
     @State private var showFinalScore = false
     @State private var questionNumber = 0
-    @State private var questions = [Question]()
+    @State private var showSettings = false
+    
+    @State private var game = Game()
     
     @FocusState private var gameFocused: Bool
-    
-    let rangeOfQuestions = [5, 10, 20]
     
     var body: some View {
         NavigationStack {
@@ -36,12 +32,11 @@ struct ContentView: View {
                     HStack {
                         Spacer()
                         Text("Score:")
-                        
                         HStack {
                             Text("\(score)")
                                 .foregroundStyle(.blue)
                             Text("/")
-                            Text("\(selectedNumOfQuestions)")
+                            Text("\(game.settings[0].NumOfQuestions)")
                         }
                     }
                     .padding(.horizontal, 20)
@@ -49,26 +44,10 @@ struct ContentView: View {
                     .font(.headline.weight(.heavy))
                     .foregroundStyle(.primary)
                 }
-                
                 Form {
-                    Section("Select 2 numbers for difficulty range") {
-                        Stepper("\(selectedNum1)", value: $selectedNum1)
-                        Stepper("\(selectedNum2)", value: $selectedNum2)
-                    }
-                    
-                    Section("Select number of questions to be asked") {
-                        Picker("numbers of questions", selection: $selectedNumOfQuestions) {
-                            ForEach(rangeOfQuestions, id: \.self) {
-                                Text("\($0)")
-                            }
-                        }
-                        .pickerStyle(.segmented)
-                    }
-                    
                     Section("What is...?") {
                         Text(currentQuestion)
                     }
-                    
                     Section {
                         TextField("Enter number", text: $userAnswer)
                             .keyboardType(.numberPad)
@@ -81,20 +60,18 @@ struct ContentView: View {
                             .font(.headline.weight(.heavy))
                     }
                 }
-                
                 VStack(spacing: 15) {
                     if showFinalScore {
                         VStack(spacing: 15) {
                             Text("Game Over")
                                 .font(.title.weight(.black))
                                 .foregroundStyle(.red)
-                            
                             HStack {
                                 Text("You got")
                                 Text("\(score)")
                                     .foregroundStyle(.blue)
                                 Text("out of")
-                                Text("\(selectedNumOfQuestions)")
+                                Text("\(game.settings[0].NumOfQuestions)")
                                     .foregroundStyle(.blue)
                                 Text("points.")
                             }
@@ -109,7 +86,6 @@ struct ContentView: View {
                         }
                     }
                     GameButton(title: "Start Game", icon: "arcade.stick", color: ifButtonDisabled ? .gray : .green, ifDisabled: ifButtonDisabled) { getQuestions() }
-
                     HStack {
                         GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifCheckQuestion ? .yellow : .gray, ifDisabled: !ifCheckQuestion) { checkAnswer() }
                         GameButton(title: "Next Question", icon: "arrow.right", color: ifNextQuestion ? .blue : .gray, ifDisabled: !ifNextQuestion) { nextQuestion() }
@@ -122,26 +98,34 @@ struct ContentView: View {
             .navigationTitle("Edutainment")
             .navigationBarTitleDisplayMode(.large)
             .bold()
+            .toolbar {
+                Button("Settings", systemImage: "gear") {
+                    showSettings = true
+                }
+                .sheet(isPresented: $showSettings) {
+                    SettingsView(game: game)
+                }
+            }
         }
     }
     
     func getQuestions() {
         var rangeBounds = 0...0
         
-        if selectedNum1 > selectedNum2 {
-            rangeBounds = (selectedNum2...selectedNum1)
+        if game.settings[0].num1 > game.settings[0].num2 {
+            rangeBounds = (game.settings[0].num2...game.settings[0].num1)
         } else {
-            rangeBounds = (selectedNum1...selectedNum2)
+            rangeBounds = (game.settings[0].num1...game.settings[0].num2)
         }
         
-        for _ in 1...selectedNumOfQuestions {
+        for _ in 1...game.settings[0].NumOfQuestions {
             let rangePair = [Int.random(in: rangeBounds), Int.random(in: rangeBounds)]
             
             let question = "\(rangePair[0]) x \(rangePair[1])"
             let answer = rangePair.reduce(1, *)
             
             let item = Question(text: question, answer: answer)
-            questions.append(item)
+            game.questions.append(item)
         }
         loadQuestions()
         
@@ -149,7 +133,6 @@ struct ContentView: View {
             showScore = true
             ifCheckQuestion = true
             ifButtonDisabled = true
-            
         }
     }
     
@@ -157,17 +140,17 @@ struct ContentView: View {
         if currentQuestion.isEmpty {
             userAnswer = ""
             answerStatus = ""
-            currentQuestion = questions.first?.text ?? "No question"
+            currentQuestion = game.questions.first?.text ?? "No question"
         } else {
             questionNumber += 1
             userAnswer = ""
             answerStatus = ""
-            currentQuestion = questions[questionNumber].text
+            currentQuestion = game.questions[questionNumber].text
         }
     }
     
     func nextQuestion() {
-        if questionNumber + 1 < selectedNumOfQuestions {
+        if questionNumber + 1 < game.settings[0].NumOfQuestions {
             loadQuestions()
             ifNextQuestion = false
             ifCheckQuestion = true
@@ -189,7 +172,7 @@ struct ContentView: View {
     func checkAnswer() {
         let value = Int(userAnswer) ?? 0
         
-        if value == questions[questionNumber].answer {
+        if value == game.questions[questionNumber].answer {
             answerStatus = "Correct!"
             ifCorrectColor = true
             score += 1
@@ -210,15 +193,15 @@ struct ContentView: View {
     }
     
     func newGame() {
-        selectedNum1 = 0
-        selectedNum2 = 0
-        selectedNumOfQuestions = 5
+        game.settings[0].num1 = 0
+        game.settings[0].num2 = 0
+        game.settings[0].NumOfQuestions = 5
         currentQuestion = ""
         userAnswer = ""
         answerStatus = ""
         score = 0
         questionNumber = 0
-        questions.removeAll()
+        game.questions.removeAll()
         
         withAnimation {
             gameFocused = false
@@ -236,9 +219,20 @@ struct ContentView: View {
     ContentView()
 }
 
+class Game {
+    var settings = [Settings]()
+    var questions = [Question]()
+}
+
 struct Question {
     var text: String
     var answer: Int
+}
+
+struct Settings {
+    var num1: Int
+    var num2: Int
+    var NumOfQuestions: Int
 }
 
 struct GameButton: View {
