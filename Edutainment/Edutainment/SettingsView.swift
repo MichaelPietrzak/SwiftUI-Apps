@@ -37,6 +37,10 @@ struct SettingsView: View {
                 }
                 
                 GameButton(title: "Save", icon: "square.and.arrow.down", color: .blue, ifDisabled: false) {
+                    if !game.settings.isEmpty {
+                        game.settings.removeLast()
+                    }
+                    
                     let settings = Settings(num1: selectedNum1, num2: selectedNum2, NumOfQuestions: selectedNumOfQuestions)
                     game.settings.append(settings)
                     dismiss()
