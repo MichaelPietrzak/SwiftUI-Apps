@@ -29,20 +29,7 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 if showScore {
-                    HStack {
-                        Spacer()
-                        Text("Score:")
-                        HStack {
-                            Text("\(score)")
-                                .foregroundStyle(.blue)
-                            Text("/")
-                            Text("\(game.settings[0].NumOfQuestions)")
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-                    .font(.headline.weight(.heavy))
-                    .foregroundStyle(.primary)
+                    ScoreView(score: score, numOfQuestions: game.settings[0].NumOfQuestions)
                 }
                 Form {
                     Section("What is...?") {
