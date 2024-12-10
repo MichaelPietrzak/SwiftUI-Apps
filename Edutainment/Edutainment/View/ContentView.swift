@@ -26,7 +26,13 @@ struct ContentView: View {
     @FocusState private var gameFocused: Bool
     
     var body: some View {
-        NavigationStack {
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [
+                Color(red: 0.149, green: 0.4588, blue: 0.9882),
+                Color(red: 0.4157, green: 0.0667, blue: 0.7961)
+            ]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            .ignoresSafeArea()
+            
             VStack {
                 if showScore {
                     ScoreView(score: score, numOfQuestions: game.settings[0].NumOfQuestions)
