@@ -23,8 +23,6 @@ struct ContentView: View {
     
     @State private var game = Game()
     
-    @FocusState private var gameFocused: Bool
-    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [
@@ -33,51 +31,6 @@ struct ContentView: View {
             ]), startPoint: .topLeading, endPoint: .bottomTrailing)
             .ignoresSafeArea()
             
-            VStack {
-                if showScore {
-                    ScoreView(score: score, numOfQuestions: game.settings[0].NumOfQuestions)
-                }
-                Form {
-                    Section("What is...?") {
-                        Text(currentQuestion)
-                    }
-                    Section {
-                        TextField("Enter number", text: $userAnswer)
-                            .keyboardType(.numberPad)
-                            .focused($gameFocused)
-                    } header: {
-                        Text("Please enter the answer")
-                    } footer: {
-                        Text(answerStatus)
-                            .foregroundStyle(ifCorrectColor ? .green : .red)
-                            .font(.headline.weight(.heavy))
-                    }
-                }
-                VStack(spacing: 15) {
-                    if showFinalScore {
-                        FinalScoreView(score: score, numOfQuestions: game.settings[0].NumOfQuestions)
-                    }
-                    GameButton(title: "Start Game", icon: "arcade.stick", color: ifButtonDisabled ? .gray : .green, ifDisabled: ifButtonDisabled) { getQuestions() }
-                    HStack {
-                        GameButton(title: "Check Answer", icon: "checkmark.circle", color: ifCheckQuestion ? .yellow : .gray, ifDisabled: !ifCheckQuestion) { checkAnswer() }
-                        GameButton(title: "Next Question", icon: "arrow.right", color: ifNextQuestion ? .blue : .gray, ifDisabled: !ifNextQuestion) { nextQuestion() }
-                    }
-                    GameButton(title: "New Game", icon: "gamecontroller", color: ifButtonDisabled ? .purple : .gray, ifDisabled: !ifButtonDisabled) { newGame() }
-                }
-                .padding(.horizontal, 15)
-                .padding(.vertical, 10)
-            }
-            .navigationTitle("Edutainment")
-            .navigationBarTitleDisplayMode(.large)
-            .bold()
-            .toolbar {
-                Button("Settings", systemImage: "gear") {
-                    showSettings = true
-                }
-                .sheet(isPresented: $showSettings) {
-                    SettingsView(game: game)
-                }
-            }
         }
     }
     
@@ -128,7 +81,6 @@ struct ContentView: View {
             ifCheckQuestion = true
         } else {
             withAnimation {
-                gameFocused = false
                 showFinalScore = true
                 ifButtonDisabled = true
                 ifNextQuestion = false
@@ -176,7 +128,6 @@ struct ContentView: View {
         game.questions.removeAll()
         
         withAnimation {
-            gameFocused = false
             showScore = false
             showFinalScore = false
             ifCorrectColor = false
