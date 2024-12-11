@@ -31,6 +31,210 @@ struct ContentView: View {
             ]), startPoint: .topLeading, endPoint: .bottomTrailing)
             .ignoresSafeArea()
             
+            VStack {
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise")
+                        
+                    }
+                    .padding(.top, 50)
+                    .frame(width: 80, height: 120)
+                    .background(.red)
+                    .foregroundStyle(.black)
+                    .font(.largeTitle.weight(.heavy))
+                    .overlay(content: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 5)
+                    })
+                    .offset(y: -10)
+                    
+                    Spacer()
+                    
+                    VStack() {
+                        Text("Multiply")
+                    }
+                    .padding(.top, 50)
+                    .frame(width: 180, height: 120)
+                    .background(.gray.secondary)
+                    .foregroundStyle(.black)
+                    .font(.title.weight(.heavy))
+                    .overlay(content: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 5)
+                    })
+                    .offset(y: -10)
+                    
+                    Spacer()
+                    
+                    VStack() {
+                        HStack(spacing: 3) {
+                            Text("0")
+                                .foregroundStyle(.white)
+                            Text("/")
+                            Text("5")
+                        }
+                    }
+                    .padding(.top, 50)
+                    .frame(width: 80, height: 120)
+                    .background(.gray.secondary)
+                    .foregroundStyle(.black)
+                    .font(.title.weight(.heavy))
+                    .overlay(content: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 5)
+                    })
+                    .offset(y: -10)
+                    
+                    Spacer()
+                }
+                
+                HStack {
+                    Text("7 x 8")
+                    Text("=")
+                    Text("?")
+                }
+                .padding(.vertical, 50)
+                .foregroundStyle(.white)
+                .font(.system(size: 70).weight(.heavy))
+                
+                VStack(spacing: -5) {
+                    HStack(spacing: -10) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "1.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "2.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "3.square.fill")
+                        }
+                    }
+                    
+                    HStack(spacing: -10) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "4.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "5.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "6.square.fill")
+                        }
+                    }
+                    
+                    HStack(spacing: -10) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "7.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "8.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "9.square.fill")
+                        }
+                    }
+                    
+                    HStack(spacing: -10) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "minus.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "0.square.fill")
+                        }
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "delete.backward.fill")
+                                .font(.system(size: 75).weight(.heavy))
+                        }
+                    }
+                }
+                .foregroundStyle(.yellow)
+                .font(.system(size: 80).weight(.heavy))
+                
+                Spacer()
+                
+                HStack(spacing: 10) {
+                    VStack {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "arrowtriangle.forward.fill")
+                        }
+                    }
+                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                    .foregroundStyle(.black)
+                    .font(.system(size: 70).weight(.heavy))
+                    .background(.green)
+                    .overlay(content: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 5)
+                    })
+                    
+                    VStack {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "checkmark.circle.badge.questionmark.fill")
+                        }
+                    }
+                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                    .foregroundStyle(.black)
+                    .font(.system(size: 70).weight(.heavy))
+                    .background(.yellow)
+                    .overlay(content: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 5)
+                    })
+                    
+                    VStack {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "arrowshape.forward.fill")
+                        }
+                    }
+                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                    .foregroundStyle(.black)
+                    .font(.system(size: 70).weight(.heavy))
+                    .background(.blue)
+                    .overlay(content: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 5)
+                    })
+                }
+                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                .padding(.top, 20)
+                .offset(y: 5)
+            }
+            .statusBarHidden()
+            .ignoresSafeArea()
         }
     }
     
