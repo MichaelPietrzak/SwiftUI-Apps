@@ -33,63 +33,51 @@ struct ContentView: View {
             
             VStack {
                 
-                HStack {
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "arrow.counterclockwise")
-                        
+                HStack(spacing: 10) {
+                    VStack {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "arrow.counterclockwise")
+                        }
                     }
-                    .padding(.top, 50)
-                    .frame(width: 80, height: 120)
-                    .background(.red)
+                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
-                    .font(.largeTitle.weight(.heavy))
+                    .font(.system(size: 70).weight(.heavy))
+                    .background(.red)
                     .overlay(content: {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 5)
                     })
                     .offset(y: -10)
                     
-                    Spacer()
-                    
-                    VStack() {
+                    VStack {
                         Text("Multiply")
+                            .padding(.top, 50)
                     }
-                    .padding(.top, 50)
-                    .frame(width: 180, height: 120)
-                    .background(.gray.secondary)
+                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
                     .font(.title.weight(.heavy))
-                    .overlay(content: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 5)
-                    })
                     .offset(y: -10)
                     
-                    Spacer()
-                    
-                    VStack() {
+                    VStack {
                         HStack(spacing: 3) {
                             Text("0")
                                 .foregroundStyle(.white)
                             Text("/")
-                            Text("5")
+                            Text("20")
                         }
+                        .padding(.top, 50)
                     }
-                    .padding(.top, 50)
-                    .frame(width: 80, height: 120)
-                    .background(.gray.secondary)
+                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
-                    .font(.title.weight(.heavy))
+                    .font(.largeTitle.weight(.heavy))
+                    .background(.gray.secondary)
                     .overlay(content: {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 5)
                     })
                     .offset(y: -10)
-                    
-                    Spacer()
                 }
                 
                 HStack {
