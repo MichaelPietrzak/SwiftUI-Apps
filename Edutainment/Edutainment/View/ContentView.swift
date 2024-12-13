@@ -174,7 +174,15 @@ struct ContentView: View {
                         .font(.system(size: 65).weight(.heavy))
                     }
                     
+                    
                     ZStack(alignment: .bottom) {
+                        
+                        VStack {
+                            Image(systemName: "medal.star")
+                                .foregroundStyle(.yellow)
+                                .font(.system(size: 40).weight(.heavy))
+                                .padding(.bottom, 10)
+                            
                             Rectangle()
                                 .frame(width: 50, height: 200)
                                 .opacity(0.3)
@@ -185,6 +193,7 @@ struct ContentView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(lineWidth: 5)
                                 })
+                        }
                             
                             Rectangle()
                                 .frame(width: 45, height: (200 / 10) + 100)
