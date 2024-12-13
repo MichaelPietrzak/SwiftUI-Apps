@@ -23,6 +23,8 @@ struct ContentView: View {
     
     @State private var game = Game()
     
+    var keyboard = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["minus", "0", "arrow.uturn.left"]]
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [
@@ -94,86 +96,22 @@ struct ContentView: View {
                 .font(.system(size: 70).weight(.heavy))
                 
                 HStack(spacing: 50) {
-                    VStack {
-                        
-                        VStack(spacing: -5) {
-                            HStack(spacing: -10) {
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "1.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "2.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "3.square.fill")
-                                }
-                            }
-                            
-                            HStack(spacing: -10) {
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "4.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "5.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "6.square.fill")
-                                }
-                            }
-                            
-                            HStack(spacing: -10) {
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "7.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "8.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "9.square.fill")
-                                }
-                            }
-                            
-                            HStack(spacing: -10) {
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "minus.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "0.square.fill")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Image(systemName: "delete.backward.fill")
-                                        .font(.system(size: 60).weight(.heavy))
-                                }
-                            }
-                        }
-                        .foregroundStyle(.yellow)
-                        .font(.system(size: 65).weight(.heavy))
-                    }
                     
+                    VStack(spacing: -5) {
+                        ForEach(keyboard, id: \.self) { row in
+                            HStack(spacing: -5) {
+                                ForEach(row, id: \.self) { column in
+                                    Button {
+                                        print("button tapped: \(column)")
+                                    } label: {
+                                        Image(systemName: "\(column).square.fill")
+                                    }
+                                }
+                            }
+                            .foregroundStyle(.yellow)
+                            .font(.system(size: 65).weight(.heavy))
+                        }
+                    }
                     
                     ZStack(alignment: .bottom) {
                         
@@ -194,16 +132,15 @@ struct ContentView: View {
                                         .stroke(lineWidth: 5)
                                 })
                         }
-                            
-                            Rectangle()
-                                .frame(width: 45, height: (200 / 10) + 100)
-                                .foregroundColor(.clear)
-                                .background(LinearGradient(gradient: Gradient(colors: [
-                                    Color(red: 1.0, green: 0.4588, blue: 0.549),
-                                    Color(red: 1.0, green: 0.4941, blue: 0.702),
-                                    Color(red: 1.0, green: 0.4588, blue: 0.549)
-                                    ]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                                .clipShape(.rect(cornerRadius: 10))
+                        Rectangle()
+                            .frame(width: 45, height: (200 / 10) + 100)
+                            .foregroundColor(.clear)
+                            .background(LinearGradient(gradient: Gradient(colors: [
+                                Color(red: 1.0, green: 0.4588, blue: 0.549),
+                                Color(red: 1.0, green: 0.4941, blue: 0.702),
+                                Color(red: 1.0, green: 0.4588, blue: 0.549)
+                            ]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .clipShape(.rect(cornerRadius: 10))
                     }
                 }
                 
