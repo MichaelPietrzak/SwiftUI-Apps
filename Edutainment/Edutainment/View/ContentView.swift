@@ -36,14 +36,14 @@ struct ContentView: View {
                 HStack(spacing: 10) {
                     VStack {
                         Button {
-                            
+                            newGame()
                         } label: {
                             Image(systemName: "arrow.counterclockwise")
                         }
                     }
                     .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
-                    .font(.system(size: 70).weight(.heavy))
+                    .font(.system(size: 50).weight(.heavy))
                     .background(.red)
                     .overlay(content: {
                         RoundedRectangle(cornerRadius: 10)
@@ -61,124 +61,154 @@ struct ContentView: View {
                     .offset(y: -10)
                     
                     VStack {
-                        HStack(spacing: 3) {
-                            Text("0")
-                                .foregroundStyle(.white)
-                            Text("/")
-                            Text("20")
+                        Button {
+                            showSettings = true
+                        } label: {
+                            Image(systemName: "gear")
                         }
-                        .padding(.top, 50)
                     }
                     .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
-                    .font(.largeTitle.weight(.heavy))
-                    .background(.gray.secondary)
+                    .font(.system(size: 50).weight(.heavy))
+                    .background(.purple)
                     .overlay(content: {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 5)
                     })
                     .offset(y: -10)
+                    .sheet(isPresented: $showSettings) {
+                        SettingsView(game: game)
+                    }
                 }
+                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                .padding(.bottom, 50)
+                .offset(y: -5)
                 
                 HStack {
-                    Text("7 x 8")
+                    Text(currentQuestion)
                     Text("=")
                     Text("?")
                 }
-                .padding(.vertical, 50)
+                .padding(.bottom, 50)
                 .foregroundStyle(.white)
                 .font(.system(size: 70).weight(.heavy))
                 
-                VStack(spacing: -5) {
-                    HStack(spacing: -10) {
-                        Button {
+                HStack(spacing: 50) {
+                    VStack {
+                        
+                        VStack(spacing: -5) {
+                            HStack(spacing: -10) {
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "1.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "2.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "3.square.fill")
+                                }
+                            }
                             
-                        } label: {
-                            Image(systemName: "1.square.fill")
-                        }
-                        Button {
+                            HStack(spacing: -10) {
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "4.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "5.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "6.square.fill")
+                                }
+                            }
                             
-                        } label: {
-                            Image(systemName: "2.square.fill")
-                        }
-                        Button {
+                            HStack(spacing: -10) {
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "7.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "8.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "9.square.fill")
+                                }
+                            }
                             
-                        } label: {
-                            Image(systemName: "3.square.fill")
+                            HStack(spacing: -10) {
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "minus.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "0.square.fill")
+                                }
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "delete.backward.fill")
+                                        .font(.system(size: 60).weight(.heavy))
+                                }
+                            }
                         }
+                        .foregroundStyle(.yellow)
+                        .font(.system(size: 65).weight(.heavy))
                     }
                     
-                    HStack(spacing: -10) {
-                        Button {
+                    ZStack(alignment: .bottom) {
+                            Rectangle()
+                                .frame(width: 50, height: 200)
+                                .opacity(0.3)
+                                .foregroundColor(.clear)
+                                .background(.gray.secondary)
+                                .clipShape(.rect(cornerRadius: 10))
+                                .overlay(content: {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(lineWidth: 5)
+                                })
                             
-                        } label: {
-                            Image(systemName: "4.square.fill")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "5.square.fill")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "6.square.fill")
-                        }
-                    }
-                    
-                    HStack(spacing: -10) {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "7.square.fill")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "8.square.fill")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "9.square.fill")
-                        }
-                    }
-                    
-                    HStack(spacing: -10) {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "minus.square.fill")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "0.square.fill")
-                        }
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "delete.backward.fill")
-                                .font(.system(size: 75).weight(.heavy))
-                        }
+                            Rectangle()
+                                .frame(width: 45, height: (200 / 10) + 100)
+                                .foregroundColor(.clear)
+                                .background(LinearGradient(gradient: Gradient(colors: [
+                                    Color(red: 1.0, green: 0.4588, blue: 0.549),
+                                    Color(red: 1.0, green: 0.4941, blue: 0.702),
+                                    Color(red: 1.0, green: 0.4588, blue: 0.549)
+                                    ]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .clipShape(.rect(cornerRadius: 10))
                     }
                 }
-                .foregroundStyle(.yellow)
-                .font(.system(size: 80).weight(.heavy))
-                
-                Spacer()
                 
                 HStack(spacing: 10) {
                     VStack {
                         Button {
-                            
+                            getQuestions()
                         } label: {
                             Image(systemName: "arrowtriangle.forward.fill")
                         }
                     }
                     .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
-                    .font(.system(size: 70).weight(.heavy))
+                    .font(.system(size: 50).weight(.heavy))
                     .background(.green)
                     .overlay(content: {
                         RoundedRectangle(cornerRadius: 10)
@@ -187,14 +217,14 @@ struct ContentView: View {
                     
                     VStack {
                         Button {
-                            
+                            checkAnswer()
                         } label: {
                             Image(systemName: "checkmark.circle.badge.questionmark.fill")
                         }
                     }
                     .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
-                    .font(.system(size: 70).weight(.heavy))
+                    .font(.system(size: 50).weight(.heavy))
                     .background(.yellow)
                     .overlay(content: {
                         RoundedRectangle(cornerRadius: 10)
@@ -203,14 +233,14 @@ struct ContentView: View {
                     
                     VStack {
                         Button {
-                            
+                            nextQuestion()
                         } label: {
                             Image(systemName: "arrowshape.forward.fill")
                         }
                     }
                     .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
                     .foregroundStyle(.black)
-                    .font(.system(size: 70).weight(.heavy))
+                    .font(.system(size: 50).weight(.heavy))
                     .background(.blue)
                     .overlay(content: {
                         RoundedRectangle(cornerRadius: 10)
@@ -218,7 +248,7 @@ struct ContentView: View {
                     })
                 }
                 .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                .padding(.top, 20)
+                .padding(.top, 50)
                 .offset(y: 5)
             }
             .statusBarHidden()
@@ -257,7 +287,7 @@ struct ContentView: View {
         if currentQuestion.isEmpty {
             userAnswer = ""
             answerStatus = ""
-            currentQuestion = game.questions.first?.text ?? "No question"
+            currentQuestion = game.questions.first?.text ?? "0 x 0"
         } else {
             questionNumber += 1
             userAnswer = ""
