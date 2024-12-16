@@ -25,6 +25,8 @@ struct ContentView: View {
     
     var keyboard = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["minus", "0", "arrow.uturn.left"]]
     
+    @State var keysPressed = [String]()
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [
@@ -89,11 +91,17 @@ struct ContentView: View {
                 HStack {
                     Text(currentQuestion)
                     Text("=")
-                    Text("?")
+                    Text(userAnswer)
                 }
                 .padding(.bottom, 50)
                 .foregroundStyle(.white)
                 .font(.system(size: 70).weight(.heavy))
+                
+                VStack {
+                    Text(answerStatus)
+                        .foregroundStyle(ifCorrectColor ? .green : .red)
+                        .font(.headline.weight(.heavy))
+                }
                 
                 HStack(spacing: 50) {
                     
@@ -102,9 +110,9 @@ struct ContentView: View {
                             HStack(spacing: -5) {
                                 ForEach(row, id: \.self) { column in
                                     Button {
-                                        print("button tapped: \(column)")
+                                        getkey(column)
                                     } label: {
-                                        Image(systemName: "\(column).square.fill")
+                                        Image(systemName: column == "minus" ? "plus.forwardslash.minus" : "\(column).square.fill")
                                     }
                                 }
                             }
@@ -247,18 +255,54 @@ struct ContentView: View {
             loadQuestions()
             ifNextQuestion = false
             ifCheckQuestion = true
+            keysPressed.removeAll()
         } else {
             withAnimation {
                 showFinalScore = true
                 ifButtonDisabled = true
                 ifNextQuestion = false
                 ifCheckQuestion = false
+                keysPressed.removeAll()
                 
                 if showFinalScore == true {
                     ifCheckQuestion = false
                 }
             }
         }
+    }
+    
+    func getkey(_ key: String) {
+        keysPressed.append(key)
+        
+        _ = keysPressed.map { key in
+            if key == "arrow.uturn.left" {
+                keysPressed.removeAll { $0 == "arrow.uturn.left" }
+                
+                if keysPressed.count < 1 {
+                    keysPressed.insert("0", at: 0)
+                } else {
+                    keysPressed.removeLast()
+                }
+                
+            } else if key == "minus" {
+                keysPressed.removeAll { $0 == "minus" }
+                keysPressed.insert("-", at: 0)
+            }
+        }
+        if keysPressed.first == "0" {
+            keysPressed.removeAll { $0 == "0" }
+        }
+        
+        if keysPressed.isEmpty {
+            keysPressed.append("0")
+        }
+        
+        let negativeValue = keysPressed.filter({ $0 == "-" }).count > 1
+        
+        if negativeValue == true {
+            keysPressed.removeAll { $0 == "-" }
+        }
+        userAnswer = keysPressed.joined()
     }
     
     func checkAnswer() {
@@ -294,6 +338,7 @@ struct ContentView: View {
         score = 0
         questionNumber = 0
         game.questions.removeAll()
+        keysPressed.removeAll()
         
         withAnimation {
             showScore = false
