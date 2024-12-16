@@ -23,7 +23,7 @@ struct ContentView: View {
     
     @State private var game = Game()
     
-    var keyboard = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["minus", "0", "arrow.uturn.left"]]
+    var keyboard = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["minus", "0", "arrow.backward"]]
     
     @State var keysPressed = [String]()
     
@@ -112,7 +112,7 @@ struct ContentView: View {
                                     Button {
                                         getkey(column)
                                     } label: {
-                                        Image(systemName: column == "minus" ? "plus.forwardslash.minus" : "\(column).square.fill")
+                                        Image(systemName: keyIcon(column))
                                     }
                                 }
                             }
@@ -304,6 +304,17 @@ struct ContentView: View {
         }
         userAnswer = keysPressed.joined()
     }
+    
+    func keyIcon(_ key: String) -> String {
+            switch key {
+            case "minus":
+                "plus.forwardslash.minus"
+            case "arrow.backward":
+                "arrow.backward.square.fill"
+            default:
+                "\(key).square.fill"
+            }
+        }
     
     func checkAnswer() {
         let value = Int(userAnswer) ?? 0
