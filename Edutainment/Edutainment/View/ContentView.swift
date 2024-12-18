@@ -23,9 +23,9 @@ struct ContentView: View {
     
     @State private var game = Game()
     
-    var keyboard = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["minus", "0", "arrow.backward"]]
-    
-    @State var keysPressed = [String]()
+    var keyboardValue: String {
+        game.keyboard.map({ $0.key }).joined()
+    }
     
     var body: some View {
         ZStack {
@@ -91,7 +91,7 @@ struct ContentView: View {
                 HStack {
                     Text(currentQuestion)
                     Text("=")
-                    Text(userAnswer)
+                    Text(keyboardValue)
                 }
                 .padding(.bottom, 50)
                 .foregroundStyle(.white)
@@ -105,21 +105,7 @@ struct ContentView: View {
                 
                 HStack(spacing: 50) {
                     
-                    VStack(spacing: -5) {
-                        ForEach(keyboard, id: \.self) { row in
-                            HStack(spacing: -5) {
-                                ForEach(row, id: \.self) { column in
-                                    Button {
-                                        getkey(column)
-                                    } label: {
-                                        Image(systemName: keyIcon(column))
-                                    }
-                                }
-                            }
-                            .foregroundStyle(.yellow)
-                            .font(.system(size: 65).weight(.heavy))
-                        }
-                    }
+                    KeyboardView(game: game)
                     
                     ZStack(alignment: .bottom) {
                         
@@ -255,14 +241,14 @@ struct ContentView: View {
             loadQuestions()
             ifNextQuestion = false
             ifCheckQuestion = true
-            keysPressed.removeAll()
+            game.keyboard.removeAll()
         } else {
             withAnimation {
                 showFinalScore = true
                 ifButtonDisabled = true
                 ifNextQuestion = false
                 ifCheckQuestion = false
-                keysPressed.removeAll()
+                game.keyboard.removeAll()
                 
                 if showFinalScore == true {
                     ifCheckQuestion = false
@@ -271,52 +257,8 @@ struct ContentView: View {
         }
     }
     
-    func getkey(_ key: String) {
-        keysPressed.append(key)
-        
-        _ = keysPressed.map { key in
-            if key == "arrow.uturn.left" {
-                keysPressed.removeAll { $0 == "arrow.uturn.left" }
-                
-                if keysPressed.count < 1 {
-                    keysPressed.insert("0", at: 0)
-                } else {
-                    keysPressed.removeLast()
-                }
-                
-            } else if key == "minus" {
-                keysPressed.removeAll { $0 == "minus" }
-                keysPressed.insert("-", at: 0)
-            }
-        }
-        if keysPressed.first == "0" {
-            keysPressed.removeAll { $0 == "0" }
-        }
-        
-        if keysPressed.isEmpty {
-            keysPressed.append("0")
-        }
-        
-        let negativeValue = keysPressed.filter({ $0 == "-" }).count > 1
-        
-        if negativeValue == true {
-            keysPressed.removeAll { $0 == "-" }
-        }
-        userAnswer = keysPressed.joined()
-    }
-    
-    func keyIcon(_ key: String) -> String {
-            switch key {
-            case "minus":
-                "plus.forwardslash.minus"
-            case "arrow.backward":
-                "arrow.backward.square.fill"
-            default:
-                "\(key).square.fill"
-            }
-        }
-    
     func checkAnswer() {
+        userAnswer = keyboardValue
         let value = Int(userAnswer) ?? 0
         
         if value == game.questions[questionNumber].answer {
@@ -349,7 +291,7 @@ struct ContentView: View {
         score = 0
         questionNumber = 0
         game.questions.removeAll()
-        keysPressed.removeAll()
+        game.keyboard.removeAll()
         
         withAnimation {
             showScore = false
@@ -366,7 +308,9 @@ struct ContentView: View {
     ContentView()
 }
 
+@Observable
 class Game {
     var settings = [Settings]()
     var questions = [Question]()
+    var keyboard = [Keyboard]()
 }
