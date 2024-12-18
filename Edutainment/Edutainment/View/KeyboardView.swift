@@ -9,9 +9,6 @@ import SwiftUI
 
 struct KeyboardView: View {
     var keys = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["minus", "0", "arrow.backward"]]
-    
-    @State private var keysPressed = ""
-    
     var game: Game
     
     var body: some View {
