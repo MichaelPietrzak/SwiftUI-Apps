@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var ifCheckQuestion = false
     @State private var ifNextQuestion = false
     @State private var score = 0
+    @State private var scoreProgress = 0
     @State private var showScore = false
     @State private var showFinalScore = false
     @State private var questionNumber = 0
@@ -97,12 +98,6 @@ struct ContentView: View {
                 .foregroundStyle(.white)
                 .font(.system(size: 70).weight(.heavy))
                 
-                VStack {
-                    Text(answerStatus)
-                        .foregroundStyle(ifCorrectColor ? .green : .red)
-                        .font(.headline.weight(.heavy))
-                }
-                
                 HStack(spacing: 50) {
                     
                     KeyboardView(game: game)
@@ -127,7 +122,7 @@ struct ContentView: View {
                                 })
                         }
                         Rectangle()
-                            .frame(width: 45, height: (200 / 10) + 100)
+                            .frame(width: 45, height: CGFloat(scoreProgress))
                             .foregroundColor(.clear)
                             .background(LinearGradient(gradient: Gradient(colors: [
                                 Color(red: 1.0, green: 0.4588, blue: 0.549),
@@ -267,6 +262,11 @@ struct ContentView: View {
             score += 1
             ifCheckQuestion = false
             ifNextQuestion = true
+            
+            withAnimation(.spring) {
+                scoreProgress = (200 / game.settings[0].NumOfQuestions) * score
+            }
+            
         } else {
             answerStatus = "Wrong!"
             ifCorrectColor = false
@@ -289,6 +289,7 @@ struct ContentView: View {
         userAnswer = ""
         answerStatus = ""
         score = 0
+        scoreProgress = 0
         questionNumber = 0
         game.questions.removeAll()
         game.keyboard.removeAll()
