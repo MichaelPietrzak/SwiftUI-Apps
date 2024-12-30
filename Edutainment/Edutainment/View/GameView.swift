@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  GameView.swift
 //  Edutainment
 //
 //  Created by Michal Pietrzak on 29/10/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct GameView: View {
     @State private var currentQuestion = ""
     @State private var userAnswer = ""
     @State private var answerStatus = ""
@@ -306,7 +306,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    GameView()
 }
 
 @Observable
