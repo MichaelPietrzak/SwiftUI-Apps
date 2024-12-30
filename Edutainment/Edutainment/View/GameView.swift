@@ -22,172 +22,173 @@ struct GameView: View {
     @State private var questionNumber = 0
     @State private var showSettings = false
     
-    @State private var game = Game()
+    var game: Game
     
     var keyboardValue: String {
         game.keyboard.map({ $0.key }).joined()
     }
     
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(colors: [
-                Color(red: 0.149, green: 0.4588, blue: 0.9882),
-                Color(red: 0.4157, green: 0.0667, blue: 0.7961)
-            ]), startPoint: .topLeading, endPoint: .bottomTrailing)
-            .ignoresSafeArea()
-            
-            VStack {
+        NavigationStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [
+                    Color(red: 0.149, green: 0.4588, blue: 0.9882),
+                    Color(red: 0.4157, green: 0.0667, blue: 0.7961)
+                ]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .ignoresSafeArea()
                 
-                HStack(spacing: 10) {
-                    VStack {
-                        Button {
-                            newGame()
-                        } label: {
-                            Image(systemName: "arrow.counterclockwise")
+                VStack {
+                    
+                    HStack(spacing: 10) {
+                        VStack {
+                            Button {
+                                newGame()
+                            } label: {
+                                Image(systemName: "arrow.counterclockwise")
+                            }
                         }
-                    }
-                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                    .foregroundStyle(.black)
-                    .font(.system(size: 50).weight(.heavy))
-                    .background(.red)
-                    .overlay(content: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 5)
-                    })
-                    .offset(y: -10)
-                    
-                    VStack {
-                        Text("Multiply")
-                            .padding(.top, 50)
-                    }
-                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                    .foregroundStyle(.black)
-                    .font(.title.weight(.heavy))
-                    .offset(y: -10)
-                    
-                    VStack {
-                        Button {
-                            showSettings = true
-                        } label: {
-                            Image(systemName: "gear")
-                        }
-                    }
-                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                    .foregroundStyle(.black)
-                    .font(.system(size: 50).weight(.heavy))
-                    .background(.purple)
-                    .overlay(content: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 5)
-                    })
-                    .offset(y: -10)
-                    .sheet(isPresented: $showSettings) {
-                        SettingsView(game: game)
-                    }
-                }
-                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                .padding(.bottom, 50)
-                .offset(y: -5)
-                
-                HStack {
-                    Text(currentQuestion)
-                    Text("=")
-                    Text(keyboardValue)
-                }
-                .padding(.bottom, 50)
-                .foregroundStyle(.white)
-                .font(.system(size: 70).weight(.heavy))
-                
-                HStack(spacing: 50) {
-                    
-                    KeyboardView(game: game)
-                    
-                    ZStack(alignment: .bottom) {
+                        .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        .foregroundStyle(.black)
+                        .font(.system(size: 50).weight(.heavy))
+                        .background(.red)
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(lineWidth: 5)
+                        })
+                        .offset(y: -10)
                         
                         VStack {
-                            Image(systemName: "medal.star")
-                                .foregroundStyle(.yellow)
-                                .font(.system(size: 40).weight(.heavy))
-                                .padding(.bottom, 10)
+                            Text("Multiply")
+                                .padding(.top, 50)
+                        }
+                        .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        .foregroundStyle(.black)
+                        .font(.title.weight(.heavy))
+                        .offset(y: -10)
+                        
+                        VStack {
+                            Button {
+                                showSettings = true
+                            } label: {
+                                Image(systemName: "gear")
+                            }
+                        }
+                        .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        .foregroundStyle(.black)
+                        .font(.system(size: 50).weight(.heavy))
+                        .background(.purple)
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(lineWidth: 5)
+                        })
+                        .offset(y: -10)
+                        .sheet(isPresented: $showSettings) {
+                            SettingsView(game: game)
+                        }
+                    }
+                    .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                    .padding(.bottom, 50)
+                    .offset(y: -5)
+                    
+                    HStack {
+                        Text(currentQuestion)
+                        Text("=")
+                        Text(keyboardValue)
+                    }
+                    .padding(.bottom, 50)
+                    .foregroundStyle(.white)
+                    .font(.system(size: 70).weight(.heavy))
+                    
+                    HStack(spacing: 50) {
+                        
+                        KeyboardView(game: game)
+                        
+                        ZStack(alignment: .bottom) {
                             
+                            VStack {
+                                Image(systemName: "medal.star")
+                                    .foregroundStyle(.yellow)
+                                    .font(.system(size: 40).weight(.heavy))
+                                    .padding(.bottom, 10)
+                                
+                                Rectangle()
+                                    .frame(width: 50, height: 200)
+                                    .opacity(0.3)
+                                    .foregroundColor(.clear)
+                                    .background(.gray.secondary)
+                                    .clipShape(.rect(cornerRadius: 10))
+                                    .overlay(content: {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(lineWidth: 5)
+                                    })
+                            }
                             Rectangle()
-                                .frame(width: 50, height: 200)
-                                .opacity(0.3)
+                                .frame(width: 45, height: CGFloat(scoreProgress))
                                 .foregroundColor(.clear)
-                                .background(.gray.secondary)
+                                .background(LinearGradient(gradient: Gradient(colors: [
+                                    Color(red: 1.0, green: 0.4588, blue: 0.549),
+                                    Color(red: 1.0, green: 0.4941, blue: 0.702),
+                                    Color(red: 1.0, green: 0.4588, blue: 0.549)
+                                ]), startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .clipShape(.rect(cornerRadius: 10))
-                                .overlay(content: {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(lineWidth: 5)
-                                })
-                        }
-                        Rectangle()
-                            .frame(width: 45, height: CGFloat(scoreProgress))
-                            .foregroundColor(.clear)
-                            .background(LinearGradient(gradient: Gradient(colors: [
-                                Color(red: 1.0, green: 0.4588, blue: 0.549),
-                                Color(red: 1.0, green: 0.4941, blue: 0.702),
-                                Color(red: 1.0, green: 0.4588, blue: 0.549)
-                            ]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .clipShape(.rect(cornerRadius: 10))
-                    }
-                }
-                
-                HStack(spacing: 10) {
-                    VStack {
-                        Button {
-                            getQuestions()
-                        } label: {
-                            Image(systemName: "arrowtriangle.forward.fill")
                         }
                     }
-                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                    .foregroundStyle(.black)
-                    .font(.system(size: 50).weight(.heavy))
-                    .background(.green)
-                    .overlay(content: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 5)
-                    })
                     
-                    VStack {
-                        Button {
-                            checkAnswer()
-                        } label: {
-                            Image(systemName: "checkmark.circle.badge.questionmark.fill")
+                    HStack(spacing: 10) {
+                        VStack {
                         }
-                    }
-                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                    .foregroundStyle(.black)
-                    .font(.system(size: 50).weight(.heavy))
-                    .background(.yellow)
-                    .overlay(content: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 5)
-                    })
-                    
-                    VStack {
-                        Button {
-                            nextQuestion()
-                        } label: {
-                            Image(systemName: "arrowshape.forward.fill")
+                        .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        .foregroundStyle(.black)
+                        .font(.system(size: 50).weight(.heavy))
+                        .background(.green)
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(lineWidth: 5)
+                        })
+                        
+                        VStack {
+                            Button {
+                                checkAnswer()
+                            } label: {
+                                Image(systemName: "checkmark.circle.badge.questionmark.fill")
+                            }
                         }
+                        .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        .foregroundStyle(.black)
+                        .font(.system(size: 50).weight(.heavy))
+                        .background(.yellow)
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(lineWidth: 5)
+                        })
+                        
+                        VStack {
+                            Button {
+                                nextQuestion()
+                            } label: {
+                                Image(systemName: "arrowshape.forward.fill")
+                            }
+                        }
+                        .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        .foregroundStyle(.black)
+                        .font(.system(size: 50).weight(.heavy))
+                        .background(.blue)
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(lineWidth: 5)
+                        })
                     }
-                    .frame(minWidth: 135, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                    .foregroundStyle(.black)
-                    .font(.system(size: 50).weight(.heavy))
-                    .background(.blue)
-                    .overlay(content: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 5)
-                    })
+                    .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                    .padding(.top, 50)
+                    .offset(y: 5)
                 }
-                .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                .padding(.top, 50)
-                .offset(y: 5)
+                .statusBarHidden()
+                .ignoresSafeArea()
             }
-            .statusBarHidden()
-            .ignoresSafeArea()
+            .onAppear(perform: {
+                game.settings.isEmpty ? print("Empty settings") : getQuestions()
+            })
+            .navigationBarBackButtonHidden(true)
         }
     }
     
@@ -306,12 +307,5 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView()
-}
-
-@Observable
-class Game {
-    var settings = [Settings]()
-    var questions = [Question]()
-    var keyboard = [Keyboard]()
+    GameView(game: Game())
 }
