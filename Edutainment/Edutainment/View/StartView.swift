@@ -16,7 +16,7 @@ struct StartView: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 Text("Let's do some math, improve your skills")
-                    .font(.subheadline.weight(.semibold))
+                    .font((.system(.subheadline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.secondary)
                     .padding(.bottom, 40)
                 
@@ -30,14 +30,14 @@ struct StartView: View {
                         VStack {
                             Text("Multiplication")
                                 .foregroundStyle(.black)
-                                .font(.title.weight(.heavy))
+                                .font((.system(.title, design: .rounded, weight: .heavy)))
                                 .padding(.top, 30)
                             
                             NavigationLink {
                                 GameView(game: game)
                             } label: {
                                 Text("Play")
-                                    .font(.subheadline.weight(.semibold))
+                                    .font((.system(.subheadline, design: .rounded, weight: .semibold)))
                                     .foregroundStyle(.yellow)
                             }
                             .frame(maxWidth: 100, maxHeight: 40)
@@ -56,8 +56,9 @@ struct StartView: View {
             .padding(.top, -15)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .navigationTitle("Math Games")
+            .navigationTitle("Hi, Michal!")
             .navigationBarTitleDisplayMode(.large)
+            .navigationAppearance()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack {
@@ -66,7 +67,7 @@ struct StartView: View {
                             .font(.headline)
                         Text("38")
                             .foregroundStyle(.custom)
-                            .font(.headline.weight(.heavy))
+                            .font((.system(.subheadline, design: .rounded, weight: .semibold)))
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -74,18 +75,21 @@ struct StartView: View {
                         
                     } label: {
                         Image(systemName: "list.star")
-                            .font(.headline.weight(.heavy))
+                            .font(.title2.weight(.heavy))
                             .symbolRenderingMode(.palette)
-                            .foregroundStyle(.yellow, .custom)
+                            .foregroundStyle(.primary, .primary.opacity(0.2))
+                            .imageScale(.large)
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showSettings = true
                     } label: {
-                        Image(systemName: "gearshape.fill")
-                            .font(.headline.weight(.heavy))
-                            .foregroundStyle(.custom)
+                        Image(systemName: "gearshape.circle.fill")
+                            .font(.title2.weight(.heavy))
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.primary, .primary.opacity(0.2))
+                            .imageScale(.large)
                     }
                 }
             }
@@ -105,4 +109,30 @@ class Game {
     var settings = [Settings]()
     var questions = [Question]()
     var keyboard = [Keyboard]()
+}
+
+struct NavAppearanceModifier: ViewModifier {
+    init() {
+        var navigationTitle = UIFont.preferredFont(forTextStyle: .largeTitle)
+        navigationTitle = UIFont(
+            descriptor:
+                navigationTitle.fontDescriptor
+                .withDesign(.rounded)?
+                .withSymbolicTraits(.traitBold)
+            ??
+            navigationTitle.fontDescriptor,
+            size: navigationTitle.pointSize
+        )
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: navigationTitle]
+    }
+    
+    func body(content: Content) -> some View {
+        content
+    }
+}
+
+extension View {
+    func navigationAppearance() -> some View {
+        modifier(NavAppearanceModifier())
+    }
 }
