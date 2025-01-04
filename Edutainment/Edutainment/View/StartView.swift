@@ -10,108 +10,87 @@ import SwiftUI
 
 struct StartView: View {
     @State private var showSettings = false
-    
     @State private var game = Game()
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color(red: 1.0, green: 0.8196, blue: 0.5804)
-                    .ignoresSafeArea()
+            VStack(alignment: .leading) {
+                Text("Let's do some math, improve your skills")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .padding(.bottom, 40)
                 
-                VStack {
-                    HStack {
+                VStack(spacing: 30) {
+                    ZStack {
+                        Image(systemName: "multiply")
+                            .font(.system(size: 270).weight(.heavy))
+                            .foregroundStyle(.primary)
+                            .layoutPriority(-1)
                         
                         VStack {
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "list.star")
-                            }
-                        }
-                        .frame(width: 80, height: 80)
-                        .foregroundStyle(.black)
-                        .font(.largeTitle.weight(.heavy))
-                        .overlay(content: {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(lineWidth: 5)
-                        })
-                        
-                        Spacer()
-                        
-                        VStack {
-                            Button {
-                                showSettings = true
-                            } label: {
-                                Image(systemName: "gearshape")
-                            }
-                        }
-                        .frame(width: 80, height: 80)
-                        .foregroundStyle(.black)
-                        .font(.largeTitle.weight(.heavy))
-                        .overlay(content: {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(lineWidth: 5)
-                        })
-                        .sheet(isPresented: $showSettings) {
-                            SettingsView(game: game)
-                        }
-                    }
-                    .padding()
-                    
-                    Spacer()
-                    
-                    VStack(spacing: 15) {
-                        Text("Edutainment")
-                            .foregroundStyle(.black)
-                            .font(.largeTitle.weight(.heavy))
-                        Text("Let's do some math!")
-                            .foregroundStyle(Color(red: 0.2, green: 0.0314, blue: 0.4039))
-                            .font(.title.weight(.bold))
-                    }
-                    
-                    Spacer()
-                    
-                    VStack(spacing: 20) {
-                        Text("Press below to play")
-                            .foregroundStyle(.black)
-                            .font(.caption.weight(.bold))
-                        
-                        VStack {
+                            Text("Multiplication")
+                                .foregroundStyle(.black)
+                                .font(.title.weight(.heavy))
+                                .padding(.top, 30)
+                            
                             NavigationLink {
                                 GameView(game: game)
                             } label: {
-                                Image(systemName: "play")
+                                Text("Play")
+                                    .font(.headline.weight(.semibold))
+                                    .foregroundStyle(.yellow)
                             }
+                            .frame(maxWidth: 100, maxHeight: 40)
+                            .background(.black)
+                            .clipShape(.rect(cornerRadius: 20))
                         }
-                        .frame(width: 200, height: 70)
-                        .foregroundStyle(.black)
-                        .font(.largeTitle.weight(.heavy))
-                        .background(.green.opacity(0.7))
-                        .overlay(content: {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(lineWidth: 5)
-                        })
-                        
-                        VStack {
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "arrow.counterclockwise")
-                            }
-                        }
-                        .frame(width: 200, height: 70)
-                        .foregroundStyle(.black)
-                        .font(.largeTitle.weight(.heavy))
-                        .background(.red.opacity(0.7))
-                        .overlay(content: {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(lineWidth: 5)
-                        })
-                        .padding(.bottom, 100)
+                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .background(.yellow.opacity(0.8))
+                        .clipShape(.rect(cornerRadius: 20))
                     }
-                    .padding()
+                    .clipped()
+                    .shadow(radius: 10)
                 }
+                Spacer()
+            }
+            .padding(.top, -15)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding()
+            .navigationTitle("Math Games")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack {
+                        Image(systemName: "trophy.fill")
+                            .foregroundStyle(.yellow)
+                            .font(.headline)
+                        Text("38")
+                            .foregroundStyle(.custom)
+                            .font(.headline.weight(.heavy))
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "list.star")
+                            .font(.headline.weight(.heavy))
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.yellow, .custom)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape.fill")
+                            .font(.headline.weight(.heavy))
+                            .foregroundStyle(.custom)
+                    }
+                }
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView(game: game)
             }
         }
     }
