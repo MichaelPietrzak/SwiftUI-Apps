@@ -37,7 +37,7 @@ struct StartView: View {
                                 GameView(game: game)
                             } label: {
                                 Text("Play")
-                                    .font(.headline.weight(.semibold))
+                                    .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(.yellow)
                             }
                             .frame(maxWidth: 100, maxHeight: 40)
