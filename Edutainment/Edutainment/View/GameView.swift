@@ -201,7 +201,7 @@ struct GameView: View {
             rangeBounds = (game.settings[0].num1...game.settings[0].num2)
         }
         
-        for _ in 1...game.settings[0].NumOfQuestions {
+        for _ in 1...game.settings[0].numOfQuestions {
             let rangePair = [Int.random(in: rangeBounds), Int.random(in: rangeBounds)]
             
             let question = "\(rangePair[0]) x \(rangePair[1])"
@@ -233,7 +233,7 @@ struct GameView: View {
     }
     
     func nextQuestion() {
-        if questionNumber + 1 < game.settings[0].NumOfQuestions {
+        if questionNumber + 1 < game.settings[0].numOfQuestions {
             loadQuestions()
             ifNextQuestion = false
             ifCheckQuestion = true
@@ -265,7 +265,7 @@ struct GameView: View {
             ifNextQuestion = true
             
             withAnimation(.spring) {
-                scoreProgress = (200 / game.settings[0].NumOfQuestions) * score
+                scoreProgress = (200 / game.settings[0].numOfQuestions) * score
             }
             
         } else {
@@ -285,7 +285,7 @@ struct GameView: View {
     func newGame() {
         game.settings[0].num1 = 0
         game.settings[0].num2 = 0
-        game.settings[0].NumOfQuestions = 5
+        game.settings[0].numOfQuestions = 5
         currentQuestion = ""
         userAnswer = ""
         answerStatus = ""

@@ -67,14 +67,14 @@ struct StartView: View {
                             .font(.headline)
                         Text("38")
                             .foregroundStyle(.custom)
-                            .font((.system(.subheadline, design: .rounded, weight: .semibold)))
+                            .font((.system(.headline, design: .rounded, weight: .semibold)))
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         
                     } label: {
-                        Image(systemName: "list.star")
+                        Image(systemName: "list.clipboard.fill")
                             .font(.title2.weight(.heavy))
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(.primary, .primary.opacity(0.2))

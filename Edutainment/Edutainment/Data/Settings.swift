@@ -10,5 +10,5 @@ import Foundation
 struct Settings {
     var num1: Int
     var num2: Int
-    var NumOfQuestions: Int
+    var numOfQuestions: Int
 }
