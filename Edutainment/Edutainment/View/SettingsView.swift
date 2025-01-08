@@ -66,7 +66,6 @@ struct SettingsView: View {
                     }
                 }
                 .listRowSeparator(.hidden)
-                .padding(5)
                 
                 Section("Questions") {
                     Picker("Quantity", selection: $selectedNumOfQuestions) {
