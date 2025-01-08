@@ -16,7 +16,7 @@ struct StartView: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 Text("Let's do some math, improve your skills")
-                    .font((.system(.subheadline, design: .rounded, weight: .semibold)))
+                    .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.secondary)
                     .padding(.bottom, 40)
                 
@@ -37,7 +37,7 @@ struct StartView: View {
                                 GameView(game: game)
                             } label: {
                                 Text("Play")
-                                    .font((.system(.subheadline, design: .rounded, weight: .semibold)))
+                                    .font((.system(.headline, design: .rounded, weight: .semibold)))
                                     .foregroundStyle(.yellow)
                             }
                             .frame(maxWidth: 100, maxHeight: 40)
