@@ -23,8 +23,9 @@ struct KeyboardView: View {
                         }
                     }
                 }
-                .foregroundStyle(.yellow)
-                .font(.system(size: 65).weight(.heavy))
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(.blue, .blue.opacity(0.2))
+                .font(.system(size: 60).weight(.heavy))
             }
         }
     }
