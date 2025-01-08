@@ -113,17 +113,14 @@ class Game {
 
 struct NavAppearanceModifier: ViewModifier {
     init() {
-        var navigationTitle = UIFont.preferredFont(forTextStyle: .largeTitle)
-        navigationTitle = UIFont(
-            descriptor:
-                navigationTitle.fontDescriptor
-                .withDesign(.rounded)?
-                .withSymbolicTraits(.traitBold)
-            ??
-            navigationTitle.fontDescriptor,
-            size: navigationTitle.pointSize
-        )
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font: navigationTitle]
+        var largeTitle = UIFont.preferredFont(forTextStyle: .largeTitle)
+        var inlineTitle = UIFont.preferredFont(forTextStyle: .body)
+        
+        largeTitle = UIFont(descriptor: largeTitle.fontDescriptor.withDesign(.rounded)?.withSymbolicTraits(.traitBold) ?? largeTitle.fontDescriptor, size: largeTitle.pointSize)
+        inlineTitle = UIFont(descriptor: inlineTitle.fontDescriptor.withDesign(.rounded)?.withSymbolicTraits(.traitBold) ?? inlineTitle.fontDescriptor, size: inlineTitle.pointSize)
+        
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: largeTitle]
+        UINavigationBar.appearance().titleTextAttributes = [.font: inlineTitle]
     }
     
     func body(content: Content) -> some View {
