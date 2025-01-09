@@ -89,6 +89,7 @@ struct GameView: View {
                                 
                             }
                             .frame(maxWidth: .infinity, maxHeight: 100)
+                            .padding(.bottom, 50)
                         }
                         .frame(maxWidth: .infinity, maxHeight: 160)
                         .background(.yellow.opacity(0.8))
