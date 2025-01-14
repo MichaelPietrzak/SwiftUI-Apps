@@ -86,14 +86,13 @@ struct ScoreboardView: View {
             .navigationAppearance()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        StartView()
-                    } label: {
-                        Image(systemName: "house.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.primary, .primary.opacity(0.2))
-                            .imageScale(.large)
+                    HStack {
+                        Text("38")
+                            .foregroundStyle(.custom)
+                            .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        Image(systemName: "trophy.fill")
+                            .foregroundStyle(.yellow)
+                            .font(.headline)
                     }
                 }
             }
