@@ -42,7 +42,7 @@ struct ScoreboardView: View {
                     .listRowBackground(Color.yellow.opacity(0.0))
                     
                     HStack {
-                        Text("Right answers")
+                        Text("Right Answers")
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
@@ -53,7 +53,7 @@ struct ScoreboardView: View {
                     .listRowBackground(Color.yellow.opacity(0.0))
                     
                     HStack {
-                        Text("Best time")
+                        Text("Best Time")
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()

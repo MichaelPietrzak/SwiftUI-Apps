@@ -12,6 +12,7 @@ struct SettingsView: View {
     @State private var selectedNum2 = 0
     @State private var selectedNumOfQuestions = 5
     @State private var displayName = ""
+    @State private var didDelete = false
     
     let rangeOfQuestions = [5, 10, 20]
     var game: Game
@@ -75,6 +76,20 @@ struct SettingsView: View {
                     }
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .pickerStyle(.navigationLink)
+                }
+                
+                Section("Scoreboard") {
+                    Button("Delete Scoreboard", role: .destructive, action: {
+                        didDelete = true
+                    })
+                    .font((.system(.headline, design: .rounded, weight: .semibold)))
+                    .pickerStyle(.navigationLink)
+                    .alert("Delete Scoreboard", isPresented: $didDelete) {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete Scoreboard", role: .destructive) { }
+                    } message: {
+                        Text("Are you sure you want to delete your game scoreboard? This is irreversible and will remove all score statistics.")
+                    }
                 }
             }
             .font((.system(.caption, design: .rounded, weight: .regular)))
