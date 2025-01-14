@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct Review {
-    let question: String
-    let userAnswer: String
-    let rightAnswer: String
-    let ifRight: Bool
-    let icon: Image
+    var question: String
+    var userAnswer: String
+    var rightAnswer: String
+    var ifRight: Bool
+    var checkmarkIcon: Image
 }

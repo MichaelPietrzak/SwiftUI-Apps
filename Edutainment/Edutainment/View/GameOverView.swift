@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameOverView: View {
     
-    var testStats = GameStats(score: 20, category: "multiplication", numOfQuestions: 5, rightAnswers: 4, time: "1:45")
+    var testStats = Stats(score: 20, category: "multiplication", numOfQuestions: 5, rightAnswers: 4, time: "1:45")
     
     var body: some View {
         NavigationStack {
