@@ -94,14 +94,14 @@ struct GameOverView: View {
                 
                 List {
                     NavigationLink {
-                 
+                        GameReviewView()
                     } label: {
                         Image(systemName: "list.bullet.circle.fill")
                             .font(.title2.weight(.heavy))
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(.orange, .black)
                             .imageScale(.large)
-                        Text("Review Questions")
+                        Text("Review")
                             .foregroundStyle(.black)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                     }
