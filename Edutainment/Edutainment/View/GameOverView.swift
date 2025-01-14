@@ -1,5 +1,5 @@
 //
-//  EndOfGameView.swift
+//  GameOverView.swift
 //  Edutainment
 //
 //  Created by Michal Pietrzak on 09/01/2025.
@@ -155,7 +155,7 @@ struct GameOverView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        StartView()
+                        ScoreboardView()
                     } label: {
                         Image(systemName: "list.clipboard.fill")
                             .font(.title2.weight(.heavy))

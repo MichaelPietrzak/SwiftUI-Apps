@@ -72,8 +72,8 @@ struct StartView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        
+                    NavigationLink {
+                        ScoreboardView()
                     } label: {
                         Image(systemName: "list.clipboard.fill")
                             .font(.title2.weight(.heavy))
