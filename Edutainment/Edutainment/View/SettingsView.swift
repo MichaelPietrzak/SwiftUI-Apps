@@ -83,7 +83,6 @@ struct SettingsView: View {
                         didDelete = true
                     })
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .pickerStyle(.navigationLink)
                     .alert("Delete Scoreboard", isPresented: $didDelete) {
                         Button("Cancel", role: .cancel) { }
                         Button("Delete Scoreboard", role: .destructive) { }
