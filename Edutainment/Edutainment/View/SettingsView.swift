@@ -87,7 +87,7 @@ struct SettingsView: View {
                         dismiss()
                     } label: {
                         Text("Cancel")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
+                            .font((.system(.headline, design: .rounded, weight: .regular)))
                     }
                 }
                 

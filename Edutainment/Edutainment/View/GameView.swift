@@ -36,7 +36,7 @@ struct GameView: View {
                 VStack(spacing: 5) {
                     ProgressView(value: 0.9)
                         .progressViewStyle(.linear)
-                        .tint(.yellow)
+                        .tint(.orange)
                     HStack {
                         Spacer()
                         Text("Question")
@@ -54,7 +54,7 @@ struct GameView: View {
                     .overlay {
                         RoundedRectangle(cornerRadius: 20)
                             .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [1]))
-                            .foregroundStyle(.yellow)
+                            .foregroundStyle(.orange)
                     }
                 
                 VStack {
@@ -62,7 +62,7 @@ struct GameView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [10]))
                             .frame(maxWidth: .infinity, maxHeight: 200)
-                            .foregroundStyle(.yellow.opacity(0.2))
+                            .foregroundStyle(.orange.opacity(0.2))
                             .padding(.top, -5)
                         
                         VStack {
@@ -92,7 +92,7 @@ struct GameView: View {
                             .padding(.bottom, 50)
                         }
                         .frame(maxWidth: .infinity, maxHeight: 160)
-                        .background(.yellow.opacity(0.8))
+                        .background(.orange.opacity(0.8))
                         .clipShape(.rect(cornerRadius: 20))
                         .mask {
                             Rectangle()
@@ -121,8 +121,7 @@ struct GameView: View {
                 
                 HStack {
                     Spacer()
-                    Button {
-                        nextQuestion()
+                    NavigationLink {
                     } label: {
                         Image(systemName: "arrow.right")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
@@ -142,9 +141,9 @@ struct GameView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        newGame()
+
                     } label: {
-                        Image(systemName: "arrow.counterclockwise.circle.fill")
+                        Image(systemName: "pause.circle.fill")
                             .font(.title2.weight(.heavy))
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(.primary, .primary.opacity(0.2))

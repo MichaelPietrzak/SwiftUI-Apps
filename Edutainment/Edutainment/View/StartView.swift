@@ -38,14 +38,14 @@ struct StartView: View {
                             } label: {
                                 Text("Play")
                                     .font((.system(.headline, design: .rounded, weight: .semibold)))
-                                    .foregroundStyle(.yellow)
+                                    .foregroundStyle(.orange)
                             }
                             .frame(maxWidth: 100, maxHeight: 40)
                             .background(.black)
                             .clipShape(.rect(cornerRadius: 20))
                         }
                         .frame(maxWidth: .infinity, maxHeight: 150)
-                        .background(.yellow.opacity(0.8))
+                        .background(.orange.opacity(0.8))
                         .clipShape(.rect(cornerRadius: 20))
                     }
                     .clipped()
@@ -58,6 +58,7 @@ struct StartView: View {
             .padding()
             .navigationTitle("Hi, Michal!")
             .navigationBarTitleDisplayMode(.large)
+            .navigationBarBackButtonHidden(true)
             .navigationAppearance()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
