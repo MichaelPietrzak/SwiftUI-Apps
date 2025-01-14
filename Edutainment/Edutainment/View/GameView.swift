@@ -122,6 +122,7 @@ struct GameView: View {
                 HStack {
                     Spacer()
                     NavigationLink {
+                        GameOverView()
                     } label: {
                         Image(systemName: "arrow.right")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
