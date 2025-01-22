@@ -10,6 +10,7 @@ import SwiftUI
 
 struct StartView: View {
     @State private var showSettings = false
+    @State private var showScoreboard = false
     @State private var game = Game()
     
     var body: some View {
@@ -72,8 +73,8 @@ struct StartView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        ScoreboardView()
+                    Button {
+                        showScoreboard = true
                     } label: {
                         Image(systemName: "list.clipboard.fill")
                             .font(.title2.weight(.heavy))
@@ -96,6 +97,9 @@ struct StartView: View {
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView(game: game)
+            }
+            .sheet(isPresented: $showScoreboard) {
+                ScoreboardView()
             }
         }
     }

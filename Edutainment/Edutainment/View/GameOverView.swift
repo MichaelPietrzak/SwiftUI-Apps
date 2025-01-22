@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GameOverView: View {
     
+    @State private var showScoreboard = false
+    
     var testStats = Stats(score: 20, category: "multiplication", numOfQuestions: 5, rightAnswers: 4, time: "1:45")
     
     var body: some View {
@@ -153,8 +155,8 @@ struct GameOverView: View {
             .navigationAppearance()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        ScoreboardView()
+                    Button {
+                        showScoreboard = true
                     } label: {
                         Image(systemName: "list.clipboard.fill")
                             .font(.title2.weight(.heavy))
@@ -163,6 +165,9 @@ struct GameOverView: View {
                             .imageScale(.large)
                     }
                 }
+            }
+            .sheet(isPresented: $showScoreboard) {
+                ScoreboardView()
             }
         }
     }

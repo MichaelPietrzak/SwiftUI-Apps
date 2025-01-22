@@ -9,20 +9,28 @@ import SwiftUI
 
 struct ScoreboardView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
-                Text("You scored overall ")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.primary)
-                +
-                Text("350 points")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.orange)
-                +
-                Text("!")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.primary)
+                HStack {
+                    Text("You scored overall ")
+                        .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        .foregroundStyle(.primary)
+                    +
+                    Text("38 points")
+                        .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        .foregroundStyle(.orange)
+                    +
+                    Text("!")
+                        .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        .foregroundStyle(.primary)
+                    
+                    Image(systemName: "trophy.fill")
+                        .foregroundStyle(.yellow)
+                        .imageScale(.medium)
+                }
                 
                 Spacer()
                 Text("Let's check how you did below")
@@ -75,24 +83,22 @@ struct ScoreboardView: View {
                         .padding(.top, -5)
                 }
                 
-                VStack {
-                }
-                .frame(maxHeight: .infinity)
+                VStack { }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
             .navigationTitle("Scoreboard")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
             .navigationAppearance()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
-                        Text("38")
-                            .foregroundStyle(.custom)
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Close", systemImage: "square.and.arrow.down")
+                            .labelStyle(.titleOnly)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
-                        Image(systemName: "trophy.fill")
-                            .foregroundStyle(.yellow)
-                            .font(.headline)
                     }
                 }
             }
