@@ -10,6 +10,7 @@ import SwiftUI
 struct GameOverView: View {
     
     @State private var showScoreboard = false
+    @State private var showGameReview = false
     
     var testStats = Stats(score: 20, category: "multiplication", numOfQuestions: 5, rightAnswers: 4, time: "1:45")
     
@@ -94,26 +95,24 @@ struct GameOverView: View {
                     .font((.system(.subheadline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.secondary)
                 
-                List {
-                    NavigationLink {
-                        GameReviewView()
+                    Button {
+                        showGameReview = true
                     } label: {
-                        Image(systemName: "list.bullet.circle.fill")
-                            .font(.title2.weight(.heavy))
+                        Image(systemName: "checklist")
+                            .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .symbolRenderingMode(.palette)
-                            .foregroundStyle(.orange, .black)
-                            .imageScale(.large)
+                            .foregroundStyle(.primary, .primary.opacity(0.2))
+                        
                         Text("Review")
-                            .foregroundStyle(.black)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
+                            .foregroundStyle(.primary)
                     }
-                    .listRowBackground(Color.orange.opacity(0.8))
-                    .foregroundStyle(.white, .black)
-                }
-                .padding(-20)
-                .padding(.top, -15)
-                .scrollContentBackground(.hidden)
-                .scrollDisabled(true)
+                    .frame(maxWidth: .infinity, maxHeight: 40)
+                    .background(.blue.opacity(0.2))
+                    .clipShape(.rect(cornerRadius: 20))
+               
+                VStack { }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
                 HStack {
                     NavigationLink {
@@ -135,7 +134,7 @@ struct GameOverView: View {
                     NavigationLink {
                         StartView()
                     } label: {
-                        Image(systemName: "house.circle.fill")
+                        Image(systemName: "house.fill")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.primary)
                         Text("All Games")
@@ -168,6 +167,9 @@ struct GameOverView: View {
             }
             .sheet(isPresented: $showScoreboard) {
                 ScoreboardView()
+            }
+            .sheet(isPresented: $showGameReview) {
+                GameReviewView()
             }
         }
     }
