@@ -21,6 +21,7 @@ struct GameView: View {
     @State private var showFinalScore = false
     @State private var questionNumber = 0
     @State private var showSettings = false
+    @State private var ifEndGame = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -49,8 +50,8 @@ struct GameView: View {
                 }
                 
                 Text("02:30")
-                    .font((.system(.title, design: .rounded, weight: .heavy)))
-                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .font((.system(.headline, design: .rounded, weight: .semibold)))
+                    .frame(maxWidth: .infinity, maxHeight: 40)
                     .overlay {
                         RoundedRectangle(cornerRadius: 20)
                             .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [1]))
@@ -63,8 +64,6 @@ struct GameView: View {
                             .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [10]))
                             .frame(maxWidth: .infinity, maxHeight: 200)
                             .foregroundStyle(.orange.opacity(0.2))
-                            .padding(.top, -5)
-                        
                         VStack {
                             Spacer()
                             HStack {
@@ -102,7 +101,7 @@ struct GameView: View {
                                         .frame(maxWidth: .infinity, maxHeight: 50)
                                         .background(.black)
                                         .clipShape(.rect(cornerRadius: 20))
-                                        .offset(y: 70)
+                                        .offset(y: 75)
                                         .blendMode(.destinationOut)
                                 )
                                 .compositingGroup()
@@ -153,13 +152,21 @@ struct GameView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        dismiss()
+                        ifEndGame = true
                     } label: {
                         Image(systemName: "house.circle.fill")
                             .font(.title2.weight(.heavy))
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(.primary, .primary.opacity(0.2))
                             .imageScale(.large)
+                    }
+                    .alert("End Game", isPresented: $ifEndGame) {
+                        Button("Cancel", role: .cancel) { }
+                        Button("End Game", role: .destructive) {
+                            dismiss()
+                        }
+                    } message: {
+                        Text("Are you sure you want to end your game?")
                     }
                 }
             }
