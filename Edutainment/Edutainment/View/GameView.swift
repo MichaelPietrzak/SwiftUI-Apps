@@ -10,18 +10,11 @@ import SwiftUI
 struct GameView: View {
     @State private var currentQuestion = ""
     @State private var userAnswer = ""
-    @State private var answerStatus = ""
-    @State private var ifCorrectColor = false
-    @State private var ifButtonDisabled = false
-    @State private var ifCheckQuestion = false
-    @State private var ifNextQuestion = false
     @State private var score = 0
-    @State private var scoreProgress = 0
-    @State private var showScore = false
-    @State private var showFinalScore = false
     @State private var questionNumber = 0
     @State private var showSettings = false
     @State private var ifEndGame = false
+    @State private var navigateToGameOver = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -31,11 +24,21 @@ struct GameView: View {
         game.keyboard.map({ $0.key }).joined()
     }
     
+    var progressValue: Double {
+        var value = 0.0
+        if game.settings.isEmpty {
+            value = Double(questionNumber) / Double(Settings.mockData[0].numOfQuestions)
+        } else {
+            value = Double(questionNumber) / Double(game.settings[0].numOfQuestions)
+        }
+        return value
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .center, spacing: 30) {
                 VStack(spacing: 5) {
-                    ProgressView(value: 0.9)
+                    ProgressView(value: progressValue)
                         .progressViewStyle(.linear)
                         .tint(.orange)
                     HStack {
@@ -43,7 +46,7 @@ struct GameView: View {
                         Text("Question")
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.secondary)
-                        Text("15")
+                        Text("\(questionNumber + 1)")
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.custom)
                     }
@@ -73,7 +76,7 @@ struct GameView: View {
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(.yellow, .black)
                                     .imageScale(.large)
-                                Text("5")
+                                Text("\(score)")
                                     .frame(width: 23)
                                     .foregroundStyle(.black)
                                     .font((.system(.headline, design: .rounded, weight: .semibold)))
@@ -120,8 +123,8 @@ struct GameView: View {
                 
                 HStack {
                     Spacer()
-                    NavigationLink {
-                        GameOverView()
+                    Button {
+                        checkNextQuestion()
                     } label: {
                         Image(systemName: "arrow.right")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
@@ -141,7 +144,7 @@ struct GameView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-
+                        
                     } label: {
                         Image(systemName: "pause.circle.fill")
                             .font(.title2.weight(.heavy))
@@ -173,6 +176,9 @@ struct GameView: View {
             .onAppear(perform: {
                 game.settings.isEmpty ? print("Empty settings") : getQuestions()
             })
+            .navigationDestination(isPresented: $navigateToGameOver) {
+                GameOverView()
+            }
         }
     }
     
@@ -195,97 +201,32 @@ struct GameView: View {
             game.questions.append(item)
         }
         loadQuestions()
-        
-        withAnimation {
-            showScore = true
-            ifCheckQuestion = true
-            ifButtonDisabled = true
-        }
     }
     
     func loadQuestions() {
         if currentQuestion.isEmpty {
-            userAnswer = ""
-            answerStatus = ""
             currentQuestion = game.questions.first?.text ?? "0 x 0"
         } else {
             questionNumber += 1
-            userAnswer = ""
-            answerStatus = ""
             currentQuestion = game.questions[questionNumber].text
         }
     }
     
-    func nextQuestion() {
-        if questionNumber + 1 < game.settings[0].numOfQuestions {
-            loadQuestions()
-            ifNextQuestion = false
-            ifCheckQuestion = true
-            game.keyboard.removeAll()
-        } else {
-            withAnimation {
-                showFinalScore = true
-                ifButtonDisabled = true
-                ifNextQuestion = false
-                ifCheckQuestion = false
-                game.keyboard.removeAll()
-                
-                if showFinalScore == true {
-                    ifCheckQuestion = false
-                }
-            }
-        }
-    }
-    
-    func checkAnswer() {
+    func checkNextQuestion() {
         userAnswer = keyboardValue
         let value = Int(userAnswer) ?? 0
         
         if value == game.questions[questionNumber].answer {
-            answerStatus = "Correct!"
-            ifCorrectColor = true
             score += 1
-            ifCheckQuestion = false
-            ifNextQuestion = true
-            
-            withAnimation(.spring) {
-                scoreProgress = (200 / game.settings[0].numOfQuestions) * score
-            }
-            
         } else {
-            answerStatus = "Wrong!"
-            ifCorrectColor = false
-            ifCheckQuestion = false
-            ifNextQuestion = true
+            score += 0
         }
         
-        if userAnswer.isEmpty {
-            answerStatus = "Please enter number!"
-            ifCheckQuestion = true
-            ifNextQuestion = false
-        }
-    }
-    
-    func newGame() {
-        game.settings[0].num1 = 0
-        game.settings[0].num2 = 0
-        game.settings[0].numOfQuestions = 5
-        currentQuestion = ""
-        userAnswer = ""
-        answerStatus = ""
-        score = 0
-        scoreProgress = 0
-        questionNumber = 0
-        game.questions.removeAll()
-        game.keyboard.removeAll()
-        
-        withAnimation {
-            showScore = false
-            showFinalScore = false
-            ifCorrectColor = false
-            ifButtonDisabled = false
-            ifCheckQuestion = false
-            ifNextQuestion = false
+        if questionNumber + 1 < game.settings[0].numOfQuestions {
+            loadQuestions()
+            game.keyboard.removeAll()
+        } else {
+            navigateToGameOver = true
         }
     }
 }

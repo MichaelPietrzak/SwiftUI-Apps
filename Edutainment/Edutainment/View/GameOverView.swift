@@ -11,6 +11,7 @@ struct GameOverView: View {
     
     @State private var showScoreboard = false
     @State private var showGameReview = false
+    @State private var fadeIn = false
     
     var testStats = Stats(score: 20, category: "multiplication", numOfQuestions: 5, rightAnswers: 4, time: "1:45")
     
@@ -95,22 +96,22 @@ struct GameOverView: View {
                     .font((.system(.subheadline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.secondary)
                 
-                    Button {
-                        showGameReview = true
-                    } label: {
-                        Image(systemName: "checklist")
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.primary, .primary.opacity(0.2))
-                        
-                        Text("Review")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: 40)
-                    .background(.blue.opacity(0.2))
-                    .clipShape(.rect(cornerRadius: 20))
-               
+                Button {
+                    showGameReview = true
+                } label: {
+                    Image(systemName: "checklist")
+                        .font((.system(.headline, design: .rounded, weight: .heavy)))
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.primary, .primary.opacity(0.2))
+                    
+                    Text("Review")
+                        .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        .foregroundStyle(.primary)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 40)
+                .background(.blue.opacity(0.2))
+                .clipShape(.rect(cornerRadius: 20))
+                
                 VStack { }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
@@ -170,6 +171,12 @@ struct GameOverView: View {
             }
             .sheet(isPresented: $showGameReview) {
                 GameReviewView()
+            }
+            .opacity(fadeIn ? 1 : 0)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    fadeIn = true
+                }
             }
         }
     }
