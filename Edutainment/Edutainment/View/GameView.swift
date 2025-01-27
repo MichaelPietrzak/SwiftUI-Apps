@@ -21,17 +21,11 @@ struct GameView: View {
     var game: Game
     
     var keyboardValue: String {
-        game.keyboard.map({ $0.key }).joined()
+        game.keyboard.isEmpty ? "?" : game.keyboard.map({ $0.key }).joined()
     }
     
     var progressValue: Double {
-        var value = 0.0
-        if game.settings.isEmpty {
-            value = Double(questionNumber) / Double(Settings.mockData[0].numOfQuestions)
-        } else {
-            value = Double(questionNumber) / Double(game.settings[0].numOfQuestions)
-        }
-        return value
+        game.settings.isEmpty ? Double(questionNumber) / Double(Settings.mockData[0].numOfQuestions) : Double(questionNumber) / Double(game.settings[0].numOfQuestions)
     }
     
     var body: some View {
