@@ -171,7 +171,7 @@ struct GameView: View {
                 game.settings.isEmpty ? print("Empty settings") : getQuestions()
             })
             .navigationDestination(isPresented: $navigateToGameOver) {
-                GameOverView()
+                GameOverView(game: game)
             }
         }
     }
@@ -220,6 +220,9 @@ struct GameView: View {
             loadQuestions()
             game.keyboard.removeAll()
         } else {
+            let stats = CurrentGame(score: score, category: "multiplication", numOfQuestions: game.settings[0].numOfQuestions, rightAnswers: score, time: "2:30")
+            game.currentGame.append(stats)
+            
             navigateToGameOver = true
         }
     }

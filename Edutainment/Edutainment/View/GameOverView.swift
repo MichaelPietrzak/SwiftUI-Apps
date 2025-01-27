@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct GameOverView: View {
-    
     @State private var showScoreboard = false
     @State private var showGameReview = false
     @State private var fadeIn = false
     
-    var testStats = Stats(score: 20, category: "multiplication", numOfQuestions: 5, rightAnswers: 4, time: "1:45")
+    var game: Game
     
     var body: some View {
         NavigationStack {
@@ -22,7 +21,7 @@ struct GameOverView: View {
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.primary)
                 +
-                Text("\(testStats.score) points")
+                Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].score : game.currentGame[0].score) points")
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.orange)
                 
@@ -31,7 +30,7 @@ struct GameOverView: View {
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.primary)
                 +
-                Text(testStats.category)
+                Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].category : game.currentGame[0].category)")
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.orange)
                 +
@@ -50,7 +49,7 @@ struct GameOverView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(testStats.numOfQuestions)")
+                        Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].numOfQuestions : game.currentGame[0].numOfQuestions)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -61,7 +60,7 @@ struct GameOverView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(testStats.rightAnswers)")
+                        Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].rightAnswers : game.currentGame[0].rightAnswers)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -72,7 +71,7 @@ struct GameOverView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text(testStats.time)
+                        Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].time : game.currentGame[0].time)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -117,7 +116,7 @@ struct GameOverView: View {
                 
                 HStack {
                     NavigationLink {
-                        
+                        GameView(game: game)
                     } label: {
                         Image(systemName: "arrow.counterclockwise")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
@@ -183,5 +182,5 @@ struct GameOverView: View {
 }
 
 #Preview {
-    GameOverView()
+    GameOverView(game: Game())
 }
