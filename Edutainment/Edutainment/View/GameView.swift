@@ -172,6 +172,9 @@ struct GameView: View {
             })
             .navigationDestination(isPresented: $navigateToGameOver) {
                 GameOverView(game: game)
+                    .onAppear {
+                        newGame()
+                    }
             }
         }
     }
@@ -225,6 +228,11 @@ struct GameView: View {
             
             navigateToGameOver = true
         }
+    }
+    
+    func newGame() {
+        game.keyboard.removeAll()
+        game.questions.removeAll()
     }
 }
 
