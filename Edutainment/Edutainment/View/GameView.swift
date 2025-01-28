@@ -225,7 +225,6 @@ struct GameView: View {
         } else {
             let stats = CurrentGame(score: score, category: "multiplication", numOfQuestions: game.settings[0].numOfQuestions, rightAnswers: score, time: "2:30")
             game.currentGame.append(stats)
-            
             navigateToGameOver = true
         }
     }
@@ -233,6 +232,10 @@ struct GameView: View {
     func newGame() {
         game.keyboard.removeAll()
         game.questions.removeAll()
+        
+        if game.currentGame.count > 1 {
+            game.currentGame.removeFirst()
+        }
     }
 }
 
