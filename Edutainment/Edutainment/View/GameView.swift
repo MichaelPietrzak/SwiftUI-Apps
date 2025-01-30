@@ -15,6 +15,7 @@ struct GameView: View {
     @State private var showSettings = false
     @State private var ifEndGame = false
     @State private var navigateToGameOver = false
+    @State private var navigateToStartView = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -160,7 +161,10 @@ struct GameView: View {
                     .alert("End Game", isPresented: $ifEndGame) {
                         Button("Cancel", role: .cancel) { }
                         Button("End Game", role: .destructive) {
-                            dismiss()
+                            if !game.currentGame.isEmpty {
+                                game.currentGame.removeFirst()
+                            }
+                            navigateToStartView = true
                         }
                     } message: {
                         Text("Are you sure you want to end your game?")
@@ -175,6 +179,9 @@ struct GameView: View {
                     .onAppear {
                         newGame()
                     }
+            }
+            .navigationDestination(isPresented: $navigateToStartView) {
+                StartView()
             }
         }
     }
