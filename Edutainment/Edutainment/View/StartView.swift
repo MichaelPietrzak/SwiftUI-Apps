@@ -67,7 +67,7 @@ struct StartView: View {
                         Image(systemName: "trophy.fill")
                             .foregroundStyle(.yellow)
                             .font(.headline)
-                        Text("38")
+                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].scores : game.scoreboard[0].scores)")
                             .foregroundStyle(.custom)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                     }
