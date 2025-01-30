@@ -85,7 +85,9 @@ struct SettingsView: View {
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .alert("Delete Scoreboard", isPresented: $didDelete) {
                         Button("Cancel", role: .cancel) { }
-                        Button("Delete Scoreboard", role: .destructive) { }
+                        Button("Delete Scoreboard", role: .destructive) {
+                            game.scoreboard.removeAll()
+                        }
                     } message: {
                         Text("Are you sure you want to delete your game scoreboard? This is irreversible and will remove all score statistics.")
                     }
