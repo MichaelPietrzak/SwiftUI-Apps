@@ -11,6 +11,9 @@ struct GameOverView: View {
     @State private var showScoreboard = false
     @State private var showGameReview = false
     @State private var fadeIn = false
+    @State private var scores = [Int]()
+    @State private var questions = [Int]()
+    @State private var rightAnswers = [Int]()
     
     var game: Game
     
@@ -166,7 +169,7 @@ struct GameOverView: View {
                 }
             }
             .sheet(isPresented: $showScoreboard) {
-                ScoreboardView()
+                ScoreboardView(game: game)
             }
             .sheet(isPresented: $showGameReview) {
                 GameReviewView()
@@ -176,8 +179,22 @@ struct GameOverView: View {
                 withAnimation(.easeInOut(duration: 0.5)) {
                     fadeIn = true
                 }
+                getScoreboardValues()
             }
         }
+    }
+    
+    func getScoreboardValues() {
+        scores.append(game.currentGame.isEmpty ? CurrentGame.mockData[0].score : game.currentGame[0].score)
+        questions.append(game.currentGame.isEmpty ? CurrentGame.mockData[0].numOfQuestions : game.currentGame[0].numOfQuestions)
+        rightAnswers.append(game.currentGame.isEmpty ? CurrentGame.mockData[0].rightAnswers : game.currentGame[0].rightAnswers)
+        
+        let scoresSum = scores.reduce(0, +)
+        let questionsSum = questions.reduce(0, +)
+        let rightAnswersSum = rightAnswers.reduce(0, +)
+        
+        let scoreboardSums = Scoreboard(scores: scoresSum, questions: questionsSum, rightAnswers: rightAnswersSum, bestTime: "0:00")
+        game.scoreboard.append(scoreboardSums)
     }
 }
 

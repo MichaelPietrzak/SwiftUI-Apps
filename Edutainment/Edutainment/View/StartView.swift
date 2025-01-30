@@ -99,7 +99,7 @@ struct StartView: View {
                 SettingsView(game: game)
             }
             .sheet(isPresented: $showScoreboard) {
-                ScoreboardView()
+                ScoreboardView(game: game)
             }
         }
     }
@@ -115,6 +115,7 @@ class Game {
     var questions   = [Question]()
     var keyboard    = [Keyboard]()
     var currentGame = [CurrentGame]()
+    var scoreboard  = [Scoreboard]()
 }
 
 struct NavAppearanceModifier: ViewModifier {

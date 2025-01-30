@@ -232,6 +232,7 @@ struct GameView: View {
     func newGame() {
         game.keyboard.removeAll()
         game.questions.removeAll()
+        game.scoreboard.removeAll()
         
         if game.currentGame.count > 1 {
             game.currentGame.removeFirst()

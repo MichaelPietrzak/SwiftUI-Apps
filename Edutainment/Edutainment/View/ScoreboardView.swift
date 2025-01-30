@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ScoreboardView: View {
+    var game: Game
     
     @Environment(\.dismiss) var dismiss
     
@@ -19,7 +20,7 @@ struct ScoreboardView: View {
                         .font((.system(.headline, design: .rounded, weight: .semibold)))
                         .foregroundStyle(.primary)
                     +
-                    Text("38 points")
+                    Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].scores : game.scoreboard[0].scores) points")
                         .font((.system(.headline, design: .rounded, weight: .semibold)))
                         .foregroundStyle(.orange)
                     +
@@ -43,7 +44,7 @@ struct ScoreboardView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("60")
+                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].questions : game.scoreboard[0].questions)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -54,7 +55,7 @@ struct ScoreboardView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("42")
+                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].rightAnswers : game.scoreboard[0].rightAnswers)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -65,7 +66,7 @@ struct ScoreboardView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("0:39")
+                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].bestTime : game.scoreboard[0].bestTime)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -107,5 +108,5 @@ struct ScoreboardView: View {
 }
 
 #Preview {
-    ScoreboardView()
+    ScoreboardView(game: Game())
 }
