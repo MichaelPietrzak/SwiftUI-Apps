@@ -111,11 +111,13 @@ struct StartView: View {
 
 @Observable
 class Game {
-    var settings    = [Settings]()
-    var questions   = [Question]()
-    var keyboard    = [Keyboard]()
-    var currentGame = [CurrentGame]()
-    var scoreboard  = [Scoreboard]()
+    var settings          = [Settings]()
+    var questions         = [Question]()
+    var keyboard          = [Keyboard]()
+    var currentGame       = [CurrentGame]()
+    var scoreboard        = [Scoreboard]()
+    var questionReview    = [QuestionReview]()
+    var checkReview       = [CheckReview]()
 }
 
 struct NavAppearanceModifier: ViewModifier {

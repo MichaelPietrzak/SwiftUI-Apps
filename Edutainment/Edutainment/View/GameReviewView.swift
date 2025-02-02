@@ -8,122 +8,66 @@
 import SwiftUI
 
 struct GameReviewView: View {
+    var game: Game
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List {
-                    HStack {
-                        Text("4 x 8")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Text("=")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Text("32")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.orange)
-                        Text("")
-                            .frame(width: 30)
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.green, .green.opacity(0.2))
-                            .imageScale(.medium)
-                    }
-                    .listRowBackground(Color.orange.opacity(0.0))
-                    
-                    HStack {
-                        Text("3 x 10")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Text("=")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Text("6")
-                            .frame(width: 30)
-                            .strikethrough(true, pattern: .dash, color: .red)
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.orange)
-                        Text("30")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.green)
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.red, .red.opacity(0.2))
-                            .imageScale(.medium)
-                    }
-                    .listRowBackground(Color.yellow.opacity(0.0))
-                    
-                    HStack {
-                        Text("2 x 1")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Text("=")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Text("2")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.orange)
-                        Text("")
-                            .frame(width: 30)
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.green, .green.opacity(0.2))
-                            .imageScale(.medium)
-                    }
-                    .listRowBackground(Color.yellow.opacity(0.0))
-                    
-                    HStack {
-                        Text("5 x 1")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Text("=")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
-                        Text("1")
-                            .frame(width: 30)
-                            .strikethrough(true, pattern: .dash, color: .red)
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.orange)
-                        Text("5")
-                            .frame(width: 30)
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.green)
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.red, .red.opacity(0.2))
-                            .imageScale(.medium)
-                    }
-                    .listRowBackground(Color.yellow.opacity(0.0))
+            VStack(alignment: .center, spacing: 10) {
+                HStack {
+                    Text("Questions asked")
+                        .font((.system(.subheadline, design: .rounded, weight: .semibold)))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 30)
+                    Spacer()
+                    Text("How you did")
+                        .font((.system(.subheadline, design: .rounded, weight: .semibold)))
+                        .foregroundStyle(.secondary)
                 }
-                .frame(maxHeight: .infinity)
-                .padding(.top, -30)
+                .padding(.horizontal, 30)
+                
+                List {
+                    ForEach(0..<min(game.questionReview.count, game.checkReview.count), id: \.self) { index in
+                        HStack {
+                            Text(game.questionReview[index].question)
+                                .font((.system(.headline, design: .rounded, weight: .semibold)))
+                                .foregroundStyle(.primary)
+                                .frame(width: 70)
+                            Text("=")
+                                .font((.system(.headline, design: .rounded, weight: .semibold)))
+                                .foregroundStyle(.primary)
+                                .frame(width: 30)
+                            Text("\(game.questionReview[index].answer)")
+                                .font((.system(.headline, design: .rounded, weight: .heavy)))
+                                .foregroundStyle(.orange)
+                                .frame(width: 30)
+                            
+                            Spacer()
+                            Text("\(game.checkReview[index].userAnswer)")
+                                .font((.system(.headline, design: .rounded, weight: .heavy)))
+                                .foregroundStyle(.primary)
+                                .frame(width: 30)
+                            Image(systemName: "\(game.checkReview[index].checkmarkIcon)")
+                                .font(.title2.weight(.heavy))
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(game.checkReview[index].ifRight ? .green : .red, game.checkReview[index].ifRight ? .green.opacity(0.2) : .red.opacity(0.2))
+                                .imageScale(.large)
+                        }
+                        .padding(.horizontal, 10)
+                        .listRowBackground(Color.yellow.opacity(0.0))
+                    }
+                }
+                .frame(maxHeight: CGFloat(game.questionReview.count) * 60)
                 .scrollContentBackground(.hidden)
-                .scrollDisabled(true)
                 .overlay {
                     RoundedRectangle(cornerRadius: 20)
                         .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [10]))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: CGFloat(game.questionReview.count) * 60)
                         .foregroundStyle(.orange.opacity(0.2))
                         .padding(.top, -5)
                 }
+                Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
@@ -146,6 +90,6 @@ struct GameReviewView: View {
 }
 
 #Preview {
-    GameReviewView()
+    GameReviewView(game: Game())
 }
 

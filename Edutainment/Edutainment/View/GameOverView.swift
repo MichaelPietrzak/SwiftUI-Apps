@@ -172,7 +172,7 @@ struct GameOverView: View {
                 ScoreboardView(game: game)
             }
             .sheet(isPresented: $showGameReview) {
-                GameReviewView()
+                GameReviewView(game: game)
             }
             .opacity(fadeIn ? 1 : 0)
             .onAppear {

@@ -12,6 +12,8 @@ struct GameView: View {
     @State private var userAnswer = ""
     @State private var score = 0
     @State private var questionNumber = 0
+    @State private var ifRightAnswer = false
+    @State private var ifRightAnswerIcon = ""
     @State private var showSettings = false
     @State private var ifEndGame = false
     @State private var navigateToGameOver = false
@@ -203,6 +205,9 @@ struct GameView: View {
             
             let item = Question(text: question, answer: answer)
             game.questions.append(item)
+            
+            let equation = QuestionReview(question: question, answer: answer)
+            game.questionReview.append(equation)
         }
         loadQuestions()
     }
@@ -222,8 +227,12 @@ struct GameView: View {
         
         if value == game.questions[questionNumber].answer {
             score += 1
+            ifRightAnswer = true
+            ifRightAnswerIcon = "checkmark.circle.fill"
         } else {
             score += 0
+            ifRightAnswer = false
+            ifRightAnswerIcon = "xmark.circle.fill"
         }
         
         if questionNumber + 1 < game.settings[0].numOfQuestions {
@@ -234,6 +243,9 @@ struct GameView: View {
             game.currentGame.append(stats)
             navigateToGameOver = true
         }
+        
+        let check = CheckReview(userAnswer: value, ifRight: ifRightAnswer, checkmarkIcon: ifRightAnswerIcon)
+        game.checkReview.append(check)
     }
     
     func newGame() {

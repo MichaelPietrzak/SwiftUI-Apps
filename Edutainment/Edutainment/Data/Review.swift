@@ -6,12 +6,16 @@
 //
 
 import Foundation
-import SwiftUI
 
-struct Review {
+struct QuestionReview: Identifiable {
+    var id = UUID()
     var question: String
-    var userAnswer: String
-    var rightAnswer: String
+    var answer: Int
+}
+
+struct CheckReview: Identifiable {
+    var id = UUID()
+    var userAnswer: Int
     var ifRight: Bool
-    var checkmarkIcon: Image
+    var checkmarkIcon: String
 }
