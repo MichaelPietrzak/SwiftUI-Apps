@@ -255,6 +255,8 @@ struct GameView: View {
         
         if game.currentGame.count > 1 {
             game.currentGame.removeFirst()
+            game.questionReview.removeFirst(game.settings[0].numOfQuestions)
+            game.checkReview.removeFirst(game.settings[0].numOfQuestions)
         }
     }
 }
