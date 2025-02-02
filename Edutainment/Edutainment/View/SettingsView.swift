@@ -113,7 +113,7 @@ struct SettingsView: View {
                             game.settings.removeLast()
                         }
                         
-                        let settings = Settings(num1: selectedNum1, num2: selectedNum2, numOfQuestions: selectedNumOfQuestions)
+                        let settings = Settings(displayName: displayName, num1: selectedNum1, num2: selectedNum2, numOfQuestions: selectedNumOfQuestions)
                         game.settings.append(settings)
                         dismiss()
                     } label: {

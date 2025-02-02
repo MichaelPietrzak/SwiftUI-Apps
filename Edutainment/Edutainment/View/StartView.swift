@@ -57,7 +57,7 @@ struct StartView: View {
             .padding(.top, -15)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .navigationTitle("Hi, Michal!")
+            .navigationTitle("Hi, \(game.settings.isEmpty ? Settings.mockData[0].displayName : game.settings[0].displayName)!")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarBackButtonHidden(true)
             .navigationAppearance()
