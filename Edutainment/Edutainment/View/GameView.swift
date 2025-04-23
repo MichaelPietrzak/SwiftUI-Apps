@@ -35,6 +35,9 @@ struct GameView: View {
         NavigationStack {
             VStack(alignment: .center, spacing: 30) {
                 VStack(spacing: 5) {
+                    ProgressView(value: progressValue)
+                        .progressViewStyle(.linear)
+                        .tint(.orange)
                     HStack {
                         Spacer()
                         Text("Question")
