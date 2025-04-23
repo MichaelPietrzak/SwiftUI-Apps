@@ -120,6 +120,9 @@ struct GameOverView: View {
                 HStack {
                     NavigationLink {
                         GameView(game: game)
+                            .onAppear {
+                                newGame()
+                            }
                     } label: {
                         Image(systemName: "arrow.counterclockwise")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
@@ -179,6 +182,7 @@ struct GameOverView: View {
                 withAnimation(.easeInOut(duration: 0.5)) {
                     fadeIn = true
                 }
+                gameOver()
                 getScoreboardValues()
             }
         }
@@ -192,6 +196,29 @@ struct GameOverView: View {
         let scoresSum = scores.reduce(0, +)
         let questionsSum = questions.reduce(0, +)
         let rightAnswersSum = rightAnswers.reduce(0, +)
+        
+        game.scoreboard.scores += scoresSum
+        game.scoreboard.questions += questionsSum
+        game.scoreboard.rightAnswers += rightAnswersSum
+        
+        game.saveScoreboard()
+        scores.removeAll()
+        questions.removeAll()
+        rightAnswers.removeAll()
+    }
+    
+    func gameOver() {
+        game.keyboard.removeAll()
+        game.questions.removeAll()
+        
+        if game.currentGame.count > 1 {
+            game.currentGame.removeFirst()
+        }
+    }
+    
+    func newGame() {
+        game.questionReview.removeFirst(game.settings.numOfQuestions)
+        game.checkReview.removeFirst(game.settings.numOfQuestions)
     }
 }
 

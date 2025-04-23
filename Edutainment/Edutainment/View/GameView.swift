@@ -35,9 +35,6 @@ struct GameView: View {
         NavigationStack {
             VStack(alignment: .center, spacing: 30) {
                 VStack(spacing: 5) {
-                    ProgressView(value: progressValue)
-                        .progressViewStyle(.linear)
-                        .tint(.orange)
                     HStack {
                         Spacer()
                         Text("Question")
@@ -178,9 +175,6 @@ struct GameView: View {
             }
             .navigationDestination(isPresented: $navigateToGameOver) {
                 GameOverView(game: game)
-                    .onAppear {
-                        newGame()
-                    }
             }
             .navigationDestination(isPresented: $navigateToStartView) {
                 StartView()
@@ -246,17 +240,6 @@ struct GameView: View {
         
         let check = CheckReview(userAnswer: value, ifRight: ifRightAnswer, checkmarkIcon: ifRightAnswerIcon)
         game.checkReview.append(check)
-    }
-    
-    func newGame() {
-        game.keyboard.removeAll()
-        game.questions.removeAll()
-        
-        if game.currentGame.count > 1 {
-            game.currentGame.removeFirst()
-            game.questionReview.removeFirst(game.settings.numOfQuestions)
-            game.checkReview.removeFirst(game.settings.numOfQuestions)
-        }
     }
 }
 

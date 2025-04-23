@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var didDelete = false
+    @State private var didCancel = false
     
     let rangeOfQuestions = [5, 10, 20]
     @ObservedObject var game: Game
@@ -96,9 +97,11 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .navigationAppearance()
+            .interactiveDismissDisabled()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
+                        didCancel = true
                         dismiss()
                     } label: {
                         Text("Cancel")
@@ -115,6 +118,11 @@ struct SettingsView: View {
                             .labelStyle(.titleOnly)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                     }
+                }
+            }
+            .onDisappear {
+                if didCancel == true {
+                    game.savedSettings()
                 }
             }
         }
