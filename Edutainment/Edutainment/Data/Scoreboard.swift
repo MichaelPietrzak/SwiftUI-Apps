@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Scoreboard {
+struct Scoreboard: Codable {
     var scores: Int
     var questions: Int
     var rightAnswers: Int

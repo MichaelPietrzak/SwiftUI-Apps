@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var selectedNum1 = 0
-    @State private var selectedNum2 = 0
-    @State private var selectedNumOfQuestions = 5
-    @State private var displayName = ""
     @State private var didDelete = false
     
     let rangeOfQuestions = [5, 10, 20]
@@ -30,7 +26,7 @@ struct SettingsView: View {
                             .foregroundStyle(.blue, .blue.opacity(0.2))
                             .imageScale(.large)
                         
-                        TextField("Name", text: $displayName)
+                        TextField("Name", text: $game.settings.displayName)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                     }
                 }
@@ -38,7 +34,7 @@ struct SettingsView: View {
                 Section("Difficulty Range") {
                     HStack {
                         Spacer()
-                        Text("\(selectedNum1)")
+                        Text("\(game.settings.num1)")
                             .frame(width: 30)
                         
                         Image(systemName: "arrow.backward.to.line.circle.fill")
@@ -53,23 +49,23 @@ struct SettingsView: View {
                             .foregroundStyle(.blue, .blue.opacity(0.2))
                             .imageScale(.large)
                         
-                        Text("\(selectedNum2)")
+                        Text("\(game.settings.num2)")
                             .frame(width: 30)
                         Spacer()
                     }
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     
                     HStack(spacing: 20) {
-                        Stepper("", value: $selectedNum1)
+                        Stepper("", value: $game.settings.num1)
                         Spacer()
-                        Stepper("", value: $selectedNum2)
+                        Stepper("", value: $game.settings.num2)
                         Spacer()
                     }
                 }
                 .listRowSeparator(.hidden)
                 
                 Section("Questions") {
-                    Picker("Quantity", selection: $selectedNumOfQuestions) {
+                    Picker("Quantity", selection: $game.settings.numOfQuestions) {
                         ForEach(rangeOfQuestions, id: \.self) {
                             Text("\($0)")
                         }
@@ -86,6 +82,10 @@ struct SettingsView: View {
                     .alert("Delete Scoreboard", isPresented: $didDelete) {
                         Button("Cancel", role: .cancel) { }
                         Button("Delete Scoreboard", role: .destructive) {
+                            game.scoreboard.scores = 0
+                            game.scoreboard.questions = 0
+                            game.scoreboard.rightAnswers = 0
+                            game.scoreboard.bestTime = "0:00"
                         }
                     } message: {
                         Text("Are you sure you want to delete your game scoreboard? This is irreversible and will remove all score statistics.")
@@ -108,6 +108,7 @@ struct SettingsView: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        game.saveSettings()
                         dismiss()
                     } label: {
                         Label("Save", systemImage: "square.and.arrow.down")

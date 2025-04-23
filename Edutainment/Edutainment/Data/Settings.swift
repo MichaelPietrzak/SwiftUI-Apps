@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Settings {
+struct Settings: Codable {
     var displayName: String
     var num1: Int
     var num2: Int
