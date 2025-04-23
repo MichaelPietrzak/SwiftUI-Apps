@@ -5,7 +5,6 @@
 //  Created by Michal Pietrzak on 30/12/2024.
 //
 
-import Observation
 import SwiftUI
 
 struct StartView: View {
@@ -57,7 +56,7 @@ struct StartView: View {
             .padding(.top, -15)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .navigationTitle("Hi, \(game.settings.isEmpty ? Settings.mockData[0].displayName : game.settings[0].displayName)!")
+            .navigationTitle("Hi, \(game.settings.displayName)!")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarBackButtonHidden(true)
             .navigationAppearance()
@@ -67,7 +66,7 @@ struct StartView: View {
                         Image(systemName: "trophy.fill")
                             .foregroundStyle(.yellow)
                             .font(.headline)
-                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].scores : game.scoreboard[0].scores)")
+                        Text("\(game.scoreboard.scores)")
                             .foregroundStyle(.custom)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                     }
@@ -109,15 +108,21 @@ struct StartView: View {
     StartView()
 }
 
-@Observable
-class Game {
-    var settings          = [Settings]()
-    var questions         = [Question]()
-    var keyboard          = [Keyboard]()
-    var currentGame       = [CurrentGame]()
-    var scoreboard        = [Scoreboard]()
-    var questionReview    = [QuestionReview]()
-    var checkReview       = [CheckReview]()
+class Game: ObservableObject {
+    @Published var settings: Settings
+    @Published var scoreboard: Scoreboard
+    
+    @Published var keyboard       = [Keyboard]()
+    @Published var questions      = [Question]()
+    @Published var currentGame    = [CurrentGame]()
+    @Published var questionReview = [QuestionReview]()
+    @Published var checkReview    = [CheckReview]()
+    
+    init() {
+        settings = Settings(displayName: "", num1: 3, num2: 6, numOfQuestions: 5)
+        scoreboard = Scoreboard(scores: 0, questions: 0, rightAnswers: 0, bestTime: "0:00")
+        currentGame = [CurrentGame(score: 0, category: "unknown", numOfQuestions: 0, rightAnswers: 0, time: "0:00")]
+    }
 }
 
 struct NavAppearanceModifier: ViewModifier {

@@ -28,7 +28,7 @@ struct GameView: View {
     }
     
     var progressValue: Double {
-        game.settings.isEmpty ? Double(questionNumber) / Double(Settings.mockData[0].numOfQuestions) : Double(questionNumber) / Double(game.settings[0].numOfQuestions)
+        Double(questionNumber) / Double(game.settings.numOfQuestions)
     }
     
     var body: some View {
@@ -173,9 +173,9 @@ struct GameView: View {
                     }
                 }
             }
-            .onAppear(perform: {
-                game.settings.isEmpty ? print("Empty settings") : getQuestions()
-            })
+            .onAppear {
+                getQuestions()
+            }
             .navigationDestination(isPresented: $navigateToGameOver) {
                 GameOverView(game: game)
                     .onAppear {
@@ -191,13 +191,13 @@ struct GameView: View {
     func getQuestions() {
         var rangeBounds = 0...0
         
-        if game.settings[0].num1 > game.settings[0].num2 {
-            rangeBounds = (game.settings[0].num2...game.settings[0].num1)
+        if game.settings.num1 > game.settings.num2 {
+            rangeBounds = (game.settings.num2...game.settings.num1)
         } else {
-            rangeBounds = (game.settings[0].num1...game.settings[0].num2)
+            rangeBounds = (game.settings.num1...game.settings.num2)
         }
         
-        for _ in 1...game.settings[0].numOfQuestions {
+        for _ in 1...game.settings.numOfQuestions {
             let rangePair = [Int.random(in: rangeBounds), Int.random(in: rangeBounds)]
             
             let question = "\(rangePair[0]) x \(rangePair[1])"
@@ -235,11 +235,11 @@ struct GameView: View {
             ifRightAnswerIcon = "xmark.circle.fill"
         }
         
-        if questionNumber + 1 < game.settings[0].numOfQuestions {
+        if questionNumber + 1 < game.settings.numOfQuestions {
             loadQuestions()
             game.keyboard.removeAll()
         } else {
-            let stats = CurrentGame(score: score, category: "multiplication", numOfQuestions: game.settings[0].numOfQuestions, rightAnswers: score, time: "2:30")
+            let stats = CurrentGame(score: score, category: "multiplication", numOfQuestions: game.settings.numOfQuestions, rightAnswers: score, time: "2:30")
             game.currentGame.append(stats)
             navigateToGameOver = true
         }
@@ -251,12 +251,11 @@ struct GameView: View {
     func newGame() {
         game.keyboard.removeAll()
         game.questions.removeAll()
-        game.scoreboard.removeAll()
         
         if game.currentGame.count > 1 {
             game.currentGame.removeFirst()
-            game.questionReview.removeFirst(game.settings[0].numOfQuestions)
-            game.checkReview.removeFirst(game.settings[0].numOfQuestions)
+            game.questionReview.removeFirst(game.settings.numOfQuestions)
+            game.checkReview.removeFirst(game.settings.numOfQuestions)
         }
     }
 }

@@ -13,8 +13,4 @@ struct CurrentGame {
     var numOfQuestions: Int
     var rightAnswers: Int
     var time: String
-    
-    static var mockData: [CurrentGame] {
-        [CurrentGame(score: 0, category: "unknown", numOfQuestions: 0, rightAnswers: 0, time: "0:00")]
-    }
 }

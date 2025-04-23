@@ -24,7 +24,7 @@ struct GameOverView: View {
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.primary)
                 +
-                Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].score : game.currentGame[0].score) points")
+                Text("\(game.currentGame[0].score) points")
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.orange)
                 
@@ -33,7 +33,7 @@ struct GameOverView: View {
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.primary)
                 +
-                Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].category : game.currentGame[0].category)")
+                Text("\(game.currentGame[0].category)")
                     .font((.system(.headline, design: .rounded, weight: .semibold)))
                     .foregroundStyle(.orange)
                 +
@@ -52,7 +52,7 @@ struct GameOverView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].numOfQuestions : game.currentGame[0].numOfQuestions)")
+                        Text("\(game.currentGame[0].numOfQuestions)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -63,7 +63,7 @@ struct GameOverView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].rightAnswers : game.currentGame[0].rightAnswers)")
+                        Text("\(game.currentGame[0].rightAnswers)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -74,7 +74,7 @@ struct GameOverView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(game.currentGame.isEmpty ? CurrentGame.mockData[0].time : game.currentGame[0].time)")
+                        Text("\(game.currentGame[0].time)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -185,16 +185,13 @@ struct GameOverView: View {
     }
     
     func getScoreboardValues() {
-        scores.append(game.currentGame.isEmpty ? CurrentGame.mockData[0].score : game.currentGame[0].score)
-        questions.append(game.currentGame.isEmpty ? CurrentGame.mockData[0].numOfQuestions : game.currentGame[0].numOfQuestions)
-        rightAnswers.append(game.currentGame.isEmpty ? CurrentGame.mockData[0].rightAnswers : game.currentGame[0].rightAnswers)
+        scores.append(game.currentGame[0].score)
+        questions.append(game.currentGame[0].numOfQuestions)
+        rightAnswers.append(game.currentGame[0].rightAnswers)
         
         let scoresSum = scores.reduce(0, +)
         let questionsSum = questions.reduce(0, +)
         let rightAnswersSum = rightAnswers.reduce(0, +)
-        
-        let scoreboardSums = Scoreboard(scores: scoresSum, questions: questionsSum, rightAnswers: rightAnswersSum, bestTime: "0:00")
-        game.scoreboard.append(scoreboardSums)
     }
 }
 

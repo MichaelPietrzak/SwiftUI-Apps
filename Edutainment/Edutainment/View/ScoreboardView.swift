@@ -20,7 +20,7 @@ struct ScoreboardView: View {
                         .font((.system(.headline, design: .rounded, weight: .semibold)))
                         .foregroundStyle(.primary)
                     +
-                    Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].scores : game.scoreboard[0].scores) points")
+                    Text("\(game.scoreboard.scores) points")
                         .font((.system(.headline, design: .rounded, weight: .semibold)))
                         .foregroundStyle(.orange)
                     +
@@ -44,7 +44,7 @@ struct ScoreboardView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].questions : game.scoreboard[0].questions)")
+                        Text("\(game.scoreboard.questions)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -55,7 +55,7 @@ struct ScoreboardView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].rightAnswers : game.scoreboard[0].rightAnswers)")
+                        Text("\(game.scoreboard.rightAnswers)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }
@@ -66,7 +66,7 @@ struct ScoreboardView: View {
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
                         Spacer()
-                        Text("\(game.scoreboard.isEmpty ? Scoreboard.mockData[0].bestTime : game.scoreboard[0].bestTime)")
+                        Text("\(game.scoreboard.bestTime)")
                             .font((.system(.headline, design: .rounded, weight: .heavy)))
                             .foregroundStyle(.orange)
                     }

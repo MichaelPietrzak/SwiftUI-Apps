@@ -86,7 +86,6 @@ struct SettingsView: View {
                     .alert("Delete Scoreboard", isPresented: $didDelete) {
                         Button("Cancel", role: .cancel) { }
                         Button("Delete Scoreboard", role: .destructive) {
-                            game.scoreboard.removeAll()
                         }
                     } message: {
                         Text("Are you sure you want to delete your game scoreboard? This is irreversible and will remove all score statistics.")
@@ -109,12 +108,6 @@ struct SettingsView: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        if !game.settings.isEmpty {
-                            game.settings.removeLast()
-                        }
-                        
-                        let settings = Settings(displayName: displayName, num1: selectedNum1, num2: selectedNum2, numOfQuestions: selectedNumOfQuestions)
-                        game.settings.append(settings)
                         dismiss()
                     } label: {
                         Label("Save", systemImage: "square.and.arrow.down")
