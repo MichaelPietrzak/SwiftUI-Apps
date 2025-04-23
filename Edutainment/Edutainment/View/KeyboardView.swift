@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KeyboardView: View {
     var keys = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["minus", "0", "arrow.backward"]]
-    var game: Game
+    @ObservedObject var game: Game
     
     var body: some View {
         VStack(spacing: -5) {

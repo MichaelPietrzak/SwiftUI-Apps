@@ -15,7 +15,7 @@ struct GameOverView: View {
     @State private var questions = [Int]()
     @State private var rightAnswers = [Int]()
     
-    var game: Game
+    @ObservedObject var game: Game
     
     var body: some View {
         NavigationStack {

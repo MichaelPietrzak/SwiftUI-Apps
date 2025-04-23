@@ -21,7 +21,7 @@ struct GameView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    var game: Game
+    @ObservedObject var game: Game
     
     var keyboardValue: String {
         game.keyboard.isEmpty ? "?" : game.keyboard.map({ $0.key }).joined()

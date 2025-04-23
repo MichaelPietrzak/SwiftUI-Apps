@@ -15,7 +15,7 @@ struct SettingsView: View {
     @State private var didDelete = false
     
     let rangeOfQuestions = [5, 10, 20]
-    var game: Game
+    @ObservedObject var game: Game
     
     @Environment(\.dismiss) var dismiss
     

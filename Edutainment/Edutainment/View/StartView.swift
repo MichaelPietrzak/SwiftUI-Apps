@@ -10,7 +10,7 @@ import SwiftUI
 struct StartView: View {
     @State private var showSettings = false
     @State private var showScoreboard = false
-    @State private var game = Game()
+    @StateObject private var game = Game()
     
     var body: some View {
         NavigationStack {

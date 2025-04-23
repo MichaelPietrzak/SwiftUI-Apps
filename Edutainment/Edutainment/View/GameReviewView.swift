@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GameReviewView: View {
-    var game: Game
+    @ObservedObject var game: Game
     
     @Environment(\.dismiss) var dismiss
     

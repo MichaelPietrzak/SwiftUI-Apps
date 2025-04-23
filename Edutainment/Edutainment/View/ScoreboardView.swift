@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScoreboardView: View {
-    var game: Game
+    @ObservedObject var game: Game
     
     @Environment(\.dismiss) var dismiss
     
