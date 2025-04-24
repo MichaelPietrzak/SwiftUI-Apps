@@ -68,11 +68,7 @@ struct GameView: View {
                             Spacer()
                             HStack {
                                 Spacer()
-                                Image(systemName: "trophy.circle.fill")
-                                    .font(.title2.weight(.heavy))
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.yellow, .black)
-                                    .imageScale(.large)
+                                SFSymbol(name: "trophy.circle.fill", primaryColor: .yellow, secondaryColor: .black)
                                 Text("\(score)")
                                     .frame(width: 23)
                                     .foregroundStyle(.black)
@@ -123,9 +119,7 @@ struct GameView: View {
                     Button {
                         checkNextQuestion()
                     } label: {
-                        Image(systemName: "arrow.right")
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.primary)
+                        SFSymbol(name: "arrow.right", font: (.system(.headline, design: .rounded, weight: .heavy)))
                     }
                     .frame(maxWidth: 100, maxHeight: 40)
                     .background(.blue.opacity(0.2))
@@ -143,22 +137,14 @@ struct GameView: View {
                     Button {
                         
                     } label: {
-                        Image(systemName: "pause.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.primary, .primary.opacity(0.2))
-                            .imageScale(.large)
+                        SFSymbol(name: "pause.circle.fill")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         ifEndGame = true
                     } label: {
-                        Image(systemName: "house.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.primary, .primary.opacity(0.2))
-                            .imageScale(.large)
+                        SFSymbol(name: "house.circle.fill")
                     }
                     .alert("End Game", isPresented: $ifEndGame) {
                         Button("Cancel", role: .cancel) { }

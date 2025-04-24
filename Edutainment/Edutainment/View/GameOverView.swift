@@ -101,10 +101,7 @@ struct GameOverView: View {
                 Button {
                     showGameReview = true
                 } label: {
-                    Image(systemName: "checklist")
-                        .font((.system(.headline, design: .rounded, weight: .heavy)))
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.primary, .primary.opacity(0.2))
+                    SFSymbol(name: "checklist", font: (.system(.subheadline, design: .rounded, weight: .heavy)))
                     
                     Text("Review")
                         .font((.system(.headline, design: .rounded, weight: .semibold)))
@@ -124,9 +121,7 @@ struct GameOverView: View {
                                 newGame()
                             }
                     } label: {
-                        Image(systemName: "arrow.counterclockwise")
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.primary)
+                        SFSymbol(name: "arrow.counterclockwise", font: (.system(.subheadline, design: .rounded, weight: .heavy)))
                         Text("New Game")
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
@@ -140,9 +135,7 @@ struct GameOverView: View {
                     NavigationLink {
                         StartView()
                     } label: {
-                        Image(systemName: "house.fill")
-                            .font((.system(.headline, design: .rounded, weight: .heavy)))
-                            .foregroundStyle(.primary)
+                        SFSymbol(name: "house.fill", font: (.system(.subheadline, design: .rounded, weight: .heavy)))
                         Text("All Games")
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.primary)
@@ -163,11 +156,7 @@ struct GameOverView: View {
                     Button {
                         showScoreboard = true
                     } label: {
-                        Image(systemName: "list.clipboard.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.primary, .primary.opacity(0.2))
-                            .imageScale(.large)
+                        SFSymbol(name: "list.clipboard.fill")
                     }
                 }
             }

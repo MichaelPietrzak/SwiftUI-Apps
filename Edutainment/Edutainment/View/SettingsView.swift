@@ -21,12 +21,7 @@ struct SettingsView: View {
             Form {
                 Section("Display Name") {
                     HStack {
-                        Image(systemName: "person.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.blue, .blue.opacity(0.2))
-                            .imageScale(.large)
-                        
+                        SFSymbol(name: "person.circle.fill")
                         TextField("Name", text: $game.settings.displayName)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                     }
@@ -37,19 +32,8 @@ struct SettingsView: View {
                         Spacer()
                         Text("\(game.settings.num1)")
                             .frame(width: 30)
-                        
-                        Image(systemName: "arrow.backward.to.line.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.blue, .blue.opacity(0.2))
-                            .imageScale(.large)
-                        
-                        Image(systemName: "arrow.forward.to.line.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.blue, .blue.opacity(0.2))
-                            .imageScale(.large)
-                        
+                        SFSymbol(name: "arrow.backward.to.line.circle.fill")
+                        SFSymbol(name: "arrow.forward.to.line.circle.fill")
                         Text("\(game.settings.num2)")
                             .frame(width: 30)
                         Spacer()

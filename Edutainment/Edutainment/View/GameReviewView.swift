@@ -48,11 +48,7 @@ struct GameReviewView: View {
                                 .font((.system(.headline, design: .rounded, weight: .heavy)))
                                 .foregroundStyle(.primary)
                                 .frame(width: 30)
-                            Image(systemName: "\(game.checkReview[index].checkmarkIcon)")
-                                .font(.title2.weight(.heavy))
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(game.checkReview[index].ifRight ? .green : .red, game.checkReview[index].ifRight ? .green.opacity(0.2) : .red.opacity(0.2))
-                                .imageScale(.large)
+                            SFSymbol(name: "\(game.checkReview[index].checkmarkIcon)", primaryColor: game.checkReview[index].ifRight ? .green : .red, secondaryColor: game.checkReview[index].ifRight ? .green.opacity(0.2) : .red.opacity(0.2))
                         }
                         .padding(.horizontal, 10)
                         .listRowBackground(Color.yellow.opacity(0.0))

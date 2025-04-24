@@ -22,9 +22,7 @@ struct StartView: View {
                 
                 VStack(spacing: 30) {
                     ZStack {
-                        Image(systemName: "multiply")
-                            .font(.system(size: 270).weight(.heavy))
-                            .foregroundStyle(.primary)
+                        SFSymbol(name: "multiply", font: .system(size: 270).weight(.heavy), primaryColor: .primary)
                             .layoutPriority(-1)
                         
                         VStack {
@@ -63,9 +61,7 @@ struct StartView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack {
-                        Image(systemName: "trophy.fill")
-                            .foregroundStyle(.yellow)
-                            .font(.headline)
+                        SFSymbol(name: "trophy.fill", font: .headline, primaryColor: .yellow)
                         Text("\(game.scoreboard.scores)")
                             .foregroundStyle(.custom)
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
@@ -75,22 +71,14 @@ struct StartView: View {
                     Button {
                         showScoreboard = true
                     } label: {
-                        Image(systemName: "list.clipboard.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.primary, .primary.opacity(0.2))
-                            .imageScale(.large)
+                        SFSymbol(name: "list.clipboard.fill")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showSettings = true
                     } label: {
-                        Image(systemName: "gearshape.circle.fill")
-                            .font(.title2.weight(.heavy))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.primary, .primary.opacity(0.2))
-                            .imageScale(.large)
+                        SFSymbol(name: "gearshape.circle.fill")
                     }
                 }
             }

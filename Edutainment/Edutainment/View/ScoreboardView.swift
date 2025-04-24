@@ -27,10 +27,7 @@ struct ScoreboardView: View {
                     Text("!")
                         .font((.system(.headline, design: .rounded, weight: .semibold)))
                         .foregroundStyle(.primary)
-                    
-                    Image(systemName: "trophy.fill")
-                        .foregroundStyle(.yellow)
-                        .imageScale(.medium)
+                    SFSymbol(name: "trophy.fill", primaryColor: .yellow, scale: .small)
                 }
                 
                 Spacer()

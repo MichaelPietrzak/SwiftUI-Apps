@@ -19,13 +19,10 @@ struct KeyboardView: View {
                         Button {
                             getkey(column)
                         } label: {
-                            Image(systemName: keyIcon(column))
+                            SFSymbol(name: keyIcon((column)), font: .system(size: 50).weight(.heavy))
                         }
                     }
                 }
-                .symbolRenderingMode(.palette)
-                .foregroundStyle(.blue, .blue.opacity(0.2))
-                .font(.system(size: 60).weight(.heavy))
             }
         }
     }
