@@ -70,7 +70,6 @@ struct SettingsView: View {
                             game.scoreboard.scores = 0
                             game.scoreboard.questions = 0
                             game.scoreboard.rightAnswers = 0
-                            game.scoreboard.bestTime = "0:00"
                         }
                     } message: {
                         Text("Are you sure you want to delete your game scoreboard? This is irreversible and will remove all score statistics.")

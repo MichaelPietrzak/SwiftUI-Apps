@@ -32,7 +32,7 @@ struct ScoreboardView: View {
                 
                 Spacer()
         
-                ScoreDetails(questions: game.scoreboard.questions, answers: game.scoreboard.rightAnswers, bestTime: game.scoreboard.bestTime)
+                ScoreDetails(questions: game.scoreboard.questions, answers: game.scoreboard.rightAnswers)
                 
                 VStack { }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

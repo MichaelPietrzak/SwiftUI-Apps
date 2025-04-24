@@ -10,7 +10,6 @@ import SwiftUI
 struct ScoreDetails: View {
     var questions: Int
     var answers: Int
-    var bestTime: String
     
     var body: some View {
         Text("Let's check how you did below")
@@ -39,19 +38,8 @@ struct ScoreDetails: View {
                     .foregroundStyle(.orange)
             }
             .listRowBackground(Color.yellow.opacity(0.0))
-            
-            HStack {
-                Text("Time")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.primary)
-                Spacer()
-                Text("\(bestTime)")
-                    .font((.system(.headline, design: .rounded, weight: .heavy)))
-                    .foregroundStyle(.orange)
-            }
-            .listRowBackground(Color.yellow.opacity(0.0))
         }
-        .frame(maxHeight: 180)
+        .frame(maxHeight: 140)
         .padding(.top, -30)
         .scrollContentBackground(.hidden)
         .scrollDisabled(true)
@@ -66,5 +54,5 @@ struct ScoreDetails: View {
 }
 
 #Preview {
-    ScoreDetails(questions: 0, answers: 0, bestTime: "0:00")
+    ScoreDetails(questions: 0, answers: 0)
 }

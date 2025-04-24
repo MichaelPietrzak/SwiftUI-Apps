@@ -11,5 +11,4 @@ struct Scoreboard: Codable {
     var scores: Int
     var questions: Int
     var rightAnswers: Int
-    var bestTime: String
 }

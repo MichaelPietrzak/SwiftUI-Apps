@@ -43,7 +43,7 @@ struct GameOverView: View {
                 
                 Spacer()
                 
-                ScoreDetails(questions: game.currentGame[0].numOfQuestions, answers: game.currentGame[0].rightAnswers, bestTime: game.currentGame[0].time)
+                ScoreDetails(questions: game.currentGame[0].numOfQuestions, answers: game.currentGame[0].rightAnswers)
                 
                 Spacer()
                 

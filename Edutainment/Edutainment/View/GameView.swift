@@ -46,17 +46,16 @@ struct GameView: View {
                         Text("\(questionNumber + 1)")
                             .font((.system(.headline, design: .rounded, weight: .semibold)))
                             .foregroundStyle(.custom)
+                        +
+                        Text(" / ")
+                            .font((.system(.headline, design: .rounded, weight: .semibold)))
+                            .foregroundStyle(.custom)
+                        +
+                        Text("\(game.settings.numOfQuestions)")
+                            .font((.system(.headline, design: .rounded, weight: .bold)))
+                            .foregroundStyle(.orange.opacity(0.8))
                     }
                 }
-                
-                Text("02:30")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .frame(maxWidth: .infinity, maxHeight: 40)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 20)
-                            .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [1]))
-                            .foregroundStyle(.orange)
-                    }
                 
                 VStack {
                     ZStack {
@@ -92,8 +91,7 @@ struct GameView: View {
                         .mask {
                             Rectangle()
                                 .overlay (
-                                    VStack {
-                                    }
+                                    VStack { }
                                         .frame(maxWidth: .infinity, maxHeight: 50)
                                         .background(.black)
                                         .clipShape(.rect(cornerRadius: 20))
@@ -133,13 +131,6 @@ struct GameView: View {
             .navigationBarBackButtonHidden(true)
             .navigationTitleFont()
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        
-                    } label: {
-                        SFSymbol(name: "pause.circle.fill")
-                    }
-                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         ifEndGame = true
@@ -222,7 +213,7 @@ struct GameView: View {
             loadQuestions()
             game.keyboard.removeAll()
         } else {
-            let stats = CurrentGame(score: score, category: "multiplication", numOfQuestions: game.settings.numOfQuestions, rightAnswers: score, time: "2:30")
+            let stats = CurrentGame(score: score, category: "multiplication", numOfQuestions: game.settings.numOfQuestions, rightAnswers: score)
             game.currentGame.append(stats)
             navigateToGameOver = true
         }

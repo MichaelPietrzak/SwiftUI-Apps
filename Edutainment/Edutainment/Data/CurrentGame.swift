@@ -12,5 +12,4 @@ struct CurrentGame {
     var category: String
     var numOfQuestions: Int
     var rightAnswers: Int
-    var time: String
 }
