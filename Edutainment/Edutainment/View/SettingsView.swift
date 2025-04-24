@@ -96,7 +96,7 @@ struct SettingsView: View {
             .font((.system(.caption, design: .rounded, weight: .regular)))
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationAppearance()
+            .navigationTitleFont()
             .interactiveDismissDisabled()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

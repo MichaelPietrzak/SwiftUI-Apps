@@ -157,7 +157,7 @@ struct GameOverView: View {
             .navigationTitle("Game Over")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarBackButtonHidden(true)
-            .navigationAppearance()
+            .navigationTitleFont()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

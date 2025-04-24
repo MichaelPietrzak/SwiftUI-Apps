@@ -73,7 +73,7 @@ struct GameReviewView: View {
             .padding()
             .navigationTitle("Review")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationAppearance()
+            .navigationTitleFont()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -92,4 +92,3 @@ struct GameReviewView: View {
 #Preview {
     GameReviewView(game: Game())
 }
-

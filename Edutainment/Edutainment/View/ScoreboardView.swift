@@ -91,7 +91,7 @@ struct ScoreboardView: View {
             .padding()
             .navigationTitle("Scoreboard")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationAppearance()
+            .navigationTitleFont()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

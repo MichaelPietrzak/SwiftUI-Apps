@@ -59,7 +59,7 @@ struct StartView: View {
             .navigationTitle("Hi, \(game.settings.displayName)!")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarBackButtonHidden(true)
-            .navigationAppearance()
+            .navigationTitleFont()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack {
@@ -163,28 +163,5 @@ class Game: ObservableObject {
         if let encoded = try? JSONEncoder().encode(saveScoreboard) {
             UserDefaults.standard.set(encoded, forKey: "Scoreboard")
         }
-    }
-}
-
-struct NavAppearanceModifier: ViewModifier {
-    init() {
-        var largeTitle = UIFont.preferredFont(forTextStyle: .largeTitle)
-        var inlineTitle = UIFont.preferredFont(forTextStyle: .body)
-        
-        largeTitle = UIFont(descriptor: largeTitle.fontDescriptor.withDesign(.rounded)?.withSymbolicTraits(.traitBold) ?? largeTitle.fontDescriptor, size: largeTitle.pointSize)
-        inlineTitle = UIFont(descriptor: inlineTitle.fontDescriptor.withDesign(.rounded)?.withSymbolicTraits(.traitBold) ?? inlineTitle.fontDescriptor, size: inlineTitle.pointSize)
-        
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font: largeTitle]
-        UINavigationBar.appearance().titleTextAttributes = [.font: inlineTitle]
-    }
-    
-    func body(content: Content) -> some View {
-        content
-    }
-}
-
-extension View {
-    func navigationAppearance() -> some View {
-        modifier(NavAppearanceModifier())
     }
 }

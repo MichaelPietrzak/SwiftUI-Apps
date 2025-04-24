@@ -137,7 +137,7 @@ struct GameView: View {
             .navigationTitle("Multiplication")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .navigationAppearance()
+            .navigationTitleFont()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
