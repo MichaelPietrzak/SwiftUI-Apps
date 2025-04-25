@@ -7,6 +7,7 @@ SwiftUI Apps created for self development and practice.
 
 - [Units](#units)
 - [RPS](#rps)
+- [Edutainment - Math Game](#edutainment---math-game)
 
 <br />
 
