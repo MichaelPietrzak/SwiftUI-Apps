@@ -16,8 +16,7 @@ struct StartView: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 Text("Let's do some math, improve your skills")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.secondary)
+                    .textStyle(font: .headline, weight: .semibold, color: .secondary)
                     .padding(.bottom, 40)
                 
                 VStack(spacing: 30) {
@@ -27,16 +26,14 @@ struct StartView: View {
                         
                         VStack {
                             Text("Multiplication")
-                                .foregroundStyle(.black)
-                                .font((.system(.title, design: .rounded, weight: .heavy)))
+                                .textStyle(font: .title, weight: .heavy, color: .black)
                                 .padding(.top, 30)
                             
                             NavigationLink {
                                 GameView(game: game)
                             } label: {
                                 Text("Play")
-                                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                                    .foregroundStyle(.orange)
+                                    .textStyle(font: .headline, weight: .semibold, color: .orange)
                             }
                             .frame(maxWidth: 100, maxHeight: 40)
                             .background(.black)
@@ -63,8 +60,7 @@ struct StartView: View {
                     HStack {
                         SFSymbol(name: "trophy.fill", font: .headline, primaryColor: .yellow)
                         Text("\(game.scoreboard.scores)")
-                            .foregroundStyle(.custom)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
+                            .textStyle(font: .headline, weight: .semibold, color: .custom)
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {

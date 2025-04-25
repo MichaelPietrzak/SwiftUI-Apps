@@ -17,13 +17,11 @@ struct GameReviewView: View {
             VStack(alignment: .center, spacing: 10) {
                 HStack {
                     Text("Questions asked")
-                        .font((.system(.subheadline, design: .rounded, weight: .semibold)))
-                        .foregroundStyle(.secondary)
+                        .textStyle(font: .subheadline, weight: .semibold, color: .secondary)
                         .padding(.horizontal, 30)
                     Spacer()
                     Text("How you did")
-                        .font((.system(.subheadline, design: .rounded, weight: .semibold)))
-                        .foregroundStyle(.secondary)
+                        .textStyle(font: .subheadline, weight: .semibold, color: .secondary)
                 }
                 .padding(.horizontal, 30)
                 
@@ -31,22 +29,19 @@ struct GameReviewView: View {
                     ForEach(0..<min(game.questionReview.count, game.checkReview.count), id: \.self) { index in
                         HStack {
                             Text(game.questionReview[index].question)
-                                .font((.system(.headline, design: .rounded, weight: .semibold)))
-                                .foregroundStyle(.primary)
+                                .textStyle(font: .headline, weight: .semibold, color: .primary)
                                 .frame(width: 70)
                             Text("=")
-                                .font((.system(.headline, design: .rounded, weight: .semibold)))
-                                .foregroundStyle(.primary)
+                                .textStyle(font: .headline, weight: .semibold, color: .primary)
                                 .frame(width: 30)
                             Text("\(game.questionReview[index].answer)")
                                 .font((.system(.headline, design: .rounded, weight: .heavy)))
                                 .foregroundStyle(.orange)
+                                .textStyle(font: .headline, weight: .heavy, color: .orange)
                                 .frame(width: 30)
-                            
                             Spacer()
                             Text("\(game.checkReview[index].userAnswer)")
-                                .font((.system(.headline, design: .rounded, weight: .heavy)))
-                                .foregroundStyle(.primary)
+                                .textStyle(font: .headline, weight: .heavy, color: .primary)
                                 .frame(width: 30)
                             SFSymbol(name: "\(game.checkReview[index].checkmarkIcon)", primaryColor: game.checkReview[index].ifRight ? .green : .red, secondaryColor: game.checkReview[index].ifRight ? .green.opacity(0.2) : .red.opacity(0.2))
                         }
@@ -75,9 +70,8 @@ struct GameReviewView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label("Close", systemImage: "square.and.arrow.down")
-                            .labelStyle(.titleOnly)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        Text("Close")
+                            .textStyle(font: .headline, weight: .semibold, color: .blue)
                     }
                 }
             }

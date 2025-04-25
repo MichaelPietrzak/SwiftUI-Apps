@@ -88,7 +88,7 @@ struct SettingsView: View {
                         dismiss()
                     } label: {
                         Text("Cancel")
-                            .font((.system(.headline, design: .rounded, weight: .regular)))
+                            .textStyle(font: .headline, weight: .regular, color: .blue)
                     }
                 }
                 
@@ -97,9 +97,8 @@ struct SettingsView: View {
                         game.saveSettings()
                         dismiss()
                     } label: {
-                        Label("Save", systemImage: "square.and.arrow.down")
-                            .labelStyle(.titleOnly)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        Text("Save")
+                            .textStyle(font: .headline, weight: .semibold, color: .blue)
                     }
                 }
             }

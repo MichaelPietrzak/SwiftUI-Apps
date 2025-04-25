@@ -15,19 +15,15 @@ struct ScoreboardView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
-                HStack {
+                HStack(spacing: 0) {
                     Text("You scored overall ")
-                        .font((.system(.headline, design: .rounded, weight: .semibold)))
-                        .foregroundStyle(.primary)
-                    +
+                        .textStyle(font: .headline, weight: .semibold, color: .primary)
                     Text("\(game.scoreboard.scores) points")
-                        .font((.system(.headline, design: .rounded, weight: .semibold)))
-                        .foregroundStyle(.orange)
-                    +
+                        .textStyle(font: .headline, weight: .semibold, color: .orange)
                     Text("!")
-                        .font((.system(.headline, design: .rounded, weight: .semibold)))
-                        .foregroundStyle(.primary)
+                        .textStyle(font: .headline, weight: .semibold, color: .primary)
                     SFSymbol(name: "trophy.fill", primaryColor: .yellow, scale: .small)
+                        .padding(.leading, 10)
                 }
                 
                 Spacer()
@@ -47,9 +43,8 @@ struct ScoreboardView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label("Close", systemImage: "square.and.arrow.down")
-                            .labelStyle(.titleOnly)
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
+                        Text("Close")
+                            .textStyle(font: .headline, weight: .semibold, color: .blue)
                     }
                 }
             }

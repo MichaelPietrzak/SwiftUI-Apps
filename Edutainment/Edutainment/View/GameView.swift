@@ -38,22 +38,14 @@ struct GameView: View {
                     ProgressView(value: progressValue)
                         .progressViewStyle(.linear)
                         .tint(.orange)
-                    HStack {
+                    HStack(spacing: 0) {
                         Spacer()
-                        Text("Question")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.secondary)
                         Text("\(questionNumber + 1)")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.custom)
-                        +
+                            .textStyle(font: .headline, weight: .semibold, color: .custom)
                         Text(" / ")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.custom)
-                        +
+                            .textStyle(font: .headline, weight: .semibold, color: .custom)
                         Text("\(game.settings.numOfQuestions)")
-                            .font((.system(.headline, design: .rounded, weight: .bold)))
-                            .foregroundStyle(.orange.opacity(0.8))
+                            .textStyle(font: .headline, weight: .heavy, color: .orange.opacity(0.8))
                     }
                 }
                 
@@ -70,16 +62,14 @@ struct GameView: View {
                                 SFSymbol(name: "trophy.circle.fill", primaryColor: .yellow, secondaryColor: .black)
                                 Text("\(score)")
                                     .frame(width: 23)
-                                    .foregroundStyle(.black)
-                                    .font((.system(.headline, design: .rounded, weight: .semibold)))
+                                    .textStyle(font: .headline, weight: .semibold, color: .black)
                                 
                             }
                             .frame(maxWidth: .infinity, maxHeight: 50)
                             .padding(.trailing, 15)
                             VStack {
                                 Text(currentQuestion)
-                                    .foregroundStyle(.black)
-                                    .font((.system(.largeTitle, design: .rounded, weight: .black)))
+                                    .textStyle(font: .largeTitle, weight: .black, color: .black)
                                 
                             }
                             .frame(maxWidth: .infinity, maxHeight: 100)
@@ -105,8 +95,7 @@ struct GameView: View {
                     .shadow(radius: 10)
                     
                     Text(keyboardValue)
-                        .font((.system(.title, design: .rounded, weight: .bold)))
-                        .foregroundStyle(.custom)
+                        .textStyle(font: .title, weight: .bold, color: .custom)
                         .padding(.top, -60)
                 }
                 

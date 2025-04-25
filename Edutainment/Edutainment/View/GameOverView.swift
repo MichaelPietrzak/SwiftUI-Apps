@@ -20,26 +20,22 @@ struct GameOverView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
-                Text("You scored ")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.primary)
-                +
-                Text("\(game.currentGame[0].score) points")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.orange)
-                
-                +
-                Text(" in ")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.primary)
-                +
-                Text("\(game.currentGame[0].category)")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.orange)
-                +
-                Text("!")
-                    .font((.system(.headline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.primary)
+                HStack(spacing: 0) {
+                    Text("You scored ")
+                        .textStyle(font: .headline, weight: .semibold, color: .primary)
+                    
+                    Text("\(game.currentGame[0].score) points")
+                        .textStyle(font: .headline, weight: .semibold, color: .orange)
+                    
+                    Text(" in ")
+                        .textStyle(font: .headline, weight: .semibold, color: .primary)
+                    
+                    Text("\(game.currentGame[0].category)")
+                        .textStyle(font: .headline, weight: .semibold, color: .orange)
+                    
+                    Text("!")
+                        .textStyle(font: .headline, weight: .semibold, color: .primary)
+                }
                 
                 Spacer()
                 
@@ -48,8 +44,7 @@ struct GameOverView: View {
                 Spacer()
                 
                 Text("Let's review your answers")
-                    .font((.system(.subheadline, design: .rounded, weight: .semibold)))
-                    .foregroundStyle(.secondary)
+                    .textStyle(font: .subheadline, weight: .semibold, color: .secondary)
                 
                 Button {
                     showGameReview = true
@@ -57,8 +52,7 @@ struct GameOverView: View {
                     SFSymbol(name: "checklist", font: (.system(.subheadline, design: .rounded, weight: .heavy)))
                     
                     Text("Review")
-                        .font((.system(.headline, design: .rounded, weight: .semibold)))
-                        .foregroundStyle(.primary)
+                        .textStyle(font: .headline, weight: .semibold, color: .blue)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 40)
                 .background(.blue.opacity(0.2))
@@ -76,8 +70,7 @@ struct GameOverView: View {
                     } label: {
                         SFSymbol(name: "arrow.counterclockwise", font: (.system(.subheadline, design: .rounded, weight: .heavy)))
                         Text("New Game")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
+                            .textStyle(font: .headline, weight: .semibold, color: .blue)
                     }
                     .frame(maxWidth: 200, maxHeight: 40)
                     .background(.blue.opacity(0.2))
@@ -90,8 +83,7 @@ struct GameOverView: View {
                     } label: {
                         SFSymbol(name: "house.fill", font: (.system(.subheadline, design: .rounded, weight: .heavy)))
                         Text("All Games")
-                            .font((.system(.headline, design: .rounded, weight: .semibold)))
-                            .foregroundStyle(.primary)
+                            .textStyle(font: .headline, weight: .semibold, color: .blue)
                     }
                     .frame(maxWidth: 200, maxHeight: 40)
                     .background(.blue.opacity(0.2))
