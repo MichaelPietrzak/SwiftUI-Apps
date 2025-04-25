@@ -129,9 +129,7 @@ struct GameView: View {
                     .alert("End Game", isPresented: $ifEndGame) {
                         Button("Cancel", role: .cancel) { }
                         Button("End Game", role: .destructive) {
-                            if !game.currentGame.isEmpty {
-                                game.currentGame.removeFirst()
-                            }
+                            game.currentGame.removeAll()
                             navigateToStartView = true
                         }
                     } message: {
