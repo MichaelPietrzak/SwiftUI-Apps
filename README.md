@@ -61,3 +61,40 @@ Simple RPS - Rock, Paper, Scissors game app that challenges player to tap correc
 - Auto Layout for all iPhones
 
 <br />
+
+## Edutainment - Math Game
+Simple Math Game app that challenges player to answer different multiplication questions based on the range set in Settings and number of questions to be asked. The questions are randomly generated based on the range set. It displays current game statistics, overall games scoreboard and after each games player can review questions correctness. 
+
+<h3>Illustrations</h3
+
+[<img src="README_images/edu1.png" alt="start game screen" width="400"/>](README_images/edu1.png)
+[<img src="README_images/edu2.png" alt="start game screen light mode" width="400"/>](README_images/edu2.png)
+[<img src="README_images/edu3.png" alt="settings screen" width="400"/>](README_images/edu3.png)
+[<img src="README_images/edu4.png" alt="questions quantity screen" width="400"/>](README_images/edu4.png)
+[<img src="README_images/edu5.png" alt="delete scoreboard screen" width="400"/>](README_images/edu5.png)
+[<img src="README_images/edu6.png" alt="game screen" width="400"/>](README_images/edu6.png)
+[<img src="README_images/edu7.png" alt="game with user input screen" width="400"/>](README_images/edu7.png)
+[<img src="README_images/edu8.png" alt="game over screen" width="400"/>](README_images/edu8.png)
+[<img src="README_images/edu9.png" alt="scoreboard screen" width="400"/>](README_images/edu9.png)
+[<img src="README_images/edu10.png" alt="review screen" width="400"/>](README_images/edu10.png)
+[<img src="README_images/edu11.png" alt="end game screen" width="400"/>](README_images/edu11.png)
+
+<h3>Features</h3>
+
+- Screens: Start Game, Settings, Current Game, Game Over, Review, Scoreboard
+- Pure SwiftUI
+- SFSymbols for icons
+- Implemented UserDefaults for Settings and game Scoreboard (for learning purposes)
+- Checked for different conditions(there are many in the game) for better game experience for ex. if player edits settings and decides to press cancel - latest data from saved settings in UserDefaults is being retrieved when screen is closed as per cancel button
+- Game customization in Settings with display name, difficulty range, questions quantity and option to delete scoreboard statistics
+- Implemented custom numberPad keyboard for the game
+- Implemented Review for current game to check questions correctness
+- Managed game class object using Observable Object protocol, @ObservedObject, @StateObject and @Published for properties
+- Custom app icon
+- Custom Fonts and colors as per Apple Human Guidelines
+- Implemented NavigationTitleFontModifier for Navigation Title + TextStyleModifier for TextView
+- Tested on physical and simulator
+- Dark Mode Support
+- Auto Layout for all iPhones
+
+<br />
